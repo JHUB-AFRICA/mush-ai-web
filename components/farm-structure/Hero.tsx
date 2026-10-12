@@ -66,7 +66,7 @@ export default function Hero() {
 
       <div className="relative overflow-hidden rounded-3xl bg-forest">
         <div className="relative h-[280px] sm:h-[360px] md:h-[420px]">
-          {/* Add your photo at /public/images/grow-room.jpg */}
+          {/* Will add photo later /public/images/grow-room.jpg */}
           <Image
             src="/images/grow-room.jpg"
             alt="Mushroom grow chamber with tiered substrate bags inside a pumice masonry room"
