@@ -99,7 +99,6 @@ export default function Footer() {
           </p>
           <ul className="flex gap-4">
             <li>
-              in which category is the faq section in that is in the components
               <Link href="/privacy" className="hover:text-ink">
                 Privacy Policy
               </Link>
