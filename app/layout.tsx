@@ -15,14 +15,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
         />
       </head>
-      <body className="bg-background font-body-md text-body-md text-on-surface antialiased">
+      <body className="bg-background font-body-md text-body-md text-on-surface antialiased" suppressHydrationWarning>
         <Header />
         <main className="w-full pt-20 bg-background">{children}</main>
         <Footer />
