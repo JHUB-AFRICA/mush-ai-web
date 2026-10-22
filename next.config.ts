@@ -6,6 +6,25 @@ const nextConfig: NextConfig = {
     // and switch to local paths when you can (these generated URLs may expire).
     remotePatterns: [{ protocol: "https", hostname: "lh3.googleusercontent.com" }],
   },
+  async redirects() {
+    return [
+      {
+        source: "/farm-structure",
+        destination: "/how-it-works",
+        permanent: true,
+      },
+      {
+        source: "/the-process",
+        destination: "/how-it-works",
+        permanent: true,
+      },
+      {
+        source: "/process",
+        destination: "/how-it-works",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
