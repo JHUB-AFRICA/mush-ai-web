@@ -5,8 +5,7 @@ export const LOGO_FOOTER =
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Farm Structure", href: "/farm-structure" },
-  { label: "The Process", href: "/the-process" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Shop", href: "/shop" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
@@ -14,8 +13,7 @@ export const NAV_LINKS = [
 
 export const FOOTER_QUICK_LINKS = [
   { label: "Home Overview", href: "/" },
-  { label: "Pumice Structures", href: "/farm-structure" },
-  { label: "The IoT Process", href: "/the-process" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Fresh Spawn & Yields", href: "/shop" },
   { label: "Farmer Training", href: "/about" },
 ];
