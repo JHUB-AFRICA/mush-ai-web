@@ -6,10 +6,14 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Icon from "./Icon";
 import { LOGO_HEADER, NAV_LINKS } from "@/lib/site";
+import { useCart } from "@/components/shop/CartProvider";
 
 export default function Header({ cartCount = 0 }: { cartCount?: number }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { count } = useCart();
+  const effectiveCount = count > 0 ? count : cartCount;
+
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
@@ -39,14 +43,14 @@ export default function Header({ cartCount = 0 }: { cartCount?: number }) {
 
         <div className="flex items-center gap-space-md">
           <Link
-            href="/shop"
-            aria-label="Cart"
+            href="/cart"
+            aria-label={`Pickup Cart, ${effectiveCount} items`}
             className="relative flex items-center justify-center p-space-xs text-on-surface-variant transition-colors hover:text-on-surface"
           >
             <Icon name="shopping_basket" />
-            {cartCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary">
-                {cartCount}
+            {effectiveCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary-container font-label-sm text-label-sm font-bold text-on-secondary shadow-xs">
+                {effectiveCount}
               </span>
             )}
           </Link>
