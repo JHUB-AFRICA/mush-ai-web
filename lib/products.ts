@@ -4,12 +4,12 @@ export const filterTabs = [
   "Strains & Spawn",
   "Fresh Mushrooms",
   "By-products & Compost",
+  "Training",
 ] as const;
 
 export type FilterTab = (typeof filterTabs)[number];
 
-// "Training" has no tab of its own, so it only appears under "All Products"
-export type Category = Exclude<FilterTab, "All Products"> | "Training";
+export type Category = Exclude<FilterTab, "All Products">;
 
 export type Product = {
   id: string;
@@ -30,89 +30,138 @@ export type Product = {
   imageAlt: string;
 };
 
-/* Add matching photos in /public/images/shop/ */
 export const products: Product[] = [
   {
-    id: "modular-pumice-unit",
-    name: "Modular Pumice Smart Grow Unit",
+    id: "smart-pumice-grow-kit",
+    name: "Smart Pumice Grow Kit (Tier 1)",
     category: "Grow Kits & Structures",
     badge: "Turnkey Infrastructure",
     badgeTone: "forest",
     rating: 4.9,
-    reviews: "28",
-    meta: "30FT X 20FT ARCHITECTURE",
+    reviews: "28 reviews",
+    meta: "MODULAR ARCHITECTURE",
     tag: "Masonry + Tech",
     description:
-      "Engineered volcanic pumice walls delivering passive 18°C–22°C ambient thermal buffering for year-round pinning.",
+      "Complete pumice kit - modular structure for adult mushroom yield, ultra-sterile casing soil.",
     features: [
-      "Built in 21 calendar days",
-      "Capacity: 1,200 Button substrate bags",
+      "Scaled for starting yield / 1,200 substrate bags",
+      "Passive 18°C–22°C ambient thermal buffering",
     ],
-    unit: "Farm Gate / Turnkey",
-    price: 480000,
-    cta: "Order Unit",
+    unit: "Farm Gate Price",
+    price: 360000,
+    cta: "Add to Cart",
     image: "/images/shop/modular-pumice-unit.jpg",
     imageAlt: "Completed pumice grow unit with a corrugated roof on a farm",
   },
   {
-    id: "commercial-button-spawn",
-    name: "Commercial Button Mushroom Spawn (5kg)",
+    id: "button-grain-spawn",
+    name: "Button Mushroom Grain Spawn",
     category: "Strains & Spawn",
-    badge: "Bestseller + JKUAT Pure Strain",
+    badge: "Bestseller Strain",
     badgeTone: "ember",
     rating: 4.8,
-    reviews: "84",
+    reviews: "84 reviews",
     meta: "AGARICUS BISPORUS",
-    tag: "Cold Batch #942",
+    tag: "Lab Pure Strain",
     description:
-      "High-vigor first-generation sorghum grain spawn. Rapid pinhead initiation, strong rhizomorphic run and low contamination risk.",
-    features: ["Store at 4°C", "21-Day Incubation"],
-    unit: "5kg Inoculated Bag",
-    price: 2500,
+      "Certified laboratory-grade White Agaricus grain spawn - high colonizer.",
+    features: [
+      "Solid harvest in 14-18 days of spawn",
+      "Inoculates up to 100 kg of mushroom compost",
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
     cta: "Add to Cart",
     image: "/images/shop/spawn-bag.jpg",
-    imageAlt: "Bag of white mushroom spawn colonized grain",
+    imageAlt: "Bag of colonized white mushroom grain spawn",
+  },
+  {
+    id: "fresh-gourmet-button",
+    name: "Fresh Gourmet Button Mushrooms",
+    category: "Fresh Mushrooms",
+    badge: "Daily Harvest",
+    badgeTone: "forest",
+    rating: 4.9,
+    reviews: "150+ reviews",
+    meta: "CULINARY FRESH",
+    tag: "Grade-A Closed-Cap",
+    description:
+      "Freshly harvested from our climate-controlled room within 6 hours of pickup.",
+    features: [
+      "Refrigerated transportation / 4°C cold-chain",
+      "Harvested at peak pin-selection",
+    ],
+    unit: "500g Punnet",
+    price: 450,
+    cta: "Add to Cart",
+    image: "/images/shop/fresh-mushrooms.jpg",
+    imageAlt: "Punnet of fresh white gourmet button mushrooms",
+  },
+  {
+    id: "organic-spent-compost",
+    name: "Organic Spent Mushroom Compost",
+    category: "By-products & Compost",
+    badge: "Eco-Repurposed",
+    badgeTone: "forest",
+    rating: 4.8,
+    reviews: "21 reviews",
+    meta: "SOIL AMENDMENT",
+    tag: "NPK Rich",
+    description:
+      "Nutrient-dense post-condition soil bio-fertilizer recycled directly from past harvest cycles.",
+    features: [
+      "Rich nitrogen, humic matter & peat moss lines",
+      "15kg sealed woven sack",
+    ],
+    unit: "Per Bag",
+    price: 550,
+    cta: "Add to Cart",
+    image: "/images/shop/substrate-blocks.jpg",
+    imageAlt: "Bags of organic spent mushroom compost ready for field use",
+  },
+  {
+    id: "hands-on-agronomy-workshop",
+    name: "Hands-On Agronomy Workshop",
+    category: "Training",
+    badge: "In-person Training",
+    badgeTone: "forest",
+    rating: 4.9,
+    reviews: "48 reviews",
+    meta: "JKUAT CAMPUS",
+    tag: "Next Cohort",
+    description:
+      "2-day guided training on JKUAT. Includes substrate preparation, sensor monitoring and spawn inoculation.",
+    features: [
+      "Access to instructor + attendance log systems",
+      "Course certificate following completion",
+    ],
+    unit: "Per Seat/2 Days",
+    price: 20000,
+    cta: "Book Seat",
+    image: "/images/shop/masterclass.jpg",
+    imageAlt: "Trainees and an instructor inside a mushroom grow room",
   },
   {
     id: "iot-sensor-kit",
     name: "Farm Starter IoT Microclimate Sensor Kit",
     category: "Grow Kits & Structures",
-    badge: "JHUB Africa Certified",
+    badge: "JHUB Certified",
     badgeTone: "forest",
     rating: 5.0,
-    reviews: "42",
+    reviews: "42 reviews",
     meta: "HARDWARE TELEMETRY",
     tag: "Safaricom IoT SIM",
     description:
-      "Plug-and-play agricultural monitoring hub. Includes 3 wireless substrate soil pins and a solar-ready edge unit.",
+      "Real-time substrate telemetry, ambient humidity & temp sensor hub with Safaricom IoT SIM.",
     features: [
       "Cellular 4G & SMS alert engine",
       "14-day lithium backup reserve",
     ],
-    unit: "Complete Hub + 3 Nodes",
+    unit: "Complete Kit",
     price: 42000,
     cta: "Add to Cart",
     image: "/images/shop/iot-sensor-kit.jpg",
     imageAlt: "Solar-powered IoT hub mounted above mushroom racks",
-  },
-  {
-    id: "fresh-white-button",
-    name: "Fresh Grade-A White Button Mushrooms (1kg)",
-    category: "Fresh Mushrooms",
-    badge: "Daily Harvest (06:00 AM)",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "150+",
-    meta: "CULINARY FRESH",
-    tag: "Closed-Cap Grade-A",
-    description:
-      "Harvested at dawn inside Juja automated pumice rooms. Plump, dense, unblemished white caps ready for the kitchen.",
-    features: ["100% Picked Today", "100% Organic certified"],
-    unit: "1kg Aerated Punnet",
-    price: 600,
-    cta: "Add to Cart",
-    image: "/images/shop/fresh-mushrooms.jpg",
-    imageAlt: "Punnet of fresh white button mushrooms",
   },
   {
     id: "pasteurized-substrate",
@@ -121,7 +170,7 @@ export const products: Product[] = [
     badge: "Ready For Spawning",
     badgeTone: "forest",
     rating: 4.7,
-    reviews: "65",
+    reviews: "65 reviews",
     meta: "PHASE II COMPOST",
     tag: "Moisture 68%",
     description:
@@ -136,28 +185,6 @@ export const products: Product[] = [
     image: "/images/shop/substrate-blocks.jpg",
     imageAlt: "Stacked pasteurized substrate blocks in a warehouse",
   },
-  {
-    id: "button-masterclass",
-    name: "Hands-on Masterclass: Commercial Button Farming",
-    category: "Training",
-    badge: "JKUAT Juja Campus",
-    badgeTone: "forest",
-    rating: 5.0,
-    reviews: "110",
-    meta: "CERTIFICATION PROGRAM",
-    tag: "Next Cohort: 15–16th",
-    description:
-      "Two full days of intensive practical instruction covering compost formulation, casing soil and harvest handling.",
-    features: [
-      "Certificate endorsed by JHUB Africa",
-      "Includes starter spawn kit (2kg)",
-    ],
-    unit: "Tuition + Lab Materials",
-    price: 12500,
-    cta: "Book Seat",
-    image: "/images/shop/masterclass.jpg",
-    imageAlt: "Trainees and an instructor inside a mushroom grow room",
-  },
 ];
 
-export const featuredProductId = "commercial-button-spawn";
+export const featuredProductId = "button-grain-spawn";

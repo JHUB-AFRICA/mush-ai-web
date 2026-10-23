@@ -4,12 +4,13 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 import { products } from "@/lib/products";
 
-type CartLine = { id: string; qty: number };
+export type CartLine = { id: string; qty: number };
 
 type CartContextValue = {
   lines: CartLine[];
@@ -19,15 +20,43 @@ type CartContextValue = {
   add: (id: string, qty?: number) => void;
   setQty: (id: string, qty: number) => void;
   remove: (id: string) => void;
+  clearCart: () => void;
   open: () => void;
   close: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 
+const STORAGE_KEY = "smartmushroom_cart_v1";
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setLines(parsed);
+        }
+      }
+    } catch {
+      // ignore JSON errors or storage disabled
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+    } catch {
+      // storage disabled
+    }
+  }, [lines, hydrated]);
 
   const add = useCallback((id: string, qty = 1) => {
     setLines((prev) => {
@@ -51,6 +80,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     (id: string) => setLines((prev) => prev.filter((l) => l.id !== id)),
     [],
   );
+
+  const clearCart = useCallback(() => setLines([]), []);
+
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
@@ -60,8 +92,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const product = products.find((p) => p.id === l.id);
       return sum + (product ? product.price * l.qty : 0);
     }, 0);
-    return { lines, count, total, isOpen, add, setQty, remove, open, close };
-  }, [lines, isOpen, add, setQty, remove, open, close]);
+    return {
+      lines,
+      count,
+      total,
+      isOpen,
+      add,
+      setQty,
+      remove,
+      clearCart,
+      open,
+      close,
+    };
+  }, [lines, isOpen, add, setQty, remove, clearCart, open, close]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

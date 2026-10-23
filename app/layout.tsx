@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/components/shop/CartProvider";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-outfit", display: "swap" });
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-background font-body-md text-body-md text-on-surface antialiased" suppressHydrationWarning>
-        <Header />
-        <main className="w-full pt-20 bg-background">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Header />
+          <main className="w-full pt-20 bg-background">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

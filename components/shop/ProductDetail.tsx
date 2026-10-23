@@ -1,220 +1,213 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Minus,
   Package,
   Plus,
-  Quote,
   ShoppingCart,
   Snowflake,
+  X,
+  Check,
+  Calendar,
 } from "lucide-react";
 import { formatKsh } from "@/lib/format";
-import { featuredProductId, products } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import { useCart } from "./CartProvider";
 
-/* Add these photos in /public/images/shop/ */
-const gallery = [
-  {
-    src: "/images/shop/spawn-lab.jpg",
-    alt: "Lab technician inspecting a jar of mother culture",
-  },
-  { src: "/images/shop/spawn-bag.jpg", alt: "Bag of colonized grain spawn" },
-  {
-    src: "/images/shop/spawn-colonized.jpg",
-    alt: "Substrate colonized with white mycelium",
-  },
-  {
-    src: "/images/shop/fresh-mushrooms.jpg",
-    alt: "Freshly harvested button mushrooms",
-  },
-];
+interface ProductDetailProps {
+  product: Product | null;
+  onClose: () => void;
+}
 
-export default function ProductDetail() {
-  const product = products.find((p) => p.id === featuredProductId);
+export default function ProductDetail({ product, onClose }: ProductDetailProps) {
   const { add } = useCart();
-  const [active, setActive] = useState(0);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    setQty(1);
+    setAdded(false);
+  }, [product]);
+
+  useEffect(() => {
+    if (!product) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [product, onClose]);
 
   if (!product) return null;
 
   function handleAdd() {
-    add(product!.id, qty);
+    if (!product) return;
+    add(product.id, qty);
     setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   }
 
+  const isTraining = product.category === "Training";
+
   return (
-    <section
-      aria-labelledby="featured-heading"
-      className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6"
-    >
-      <div className="grid gap-8 rounded-3xl border border-line bg-white p-5 shadow-sm shadow-black/5 md:grid-cols-2 md:p-8">
-        {/* Gallery */}
-        <div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-card">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Modal Dialog */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="product-detail-title"
+        className="relative z-10 w-full max-w-3xl overflow-hidden rounded-3xl border border-surface-container-high bg-surface-container-lowest shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+      >
+        {/* Close Button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close product view"
+          className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-surface-container-lowest/90 text-on-surface shadow-md hover:bg-surface-container-high transition-colors"
+        >
+          <X size={18} />
+        </button>
+
+        <div className="grid md:grid-cols-2 max-h-[85vh] overflow-y-auto">
+          {/* Image Column */}
+          <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[380px] bg-surface-container">
             <Image
-              src={gallery[active].src}
-              alt={gallery[active].alt}
+              src={product.image}
+              alt={product.imageAlt}
               fill
-              sizes="(min-width: 768px) 480px, 100vw"
+              sizes="(min-width: 768px) 380px, 100vw"
               className="object-cover"
             />
-            <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-semibold">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-forest"
-                aria-hidden="true"
-              />
-              Cold Chain Sealed: 4°C Monitored
-            </span>
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+              <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold text-primary shadow-xs backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Cold-Chain Verified (4°C)
+              </span>
+            </div>
           </div>
-          <ul className="mt-3 grid grid-cols-4 gap-2">
-            {gallery.map((g, i) => (
-              <li key={g.src}>
+
+          {/* Details Column */}
+          <div className="flex flex-col p-6 sm:p-8">
+            <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold">
+              <span className="rounded-full bg-primary/10 px-2.5 py-1 text-primary">
+                {product.category}
+              </span>
+              <span className="rounded-full bg-secondary-container/15 px-2.5 py-1 text-secondary-container">
+                {product.badge}
+              </span>
+            </div>
+
+            <h2
+              id="product-detail-title"
+              className="font-headline-sm mt-3 text-xl sm:text-2xl font-extrabold text-on-surface"
+            >
+              {product.name}
+            </h2>
+
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="text-2xl font-black text-on-surface">
+                {formatKsh(product.price)}
+              </span>
+              <span className="text-xs text-on-surface-variant font-medium">
+                / {product.unit}
+              </span>
+            </div>
+
+            <p className="mt-3 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              {product.description}
+            </p>
+
+            {/* Technical agronomy bullets */}
+            <div className="my-4 space-y-2 rounded-2xl border border-surface-container-high/60 bg-surface-container-low/60 p-3.5 text-xs">
+              <div className="flex items-center gap-2 text-on-surface font-semibold text-[11px]">
+                <Snowflake size={14} className="text-primary" />
+                <span>Handling &amp; Viability Spec</span>
+              </div>
+              <ul className="space-y-1 pl-1 text-[11px] text-on-surface-variant">
+                {product.features.map((feat) => (
+                  <li key={feat} className="flex items-start gap-1.5">
+                    <Check size={12} className="mt-0.5 text-primary shrink-0" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Quantity and Add to Cart */}
+            <div className="mt-auto pt-4 border-t border-surface-container-high/80">
+              <div className="flex items-center gap-3">
+                <div
+                  className="flex items-center rounded-xl border border-surface-container-high bg-surface-container-lowest"
+                  role="group"
+                  aria-label="Quantity"
+                >
+                  <button
+                    type="button"
+                    aria-label="Decrease quantity"
+                    onClick={() => setQty((q) => Math.max(1, q - 1))}
+                    className="p-2.5 hover:bg-surface-container transition-colors rounded-l-xl"
+                  >
+                    <Minus size={13} />
+                  </button>
+                  <span className="w-8 text-center text-xs font-bold text-on-surface">
+                    {qty}
+                  </span>
+                  <button
+                    type="button"
+                    aria-label="Increase quantity"
+                    onClick={() => setQty((q) => Math.min(24, q + 1))}
+                    className="p-2.5 hover:bg-surface-container transition-colors rounded-r-xl"
+                  >
+                    <Plus size={13} />
+                  </button>
+                </div>
+
                 <button
                   type="button"
-                  onClick={() => setActive(i)}
-                  aria-label={`Show image ${i + 1}: ${g.alt}`}
-                  aria-current={active === i}
-                  className={`relative block aspect-[4/3] w-full overflow-hidden rounded-lg border-2 bg-card ${
-                    active === i ? "border-forest" : "border-transparent"
+                  onClick={handleAdd}
+                  className={`flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-bold text-white shadow-xs transition-all active:scale-95 ${
+                    added
+                      ? "bg-primary"
+                      : "bg-secondary-container hover:bg-secondary text-on-secondary"
                   }`}
                 >
-                  <Image
-                    src={g.src}
-                    alt=""
-                    fill
-                    sizes="120px"
-                    className="object-cover"
-                  />
+                  {added ? (
+                    <>
+                      <Check size={16} strokeWidth={3} />
+                      Added to Pickup Cart!
+                    </>
+                  ) : isTraining ? (
+                    <>
+                      <Calendar size={15} />
+                      Book {qty} {qty === 1 ? "Seat" : "Seats"}
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart size={15} />
+                      Add {qty} to Pickup Cart
+                    </>
+                  )}
                 </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Details */}
-        <div className="flex flex-col">
-          <div className="flex flex-wrap gap-2 text-[10px] font-semibold">
-            <span className="rounded-full bg-forest px-2.5 py-1 text-white">
-              JKUAT Certified Strain
-            </span>
-            <span className="rounded-full bg-card px-2.5 py-1 text-ember">
-              100% Viability Guaranteed
-            </span>
-          </div>
-
-          <h2
-            id="featured-heading"
-            className="mt-3 text-2xl font-extrabold leading-tight tracking-tight"
-          >
-            {product.name}
-          </h2>
-          <p className="mt-2 text-lg font-extrabold text-ember">
-            {formatKsh(product.price)}{" "}
-            <span className="text-xs font-medium text-muted">
-              / Bag (incl. VAT)
-            </span>
-          </p>
-          <p className="mt-3 text-xs leading-relaxed text-muted">
-            Cultivated exclusively in the JKUAT Biotechnology laboratories using
-            mother culture strain A-15. Acclimatized for high pinning density
-            and maximum biological efficiency in East African sub-tropical
-            highland conditions.
-          </p>
-
-          <div className="mt-4 grid gap-3 rounded-2xl bg-card p-4 sm:grid-cols-2">
-            <div className="flex gap-2.5">
-              <Snowflake
-                size={16}
-                className="mt-0.5 shrink-0 text-forest"
-                aria-hidden="true"
-              />
-              <div>
-                <p className="text-[11px] font-bold">Cold Storage Rule</p>
-                <p className="text-[11px] leading-relaxed text-muted">
-                  Keep strictly at 2°C to 4°C. Inoculate within 14 days of
-                  pickup.
-                </p>
               </div>
-            </div>
-            <div className="flex gap-2.5">
-              <Package
-                size={16}
-                className="mt-0.5 shrink-0 text-forest"
-                aria-hidden="true"
-              />
-              <div>
-                <p className="text-[11px] font-bold">Stock Availability</p>
-                <p className="text-[11px] leading-relaxed text-muted">
-                  24 Bags Ready at Juja Hub
+
+              {added && (
+                <p className="mt-2 text-center text-[11px] font-semibold text-primary">
+                  Items reserved in your pickup cart. Pick up at Juja Hub.
                 </p>
-              </div>
+              )}
             </div>
           </div>
-
-          <div className="mt-4 flex items-center gap-3">
-            <div
-              className="flex items-center rounded-lg border border-line"
-              role="group"
-              aria-label="Quantity"
-            >
-              <button
-                type="button"
-                aria-label="Decrease quantity"
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="p-2.5 hover:bg-card"
-              >
-                <Minus size={13} />
-              </button>
-              <span
-                className="w-8 text-center text-xs font-bold"
-                aria-live="polite"
-              >
-                {qty}
-              </span>
-              <button
-                type="button"
-                aria-label="Increase quantity"
-                onClick={() => setQty((q) => Math.min(24, q + 1))}
-                className="p-2.5 hover:bg-card"
-              >
-                <Plus size={13} />
-              </button>
-            </div>
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-ember px-4 py-2.5 text-xs font-semibold text-white hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember"
-            >
-              <ShoppingCart size={14} aria-hidden="true" />
-              Add {qty} {qty === 1 ? "Bag" : "Bags"} to Pickup Cart
-            </button>
-          </div>
-          <p role="status" className="mt-2 h-4 text-[11px] text-forest">
-            {added ? "Added to your pickup cart." : ""}
-          </p>
-
-          <figure className="mt-auto rounded-2xl border border-line p-4">
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold text-ember">
-              <Quote size={11} aria-hidden="true" />
-              Verified Outgrower Reviews
-            </p>
-            <div className="mt-2 flex items-center justify-between text-[10px] text-muted">
-              <span className="font-semibold text-ink">
-                Samuel K. (Limuru Farmstead)
-              </span>
-              <span>Collected yesterday</span>
-            </div>
-            <blockquote className="mt-1.5 text-[11px] italic leading-relaxed text-muted">
-              &ldquo;Colonization took exactly 12 days in our pumice beds. ZERO
-              contamination across all 8 bags. Grain density is noticeably
-              higher than imported brands.&rdquo;
-            </blockquote>
-          </figure>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
