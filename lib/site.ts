@@ -6,7 +6,7 @@ export const LOGO_FOOTER =
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Shop", href: "/shop" },
+  { label: "Shop & Services", href: "/shop" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];
