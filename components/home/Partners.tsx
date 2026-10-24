@@ -1,4 +1,4 @@
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 
 const PARTNERS = [
   { icon: "hub", name: "JHUB Africa" },

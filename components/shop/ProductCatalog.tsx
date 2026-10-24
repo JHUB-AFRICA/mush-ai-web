@@ -6,7 +6,7 @@ import { Search, Sparkles, Wrench } from "lucide-react";
 import { filterTabs, products, type FilterTab, type Product } from "@/lib/products";
 import ProductCard from "./ProductCard";
 import { useCart } from "./CartProvider";
-import Icon from "@/components/Icon";
+import Icon from "@/components/ui/Icon";
 
 const categoryCards = [
   {

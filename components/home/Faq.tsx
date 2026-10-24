@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 
 const FAQS = [
   { q: "What does SmartMushroom actually do?", a: "We grow button mushrooms using a sensor-monitored smart farm, and sell grow kits, spawn, fresh mushrooms and mushroom by-products directly to customers." },

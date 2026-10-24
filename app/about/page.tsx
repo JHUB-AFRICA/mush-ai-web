@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import FaqAccordion, { type FaqItemData } from "@/components/FaqAccordion";
+import FaqAccordion, { type FaqItemData } from "@/components/core/FaqAccordion";
 
 export const metadata: Metadata = {
   title: "About",

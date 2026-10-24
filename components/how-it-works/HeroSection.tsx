@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import Icon from "@/components/Icon";
+import Icon from "@/components/ui/Icon";
 
 export default function HeroSection() {
   return (
