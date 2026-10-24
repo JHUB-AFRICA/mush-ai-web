@@ -1,6 +1,6 @@
 "use client";
 
-import FaqAccordion, { type FaqItemData } from "@/components/FaqAccordion";
+import FaqAccordion, { type FaqItemData } from "@/components/core/FaqAccordion";
 
 const FAQS: FaqItemData[] = [
   {

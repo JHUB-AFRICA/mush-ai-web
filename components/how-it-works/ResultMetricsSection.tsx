@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import Icon from "@/components/Icon";
+import Icon from "@/components/ui/Icon";
 
 export default function ResultMetricsSection() {
   return (

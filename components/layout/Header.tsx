@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Icon from "./Icon";
+import Icon from "@/components/ui/Icon";
 import { LOGO_HEADER, NAV_LINKS } from "@/lib/site";
 import { useCart } from "@/components/shop/CartProvider";
 

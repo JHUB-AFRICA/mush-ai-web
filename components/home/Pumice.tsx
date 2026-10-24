@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 
 const POINTS = [
   { title: "Passive Climate Buffering", text: "Absorbs daytime scorching heat and releases it gently through cold East African nights." },

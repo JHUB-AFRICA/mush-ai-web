@@ -1,4 +1,4 @@
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 
 const STEPS = [
   { n: "01", icon: "sensors", title: "Sense", text: "Sensors continuously watch the grow room, capturing microclimate data in real time." },

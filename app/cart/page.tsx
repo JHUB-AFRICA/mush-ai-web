@@ -19,7 +19,7 @@ import {
 import { useCart } from "@/components/shop/CartProvider";
 import { products } from "@/lib/products";
 import { formatKsh } from "@/lib/format";
-import Icon from "@/components/Icon";
+import Icon from "@/components/ui/Icon";
 
 export default function CartPage() {
   const { lines, total, count, setQty, remove, clearCart } = useCart();
