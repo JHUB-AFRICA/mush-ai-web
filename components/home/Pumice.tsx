@@ -53,8 +53,8 @@ export default function Pumice() {
                 </div>
               ))}
             </div>
-            <Link href="/how-it-works#grow-room" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-label-lg text-label-lg text-on-primary transition-all duration-200 hover:bg-primary-container">
-              Explore How It Works <Icon name="arrow_forward" className="text-[18px]" />
+            <Link href="/about#grow-room" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-label-lg text-label-lg text-on-primary transition-all duration-200 hover:bg-primary-container">
+              Explore about <Icon name="arrow_forward" className="text-[18px]" />
             </Link>
           </div>
         </div>

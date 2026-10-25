@@ -8,6 +8,9 @@ const FAQS = [
   { q: "Do I need any technical knowledge to buy from you?", a: "Not at all. Our shop, training and products are designed for anyone — from first-time growers to experienced farmers." },
   { q: "Where are you based?", a: "We're based in Kenya, and currently offer local pickup for all orders." },
   { q: "How do I contact you?", a: "Use the contact form, WhatsApp, or email in the footer of any page — whichever is easiest for you." },
+  { q: "Is SmartMushroom affiliated with a university or research institution?", a: "Yes — SmartMushroom has worked with institutional partners including JKUAT during its development." },
+  { q: "Do you work with organizations or only individual customers?", a: "Both. We sell directly to individual growers and customers, and welcome partnerships with organizations, cooperatives and suppliers." },
+  { q: "How can I become a partner or supplier?", a: "Reach out through the contact form or email, and let us know what kind of partnership you're interested in." },
 ];
 
 export default function Faq() {
