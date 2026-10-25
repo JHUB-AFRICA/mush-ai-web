@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ShopHeader from "@/components/shop/ShopHeader";
 import ProductCatalog from "@/components/shop/ProductCatalog";
 
-export default function ShopView() {
-  const [query, setQuery] = useState("");
+function ShopContent() {
+  const searchParams = useSearchParams();
+  const qParam = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState(qParam);
+
+  useEffect(() => {
+    if (qParam) {
+      setQuery(qParam);
+    }
+  }, [qParam]);
 
   return (
     <>
@@ -14,4 +23,13 @@ export default function ShopView() {
     </>
   );
 }
+
+export default function ShopView() {
+  return (
+    <Suspense fallback={null}>
+      <ShopContent />
+    </Suspense>
+  );
+}
+
 
