@@ -1,20 +1,43 @@
-import Icon from "@/components/ui/Icon";
+import Image from "next/image";
 
+/*
+  Partners strip: a static label on the left, logos scrolling on the right.
+  Logo files live in /public/partners. To add a partner, drop a PNG there and
+  add one line to PARTNERS (w = display width in px; height follows the image).
+*/
 const PARTNERS = [
-  { icon: "hub", name: "JHUB Africa" },
-  { icon: "school", name: "JKUAT Research" },
-  { icon: "psychiatry", name: "KALRO" },
-  { icon: "public", name: "MoA • Kilimo Kenya" },
+  { name: "JKUAT", src: "/partners/jkuat.png", w: 44, h: 38 },
+  { name: "Mush&", src: "/partners/mush.png", w: 100, h: 19 },
+  { name: "KOICA", src: "/partners/koica.png", w: 84, h: 37 },
+  { name: "gDIH", src: "/partners/gdih.png", w: 88, h: 35 },
+  { name: "JHUB Africa", src: "/partners/jhub.png", w: 76, h: 31 },
+  { name: "European Union (EU)", src: "/partners/eu.png", w: 96, h: 18 },
+  { name: "BRIDGE-AI", src: "/partners/bridge-ai.png", w: 52, h: 38 },
+  { name: "Bill & Melinda Gates Foundation", src: "/partners/gates.png", w: 40, h: 36 },
 ];
 
-// One "set" of logos, repeated so it is always wider than the viewport.
-function PartnerSet({ hidden = false }: { hidden?: boolean }) {
+function PartnerList({ hidden = false }: { hidden?: boolean }) {
   return (
-    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-12 pr-12">
-      {[...PARTNERS, ...PARTNERS].map((p, i) => (
-        <li key={i} className="flex items-center gap-2 whitespace-nowrap text-on-surface">
-          <Icon name={p.icon} className="text-primary-container" />
-          <span className="font-headline-sm text-headline-sm font-bold tracking-tight">{p.name}</span>
+    <ul
+      aria-hidden={hidden || undefined}
+      className="flex shrink-0 items-center gap-4 pr-4"
+    >
+      {PARTNERS.map((p) => (
+        <li
+          key={p.name}
+          className="flex shrink-0 items-center gap-3 rounded-xl border border-[#f1dfd8] bg-white px-4 py-2.5"
+        >
+          <Image
+            src={p.src}
+            alt={hidden ? "" : `${p.name} logo`}
+            width={p.w * 2}
+            height={p.h * 2}
+            style={{ width: p.w, height: "auto" }}
+            className="shrink-0"
+          />
+          <span className="whitespace-nowrap text-[13px] font-semibold text-[#231916]">
+            {p.name}
+          </span>
         </li>
       ))}
     </ul>
@@ -23,26 +46,41 @@ function PartnerSet({ hidden = false }: { hidden?: boolean }) {
 
 export default function Partners() {
   return (
-    <section className="w-full bg-surface-container-low py-8 shadow-sm">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 md:flex-row lg:px-12">
-        {/* Static label: does not scroll */}
-        <div className="flex shrink-0 items-center gap-3">
-          <Icon name="verified" className="text-[24px] text-primary" />
-          <span className="font-label-lg text-label-lg font-semibold text-on-surface">
-            Supported by National Innovation Ecosystems:
-          </span>
+    <section aria-label="Our partners" className="bg-surface px-4 py-10 md:px-8">
+      {/* Pill-shaped frame: rounded ends, thin grey outline */}
+      <div className="mx-auto flex max-w-6xl items-stretch overflow-hidden rounded-full border-2 border-[#231916]/35 bg-[#fff8f6]">
+        {/* Static label (left end): does not move */}
+        <div className="flex w-36 shrink-0 items-center bg-[#fff0ec] py-4 pl-7 pr-3 sm:w-56 sm:pl-10 sm:pr-5 md:w-64">
+          <p className="text-xs font-semibold leading-snug text-[#231916] sm:text-sm">
+            Our partners &amp; supporters
+          </p>
         </div>
 
-        {/* Scrolling partners (pauses on hover, static if reduced motion is on) */}
-        <div
-          className="relative w-full min-w-0 flex-1 overflow-hidden opacity-85 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
-        >
-          <div className="flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none">
-            <PartnerSet />
-            <PartnerSet hidden />
+        {/* Moving logos */}
+        <div className="partners-mask relative min-w-0 flex-1 self-center overflow-hidden py-4">
+          <div className="partners-track flex w-max">
+            <PartnerList />
+            <PartnerList hidden />
           </div>
         </div>
       </div>
+
+      <style>{`
+        .partners-track { animation: partners-scroll 40s linear infinite; }
+        .partners-track:hover { animation-play-state: paused; }
+        .partners-mask {
+          -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+        }
+        @keyframes partners-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .partners-track { animation: none; }
+          .partners-mask { overflow-x: auto; }
+        }
+      `}</style>
     </section>
   );
 }

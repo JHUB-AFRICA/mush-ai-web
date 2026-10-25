@@ -1,10 +1,12 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Community from "@/components/home/Community";
 
 /*
   Palette (from the rest of the site)
-  primary green   #00a94e
+  home dark green #002e20 (icon boxes, send button)
+  accent green    #00a94e
   hover green     #009143
   light green     #a7d1ae
   warm off-white  #fff8f6
@@ -121,7 +123,7 @@ export default function ContactPage() {
           <div className="mt-8 space-y-6">
             {CONTACT_DETAILS.map((item) => (
               <div key={item.title} className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#00a94e] text-xl text-white">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/25 bg-[#002e20] text-xl text-white">
                   {item.icon}
                 </div>
 
@@ -234,7 +236,7 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#00a94e] px-6 py-3 font-semibold text-white transition hover:bg-[#009143] focus:outline-none focus:ring-2 focus:ring-[#00a94e] focus:ring-offset-2 focus:ring-offset-[#fff8f6]"
+              className="w-full rounded-lg bg-[#002e20] px-6 py-3 font-semibold text-white transition hover:bg-[#009143] focus:outline-none focus:ring-2 focus:ring-[#002e20] focus:ring-offset-2 focus:ring-offset-[#fff8f6]"
             >
               Send Message
             </button>
@@ -248,6 +250,9 @@ export default function ContactPage() {
           </form>
         </div>
       </section>
+
+      {/* Community feed: after the contact info */}
+      <Community />
     </main>
   );
 }

@@ -4,8 +4,7 @@ import Problem from "@/components/home/Problem";
 import Approach from "@/components/home/Approach";
 import Monitor from "@/components/home/Monitor";
 import Mission from "@/components/home/Mission";
-import Testimonials from "@/components/home/Testimonials";
-import Community from "@/components/home/Community";
+import WhyFarmers from "@/components/home/WhyFarmers";
 import Faq from "@/components/home/Faq";
 import Cta from "@/components/home/Cta";
 
@@ -13,13 +12,12 @@ export default function HomePage() {
   return (
     <div className="flex w-full flex-col">
       <Hero />
-      <Partners />
       <Problem />
       <Approach />
       <Monitor />
+      <Partners />
       <Mission />
-      <Testimonials />
-      <Community />
+      <WhyFarmers />
       <Faq />
       <Cta />
     </div>
