@@ -3,65 +3,26 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, Sparkles, Wrench } from "lucide-react";
-import { filterTabs, products, type FilterTab, type Product } from "@/lib/products";
+import {
+  filterTabs,
+  products,
+  type FilterTab,
+  type Product,
+} from "@/lib/products";
 import ProductCard from "./ProductCard";
 import { useCart } from "./CartProvider";
 import Icon from "@/components/ui/Icon";
 
-const categoryCards = [
-  {
-    category: "Fresh Mushrooms" as FilterTab,
-    shortLabel: "Fresh",
-    title: "Fresh Mushrooms",
-    icon: "restaurant",
-    iconBg: "bg-orange-100 text-orange-800",
-    description: "Daily dawn harvest / cold-stored for culinary crunch and flavor.",
-  },
-  {
-    category: "Strains & Spawn" as FilterTab,
-    shortLabel: "Spawn",
-    title: "Mushroom Spawn",
-    icon: "spa",
-    iconBg: "bg-emerald-100 text-emerald-800",
-    description: "High-purity first-generation laboratory spawn with rapid colonization.",
-  },
-  {
-    category: "By-products & Compost" as FilterTab,
-    shortLabel: "Compost",
-    title: "Compost & Substrate",
-    icon: "recycling",
-    iconBg: "bg-teal-100 text-teal-800",
-    description: "Spent organic bio-fertilizer and Phase II pasteurized straw blocks.",
-  },
-  {
-    category: "Training" as FilterTab,
-    shortLabel: "Training",
-    title: "Agronomy Training",
-    icon: "school",
-    iconBg: "bg-amber-100 text-amber-900",
-    description: "Certified practical cohorts at JKUAT with laboratory access.",
-  },
-  {
-    category: "Grow Kits & Structures" as FilterTab,
-    shortLabel: "Structures",
-    title: "Pumice Units & IoT",
-    icon: "home_work",
-    iconBg: "bg-amber-100 text-amber-800",
-    description: "Modular thermal masonry units and cellular microclimate telemetry.",
-  },
-];
-
 // Definition of which categories fall under Mushroom Sales vs Services
-const serviceCategories: FilterTab[] = [
-  "Training",
-  "Grow Kits & Structures",
-];
+const serviceCategories: FilterTab[] = ["Training", "Grow Kits & Structures"];
 
 interface ProductCatalogProps {
   onSelectProduct?: (product: Product) => void;
 }
 
-export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps) {
+export default function ProductCatalog({
+  onSelectProduct,
+}: ProductCatalogProps) {
   const [tab, setTab] = useState<FilterTab>("All Products");
   const [query, setQuery] = useState("");
   const { count } = useCart();
@@ -86,65 +47,16 @@ export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps)
   // Separate into Mushroom Sales vs Services
   const mushroomSales = useMemo(
     () => filtered.filter((p) => !serviceCategories.includes(p.category)),
-    [filtered]
+    [filtered],
   );
 
   const servicesOffer = useMemo(
     () => filtered.filter((p) => serviceCategories.includes(p.category)),
-    [filtered]
+    [filtered],
   );
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-12">
-      {/* 5 Category Quick Filter Cards */}
-      <section aria-label="Browse by category">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="font-label-sm text-xs font-bold uppercase tracking-wider text-secondary-container">
-            Quick Categories
-          </span>
-          <span className="text-xs text-on-surface-variant font-medium">
-            Click to filter catalog
-          </span>
-        </div>
-
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
-          {categoryCards.map((card) => {
-            const isSelected = tab === card.category;
-            return (
-              <button
-                key={card.title}
-                type="button"
-                onClick={() => handleCategoryCardClick(card.category)}
-                className={`group flex flex-col text-left rounded-2xl border p-4 transition-all duration-200 cursor-pointer ${
-                  isSelected
-                    ? "border-primary bg-surface-container-lowest shadow-md ring-2 ring-primary/20 -translate-y-0.5"
-                    : "border-surface-container-high/80 bg-surface-container-lowest/80 hover:border-primary/40 hover:bg-surface-container-lowest hover:shadow-xs"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2.5">
-                  <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-xl text-base ${card.iconBg}`}
-                  >
-                    <Icon name={card.icon} />
-                  </span>
-                  {isSelected && (
-                    <span className="flex h-5 items-center rounded-full bg-primary px-2 text-[10px] font-bold text-on-primary">
-                      Active
-                    </span>
-                  )}
-                </div>
-                <h3 className="font-headline-sm text-xs font-bold text-on-surface group-hover:text-primary transition-colors">
-                  {card.title}
-                </h3>
-                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-on-surface-variant">
-                  {card.description}
-                </p>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Unified Toolbar: filter pills + search input + cart link */}
       <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-3 shadow-xs flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Filter Pills */}
@@ -239,7 +151,9 @@ export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps)
                 Mushroom Sales
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-                Fresh button mushrooms harvested at dawn, pure JKUAT-certified spawn bags, and high-nitrogen organic compost conditioned for high yield.
+                Fresh button mushrooms harvested at dawn, pure JKUAT-certified
+                spawn bags, and high-nitrogen organic compost conditioned for
+                high yield.
               </p>
             </div>
 
@@ -288,7 +202,9 @@ export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps)
                 Services We Offer
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-                Turnkey pumice grow unit construction, certified agronomy masterclasses at JKUAT, and telemetry microclimate monitoring tailored for commercial growers.
+                Turnkey pumice grow unit construction, certified agronomy
+                masterclasses at JKUAT, and telemetry microclimate monitoring
+                tailored for commercial growers.
               </p>
             </div>
 
@@ -330,7 +246,8 @@ export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps)
             No items found
           </h3>
           <p className="mt-1 text-xs text-on-surface-variant max-w-sm mx-auto">
-            Try adjusting your query or click below to view all items and services.
+            Try adjusting your query or click below to view all items and
+            services.
           </p>
           <button
             type="button"
