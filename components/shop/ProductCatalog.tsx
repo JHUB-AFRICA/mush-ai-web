@@ -16,13 +16,7 @@ import Icon from "@/components/ui/Icon";
 // Definition of which categories fall under Mushroom Sales vs Services
 const serviceCategories: FilterTab[] = ["Training", "Grow Kits & Structures"];
 
-interface ProductCatalogProps {
-  onSelectProduct?: (product: Product) => void;
-}
-
-export default function ProductCatalog({
-  onSelectProduct,
-}: ProductCatalogProps) {
+export default function ProductCatalog() {
   const [tab, setTab] = useState<FilterTab>("All Products");
   const [query, setQuery] = useState("");
   const { count } = useCart();
@@ -167,10 +161,7 @@ export default function ProductCatalog({
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {mushroomSales.map((product) => (
                 <li key={product.id} className="h-full">
-                  <ProductCard
-                    product={product}
-                    onOpenDetail={onSelectProduct}
-                  />
+                  <ProductCard product={product} />
                 </li>
               ))}
             </ul>
@@ -217,10 +208,7 @@ export default function ProductCatalog({
             <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {servicesOffer.map((service) => (
                 <li key={service.id} className="h-full">
-                  <ProductCard
-                    product={service}
-                    onOpenDetail={onSelectProduct}
-                  />
+                  <ProductCard product={service} />
                 </li>
               ))}
             </ul>
