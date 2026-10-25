@@ -16,7 +16,6 @@ export default function ShopPageClient() {
 
   return (
     <>
-      <AnnouncementBar />
       <ShopHeader />
       <ProductCatalog onSelectProduct={(p) => setSelectedProduct(p)} />
       <ProductDetail
