@@ -13,8 +13,7 @@ import ProductCard from "./ProductCard";
 import Icon from "@/components/ui/Icon";
 
 // Definition of which categories fall under Mushroom Sales vs Services
-const serviceCategories: string[] = ["Grow Kits & Structures"];
-
+const serviceCategories: string[] = ["Grow Kits & Structures", "Training"];
 
 export type SortOption = "featured" | "price-asc" | "price-desc" | "rating";
 
@@ -37,15 +36,9 @@ export default function ProductCatalog({
   const [tab, setTab] = useState<FilterTab>("All Products");
   const [sortBy, setSortBy] = useState<SortOption>("featured");
 
-  // Exclude Training from catalog products since Training is in its own section
-  const catalogProducts = useMemo(
-    () => products.filter((p) => (p.category as string) !== "Training"),
-    [],
-  );
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return catalogProducts.filter((p) => {
+    return products.filter((p) => {
       const inTab = tab === "All Products" || p.category === tab;
       const inSearch =
         q === "" ||
@@ -54,7 +47,7 @@ export default function ProductCatalog({
           .includes(q);
       return inTab && inSearch;
     });
-  }, [catalogProducts, tab, query]);
+  }, [tab, query]);
 
   const sortItems = (items: Product[]) => {
     return [...items].sort((a, b) => {
@@ -76,9 +69,7 @@ export default function ProductCatalog({
 
   const servicesOffer = useMemo(
     () =>
-      sortItems(
-        filtered.filter((p) => serviceCategories.includes(p.category)),
-      ),
+      sortItems(filtered.filter((p) => serviceCategories.includes(p.category))),
     [filtered, sortBy],
   );
 
@@ -100,8 +91,8 @@ export default function ProductCatalog({
             {filterTabs.map((t) => {
               const countForTab =
                 t === "All Products"
-                  ? catalogProducts.length
-                  : catalogProducts.filter((p) => p.category === t).length;
+                  ? products.length
+                  : products.filter((p) => p.category === t).length;
               const isTabActive = tab === t;
 
               return (
@@ -224,17 +215,18 @@ export default function ProductCatalog({
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary-container">
                 <Wrench size={14} />
-                <span>INFRASTRUCTURE &amp; AUTOMATION</span>
+                <span>INFRASTRUCTURE, TRAINING &amp; AUTOMATION</span>
               </div>
               <h2
                 id="services-heading"
                 className="font-headline-lg text-2xl font-extrabold text-on-surface sm:text-3xl mt-1"
               >
-                Services We Offer
+                Services &amp; Training
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-                Turnkey pumice grow unit construction and telemetry microclimate
-                monitoring tailored for commercial growers.
+                Turnkey pumice grow unit construction, certified agronomy
+                masterclasses at JKUAT, and telemetry microclimate monitoring
+                tailored for commercial growers.
               </p>
             </div>
 
@@ -292,4 +284,3 @@ export default function ProductCatalog({
     </div>
   );
 }
-
