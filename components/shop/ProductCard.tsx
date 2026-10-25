@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Check, ShoppingCart, Star, Calendar, Sparkles } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import type { Product } from "@/lib/products";
@@ -9,14 +10,14 @@ import { useCart } from "./CartProvider";
 
 interface ProductCardProps {
   product: Product;
-  onOpenDetail?: (product: Product) => void;
 }
 
-export default function ProductCard({ product, onOpenDetail }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   const { add } = useCart();
   const [justAdded, setJustAdded] = useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     add(product.id, 1);
     setJustAdded(true);
@@ -26,9 +27,9 @@ export default function ProductCard({ product, onOpenDetail }: ProductCardProps)
   const isTraining = product.category === "Training";
 
   return (
-    <article
-      onClick={() => onOpenDetail?.(product)}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest shadow-[0_2px_12px_rgba(35,25,22,0.04)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(35,25,22,0.08)] cursor-pointer"
+    <Link
+      href={`/shop/${product.id}`}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest shadow-[0_2px_12px_rgba(35,25,22,0.04)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(35,25,22,0.08)]"
     >
       {/* Top Image Container */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
@@ -76,7 +77,7 @@ export default function ProductCard({ product, onOpenDetail }: ProductCardProps)
 
         {/* Feature Box (soft-tinted rounded block from design) */}
         <div className="my-3 space-y-1.5 rounded-xl border border-surface-container-high/60 bg-surface-container-low/70 p-2.5 text-[11px] text-on-surface-variant">
-          {product.features.map((feature) => (
+          {product.features.slice(0, 2).map((feature) => (
             <div key={feature} className="flex items-start gap-2">
               <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Check size={9} strokeWidth={3} />
@@ -125,6 +126,7 @@ export default function ProductCard({ product, onOpenDetail }: ProductCardProps)
           </button>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
+
