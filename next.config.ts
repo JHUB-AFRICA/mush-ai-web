@@ -7,20 +7,26 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "lh3.googleusercontent.com" }],
   },
   async redirects() {
+    // Every old address for this page goes straight to /about (no redirect chains).
     return [
       {
+        source: "/how-it-works",
+        destination: "/about",
+        permanent: true,
+      },
+      {
         source: "/farm-structure",
-        destination: "/how-it-works",
+        destination: "/about",
         permanent: true,
       },
       {
         source: "/the-process",
-        destination: "/how-it-works",
+        destination: "/about",
         permanent: true,
       },
       {
         source: "/process",
-        destination: "/how-it-works",
+        destination: "/about",
         permanent: true,
       },
     ];

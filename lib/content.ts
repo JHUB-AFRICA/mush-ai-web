@@ -15,7 +15,6 @@ export const navLinks = [
   { label: "Farm Structure", href: "#" },
   { label: "The Process", href: "#" },
   { label: "Shop", href: "#" },
-  { label: "Blog", href: "#" },
   { label: "About", href: "#" },
 ];
 
