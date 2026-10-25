@@ -33,9 +33,9 @@ export default function ShopHeader({ query = "", setQuery }: ShopHeaderProps) {
           </a>
         </div>
 
-        {/* Bigger, prominent Search Input on the right side */}
-        <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
-          <label className="relative w-full sm:w-80 md:w-96 lg:w-[440px]">
+        {/* Search Input on the right side - filling space */}
+        <div className="flex items-center gap-2 w-full sm:flex-1 sm:max-w-xl sm:justify-end">
+          <label className="relative w-full">
             <span className="sr-only">Search catalog</span>
             <Search
               size={18}

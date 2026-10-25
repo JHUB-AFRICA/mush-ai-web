@@ -17,6 +17,7 @@ import {
   MapPin,
   BadgeCheck,
   MessageSquarePlus,
+  Search,
   Send,
   X,
 } from "lucide-react";
@@ -248,62 +249,90 @@ export default function ProductDetailView({
     document.getElementById("customer-reviews")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const categorySectionHref =
+    product.category === "Training" ||
+    product.category === "Grow Kits & Structures"
+      ? "/shop#services-we-offer"
+      : "/shop#mushroom-sales";
+
   return (
     <div className="min-h-screen bg-surface">
-      {/* ── Breadcrumbs ── */}
+      {/* ── Breadcrumbs & Quick Search ── */}
       <nav
         aria-label="Breadcrumb"
         className="mx-auto max-w-7xl px-4 pt-6 pb-4 sm:px-6 lg:px-12"
       >
-        <ol className="flex flex-wrap items-center gap-1.5 text-xs text-on-surface-variant">
-          <li>
-            <Link
-              href="/"
-              className="transition-colors hover:text-primary font-medium"
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <ol className="flex flex-wrap items-center gap-1.5 text-xs text-on-surface-variant">
+            <li>
+              <Link
+                href="/"
+                className="transition-colors hover:text-primary font-medium"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <ChevronRight size={12} className="text-on-surface-variant/50" />
+            </li>
+            <li>
+              <Link
+                href="/shop"
+                className="transition-colors hover:text-primary font-medium"
+              >
+                Shop &amp; Services
+              </Link>
+            </li>
+            <li>
+              <ChevronRight size={12} className="text-on-surface-variant/50" />
+            </li>
+            <li>
+              <Link
+                href={categorySectionHref}
+                className="transition-colors hover:text-primary font-medium hover:underline"
+              >
+                {product.category}
+              </Link>
+            </li>
+            <li>
+              <ChevronRight size={12} className="text-on-surface-variant/50" />
+            </li>
+            <li
+              aria-current="page"
+              className="font-bold text-on-surface truncate max-w-[200px] sm:max-w-none"
             >
-              Home
-            </Link>
-          </li>
-          <li>
-            <ChevronRight size={12} className="text-on-surface-variant/50" />
-          </li>
-          <li>
-            <Link
-              href="/shop"
-              className="transition-colors hover:text-primary font-medium"
-            >
-              Shop &amp; Services
-            </Link>
-          </li>
-          <li>
-            <ChevronRight size={12} className="text-on-surface-variant/50" />
-          </li>
-          <li>
-            <Link
-              href="/shop"
-              className="transition-colors hover:text-primary font-medium"
-            >
-              {product.category}
-            </Link>
-          </li>
-          <li>
-            <ChevronRight size={12} className="text-on-surface-variant/50" />
-          </li>
-          <li
-            aria-current="page"
-            className="font-bold text-on-surface truncate max-w-[200px] sm:max-w-none"
+              {product.name}
+            </li>
+          </ol>
+
+          {/* Quick Search on Detail Page */}
+          <form
+            action="/shop"
+            method="GET"
+            className="relative w-full sm:w-64 lg:w-72"
           >
-            {product.name}
-          </li>
-        </ol>
+            <span className="sr-only">Search catalog</span>
+            <Search
+              size={14}
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
+            />
+            <input
+              name="q"
+              type="search"
+              placeholder="Search products..."
+              className="w-full rounded-full border border-surface-container-high bg-surface-container-lowest py-2 pl-9 pr-3 text-xs outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-on-surface-variant/70 shadow-xs hover:border-surface-container-highest"
+            />
+          </form>
+        </div>
       </nav>
 
       {/* ── Product Hero Section ── */}
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
-          {/* Image Column */}
-          <div className="relative overflow-hidden rounded-3xl border border-surface-container-high/60 bg-surface-container shadow-lg">
-            <div className="relative aspect-[4/3] w-full">
+          {/* Image Column - Filling Full Available Height */}
+          <div className="relative flex flex-col min-h-[420px] lg:min-h-full overflow-hidden rounded-3xl border border-surface-container-high/60 bg-surface-container shadow-lg">
+            <div className="relative flex-1 min-h-[380px] lg:min-h-full w-full">
               <Image
                 src={product.image}
                 alt={product.imageAlt}
@@ -312,9 +341,11 @@ export default function ProductDetailView({
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
             </div>
+
             {/* Badges overlay */}
-            <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2">
+            <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2 z-10">
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white shadow-md backdrop-blur-sm ${
                   product.badgeTone === "ember"
@@ -326,7 +357,8 @@ export default function ProductDetailView({
                 {product.badge}
               </span>
             </div>
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
               <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-primary shadow-md backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 In Stock &bull; Ready for Pickup
@@ -349,9 +381,12 @@ export default function ProductDetailView({
           <div className="flex flex-col">
             {/* Category & tag pills */}
             <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">
+              <Link
+                href={categorySectionHref}
+                className="rounded-full bg-primary/10 px-3 py-1 text-primary hover:bg-primary/20 transition-colors"
+              >
                 {product.category}
-              </span>
+              </Link>
               <span className="rounded-full bg-secondary-container/15 px-3 py-1 text-secondary-container">
                 {product.tag}
               </span>
