@@ -4,12 +4,12 @@ export const filterTabs = [
   "Strains & Spawn",
   "Fresh Mushrooms",
   "By-products & Compost",
-  "Training",
 ] as const;
 
 export type FilterTab = (typeof filterTabs)[number];
 
-export type Category = Exclude<FilterTab, "All Products">;
+export type Category = Exclude<FilterTab, "All Products"> | "Training";
+
 
 /* ── Review type ── */
 export type ReviewItem = {

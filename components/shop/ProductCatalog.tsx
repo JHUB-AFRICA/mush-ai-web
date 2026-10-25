@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Search, Sparkles, Wrench } from "lucide-react";
+import { Sparkles, Wrench } from "lucide-react";
 import {
   filterTabs,
   products,
@@ -10,24 +10,42 @@ import {
   type Product,
 } from "@/lib/products";
 import ProductCard from "./ProductCard";
-import { useCart } from "./CartProvider";
 import Icon from "@/components/ui/Icon";
 
 // Definition of which categories fall under Mushroom Sales vs Services
-const serviceCategories: FilterTab[] = ["Training", "Grow Kits & Structures"];
+const serviceCategories: string[] = ["Grow Kits & Structures"];
 
-export default function ProductCatalog() {
+
+export type SortOption = "featured" | "price-asc" | "price-desc" | "rating";
+
+const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "featured", label: "Featured" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "price-desc", label: "Price: High to Low" },
+  { value: "rating", label: "Top Rated" },
+];
+
+interface ProductCatalogProps {
+  query?: string;
+  setQuery?: (query: string) => void;
+}
+
+export default function ProductCatalog({
+  query = "",
+  setQuery,
+}: ProductCatalogProps) {
   const [tab, setTab] = useState<FilterTab>("All Products");
-  const [query, setQuery] = useState("");
-  const { count } = useCart();
+  const [sortBy, setSortBy] = useState<SortOption>("featured");
 
-  const handleCategoryCardClick = (cat: FilterTab) => {
-    setTab((prev) => (prev === cat ? "All Products" : cat));
-  };
+  // Exclude Training from catalog products since Training is in its own section
+  const catalogProducts = useMemo(
+    () => products.filter((p) => (p.category as string) !== "Training"),
+    [],
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return products.filter((p) => {
+    return catalogProducts.filter((p) => {
       const inTab = tab === "All Products" || p.category === tab;
       const inSearch =
         q === "" ||
@@ -36,92 +54,114 @@ export default function ProductCatalog() {
           .includes(q);
       return inTab && inSearch;
     });
-  }, [tab, query]);
+  }, [catalogProducts, tab, query]);
+
+  const sortItems = (items: Product[]) => {
+    return [...items].sort((a, b) => {
+      if (sortBy === "price-asc") return a.price - b.price;
+      if (sortBy === "price-desc") return b.price - a.price;
+      if (sortBy === "rating") return b.rating - a.rating;
+      return 0;
+    });
+  };
 
   // Separate into Mushroom Sales vs Services
   const mushroomSales = useMemo(
-    () => filtered.filter((p) => !serviceCategories.includes(p.category)),
-    [filtered],
+    () =>
+      sortItems(
+        filtered.filter((p) => !serviceCategories.includes(p.category)),
+      ),
+    [filtered, sortBy],
   );
 
   const servicesOffer = useMemo(
-    () => filtered.filter((p) => serviceCategories.includes(p.category)),
-    [filtered],
+    () =>
+      sortItems(
+        filtered.filter((p) => serviceCategories.includes(p.category)),
+      ),
+    [filtered, sortBy],
   );
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-12">
-      {/* Unified Toolbar: filter pills + search input + cart link */}
-      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-3 shadow-xs flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        {/* Filter Pills */}
-        <div
-          role="group"
-          aria-label="Filter catalog items"
-          className="flex flex-wrap items-center gap-1.5"
-        >
-          {filterTabs.map((t) => {
-            const countForTab =
-              t === "All Products"
-                ? products.length
-                : products.filter((p) => p.category === t).length;
-            const isTabActive = tab === t;
+      {/* Category Filter and Sort By Toolbar */}
+      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 shadow-xs flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        {/* Category Filter Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant shrink-0 flex items-center gap-1.5">
+            <Icon name="tune" className="text-[16px]" />
+            Categories:
+          </span>
+          <div
+            role="group"
+            aria-label="Filter catalog categories"
+            className="flex flex-wrap items-center gap-1.5"
+          >
+            {filterTabs.map((t) => {
+              const countForTab =
+                t === "All Products"
+                  ? catalogProducts.length
+                  : catalogProducts.filter((p) => p.category === t).length;
+              const isTabActive = tab === t;
 
-            return (
-              <button
-                key={t}
-                type="button"
-                aria-pressed={isTabActive}
-                onClick={() => setTab(t)}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-150 ${
-                  isTabActive
-                    ? "bg-primary text-on-primary shadow-xs"
-                    : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
-                }`}
-              >
-                <span>{t}</span>
-                <span
-                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+              return (
+                <button
+                  key={t}
+                  type="button"
+                  aria-pressed={isTabActive}
+                  onClick={() => setTab(t)}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-150 ${
                     isTabActive
-                      ? "bg-white/20 text-white"
-                      : "bg-surface-container-highest text-on-surface-variant"
+                      ? "bg-primary text-on-primary shadow-xs"
+                      : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
                   }`}
                 >
-                  {countForTab}
-                </span>
-              </button>
-            );
-          })}
+                  <span>{t}</span>
+                  <span
+                    className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+                      isTabActive
+                        ? "bg-white/20 text-white"
+                        : "bg-surface-container-highest text-on-surface-variant"
+                    }`}
+                  >
+                    {countForTab}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Search & Cart Actions */}
-        <div className="flex items-center gap-2 shrink-0">
-          <label className="relative flex-1 lg:w-64 lg:flex-none">
-            <span className="sr-only">Search catalog</span>
-            <Search
-              size={14}
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
-            />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search mushroom, spawn, training..."
-              className="w-full rounded-full border border-surface-container-high bg-surface-container-lowest py-2 pl-9 pr-3 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface placeholder:text-on-surface-variant/70"
-            />
-          </label>
-
-          <Link
-            href="/cart"
-            id="view-cart-button"
-            className="inline-flex items-center gap-2 rounded-full bg-secondary-container text-on-secondary px-4 py-2 text-xs font-bold shadow-xs hover:bg-secondary transition-colors"
+        {/* Sort By Form of Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 pt-3 lg:pt-0 border-t lg:border-t-0 border-surface-container shrink-0">
+          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant shrink-0 flex items-center gap-1.5">
+            <Icon name="swap_vert" className="text-[16px]" />
+            Sort By:
+          </span>
+          <div
+            role="group"
+            aria-label="Sort catalog products"
+            className="inline-flex flex-wrap items-center rounded-xl bg-surface-container/70 p-1 gap-1"
           >
-            <Icon name="shopping_basket" className="text-[16px]" />
-            <span>Cart</span>
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-white text-secondary-container text-[10px] font-black">
-              {count}
-            </span>
-          </Link>
+            {sortOptions.map((opt) => {
+              const isSortActive = sortBy === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  aria-pressed={isSortActive}
+                  onClick={() => setSortBy(opt.value)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-150 ${
+                    isSortActive
+                      ? "bg-surface-container-lowest text-primary shadow-xs ring-1 ring-black/5"
+                      : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -184,7 +224,7 @@ export default function ProductCatalog() {
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary-container">
                 <Wrench size={14} />
-                <span>INFRASTRUCTURE, TRAINING &amp; AUTOMATION</span>
+                <span>INFRASTRUCTURE &amp; AUTOMATION</span>
               </div>
               <h2
                 id="services-heading"
@@ -193,9 +233,8 @@ export default function ProductCatalog() {
                 Services We Offer
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-                Turnkey pumice grow unit construction, certified agronomy
-                masterclasses at JKUAT, and telemetry microclimate monitoring
-                tailored for commercial growers.
+                Turnkey pumice grow unit construction and telemetry microclimate
+                monitoring tailored for commercial growers.
               </p>
             </div>
 
@@ -240,8 +279,9 @@ export default function ProductCatalog() {
           <button
             type="button"
             onClick={() => {
-              setQuery("");
+              setQuery?.("");
               setTab("All Products");
+              setSortBy("featured");
             }}
             className="mt-5 rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-on-primary hover:bg-primary-container transition-colors shadow-xs"
           >
@@ -252,3 +292,4 @@ export default function ProductCatalog() {
     </div>
   );
 }
+
