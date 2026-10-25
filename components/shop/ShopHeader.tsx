@@ -46,7 +46,7 @@ export default function ShopHeader({ query = "", setQuery }: ShopHeaderProps) {
               type="search"
               value={query}
               onChange={(e) => setQuery?.(e.target.value)}
-              placeholder="Search mushrooms, spawn, grow kits, compost..."
+              placeholder="Search mushrooms, spawn, training, grow kits..."
               className="w-full rounded-full border border-surface-container-high bg-surface-container-lowest py-3 pl-11 pr-10 text-sm outline-none transition-all duration-150 focus:border-primary focus:ring-4 focus:ring-primary/15 text-on-surface placeholder:text-on-surface-variant/70 shadow-xs hover:border-surface-container-highest"
             />
             {query && (
