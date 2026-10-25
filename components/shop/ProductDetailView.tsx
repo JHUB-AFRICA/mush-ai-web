@@ -170,18 +170,18 @@ function SuggestionCard({ product }: { product: Product }) {
   );
 }
 
-/* ── Main Product Detail Page Component ── */
-interface ProductDetailPageProps {
+/* ── Main Product Detail View Component ── */
+interface ProductDetailViewProps {
   product: Product;
   relatedProducts: Product[];
   reviews: ReviewItem[];
 }
 
-export default function ProductDetailPage({
+export default function ProductDetailView({
   product,
   relatedProducts,
   reviews: initialReviews,
-}: ProductDetailPageProps) {
+}: ProductDetailViewProps) {
   const { add } = useCart();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);

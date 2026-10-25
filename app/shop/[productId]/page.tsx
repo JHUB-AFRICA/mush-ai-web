@@ -6,7 +6,7 @@ import {
   getRelatedProducts,
   reviewsData,
 } from "@/lib/products";
-import ProductDetailClient from "@/components/shop/ProductDetailPage";
+import ProductDetailView from "@/components/shop/ProductDetailView";
 
 // Generate static params for all product IDs
 export function generateStaticParams() {
@@ -46,7 +46,7 @@ export default async function ProductPage({
   const reviews = reviewsData[product.id] ?? [];
 
   return (
-    <ProductDetailClient
+    <ProductDetailView
       product={product}
       relatedProducts={related}
       reviews={reviews}

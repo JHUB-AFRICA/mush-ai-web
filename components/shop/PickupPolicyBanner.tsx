@@ -3,7 +3,7 @@
 import { Truck } from "lucide-react";
 import { useCart } from "./CartProvider";
 
-export default function PickupPolicy() {
+export default function PickupPolicyBanner() {
   const { open } = useCart();
 
   return (
