@@ -1,14 +1,15 @@
 export const filterTabs = [
   "All Products",
-  "Grow Kits & Structures",
-  "Strains & Spawn",
   "Fresh Mushrooms",
+  "Strains & Spawn",
+  "Grow Kits & Structures",
   "By-products & Compost",
+  "Training",
 ] as const;
 
 export type FilterTab = (typeof filterTabs)[number];
 
-export type Category = Exclude<FilterTab, "All Products"> | "Training";
+export type Category = Exclude<FilterTab, "All Products">;
 
 
 /* ── Review type ── */

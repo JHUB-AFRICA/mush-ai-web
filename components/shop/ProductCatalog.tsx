@@ -15,6 +15,15 @@ import Icon from "@/components/ui/Icon";
 // Definition of which categories fall under Mushroom Sales vs Services
 const serviceCategories: string[] = ["Grow Kits & Structures", "Training"];
 
+const categoryIcons: Record<FilterTab, string> = {
+  "All Products": "apps",
+  "Fresh Mushrooms": "eco",
+  "Strains & Spawn": "biotech",
+  "Grow Kits & Structures": "inventory_2",
+  "By-products & Compost": "recycling",
+  "Training": "school",
+};
+
 export type SortOption = "featured" | "price-asc" | "price-desc" | "rating";
 
 const sortOptions: { value: SortOption; label: string }[] = [
@@ -76,83 +85,102 @@ export default function ProductCatalog({
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-12">
       {/* Category Filter and Sort By Toolbar */}
-      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 shadow-xs flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        {/* Category Filter Buttons */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant shrink-0 flex items-center gap-1.5">
-            <Icon name="tune" className="text-[16px]" />
-            Categories:
-          </span>
-          <div
-            role="group"
-            aria-label="Filter catalog categories"
-            className="flex flex-wrap items-center gap-1.5"
-          >
-            {filterTabs.map((t) => {
-              const countForTab =
-                t === "All Products"
-                  ? products.length
-                  : products.filter((p) => p.category === t).length;
-              const isTabActive = tab === t;
+      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 sm:p-5 shadow-xs space-y-4">
+        {/* Top Control Bar: Category Meta, Item Counter & Compact Sort */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+              <Icon name="tune" className="text-[17px] text-primary" />
+              Categories:
+            </span>
+            <span className="inline-flex items-center rounded-full bg-surface-container px-2.5 py-0.5 text-[11px] font-semibold text-on-surface-variant">
+              {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
+            </span>
+            {tab !== "All Products" && (
+              <button
+                type="button"
+                onClick={() => setTab("All Products")}
+                className="text-[11px] font-semibold text-primary underline underline-offset-2 hover:text-primary-container transition-colors"
+              >
+                Clear filter
+              </button>
+            )}
+          </div>
 
-              return (
-                <button
-                  key={t}
-                  type="button"
-                  aria-pressed={isTabActive}
-                  onClick={() => setTab(t)}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all duration-150 ${
-                    isTabActive
-                      ? "bg-primary text-on-primary shadow-xs"
-                      : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
-                  }`}
-                >
-                  <span>{t}</span>
-                  <span
-                    className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
-                      isTabActive
-                        ? "bg-white/20 text-white"
-                        : "bg-surface-container-highest text-on-surface-variant"
-                    }`}
-                  >
-                    {countForTab}
-                  </span>
-                </button>
-              );
-            })}
+          {/* Sort By Dropdown */}
+          <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+            <label
+              htmlFor="catalog-sort"
+              className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1"
+            >
+              <Icon name="swap_vert" className="text-[16px]" />
+              Sort By:
+            </label>
+            <div className="relative">
+              <select
+                id="catalog-sort"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                aria-label="Sort products"
+                className="appearance-none cursor-pointer rounded-xl border border-surface-container-high bg-surface-container/60 pl-3 pr-8 py-1.5 text-xs font-bold text-on-surface transition-all hover:bg-surface-container hover:border-surface-container-highest focus:outline-none focus:ring-2 focus:ring-primary/20"
+              >
+                {sortOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant">
+                <Icon name="expand_more" className="text-[16px]" />
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Sort By Form of Buttons */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 pt-3 lg:pt-0 border-t lg:border-t-0 border-surface-container shrink-0">
-          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant shrink-0 flex items-center gap-1.5">
-            <Icon name="swap_vert" className="text-[16px]" />
-            Sort By:
-          </span>
-          <div
-            role="group"
-            aria-label="Sort catalog products"
-            className="inline-flex flex-wrap items-center rounded-xl bg-surface-container/70 p-1 gap-1"
-          >
-            {sortOptions.map((opt) => {
-              const isSortActive = sortBy === opt.value;
-              return (
-                <button
-                  key={opt.value}
-                  type="button"
-                  aria-pressed={isSortActive}
-                  onClick={() => setSortBy(opt.value)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-150 ${
-                    isSortActive
-                      ? "bg-surface-container-lowest text-primary shadow-xs ring-1 ring-black/5"
-                      : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high"
+        {/* Category Pills (Full width, horizontal scrolling on mobile, clean layout) */}
+        <div
+          role="group"
+          aria-label="Filter catalog categories"
+          className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-t border-surface-container-high/60 pt-3.5"
+        >
+          {filterTabs.map((t) => {
+            const countForTab =
+              t === "All Products"
+                ? products.length
+                : products.filter((p) => p.category === t).length;
+            const isTabActive = tab === t;
+
+            return (
+              <button
+                key={t}
+                type="button"
+                aria-pressed={isTabActive}
+                onClick={() => setTab(t)}
+                className={`inline-flex items-center gap-2 shrink-0 rounded-full px-4 py-2 text-xs font-bold transition-all duration-150 ${
+                  isTabActive
+                    ? "bg-primary text-on-primary shadow-xs ring-1 ring-primary/20"
+                    : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                }`}
+              >
+                <Icon
+                  name={categoryIcons[t]}
+                  className={`text-[15px] ${
+                    isTabActive ? "text-primary-fixed" : "text-primary/70"
+                  }`}
+                />
+                <span>{t}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+                    isTabActive
+                      ? "bg-white/20 text-white"
+                      : "bg-surface-container-highest text-on-surface-variant"
                   }`}
                 >
-                  {opt.label}
-                </button>
-              );
-            })}
-          </div>
+                  {countForTab}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
