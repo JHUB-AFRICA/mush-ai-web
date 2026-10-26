@@ -45,7 +45,11 @@ function Stars({
           type="button"
           disabled={!interactive}
           onClick={() => interactive && onRate?.(n)}
-          className={interactive ? "cursor-pointer p-0.5 transition-transform hover:scale-125 focus:outline-none" : "cursor-default"}
+          className={
+            interactive
+              ? "cursor-pointer p-0.5 transition-transform hover:scale-125 focus:outline-none"
+              : "cursor-default"
+          }
           aria-label={`${n} star${n > 1 ? "s" : ""}`}
         >
           <Star
@@ -101,7 +105,9 @@ function ReviewCard({ review }: { review: ReviewItem }) {
 
       <div className="flex items-center gap-2 mb-2">
         <Stars rating={review.rating} size={13} />
-        <span className="text-xs font-bold text-on-surface">{review.title}</span>
+        <span className="text-xs font-bold text-on-surface">
+          {review.title}
+        </span>
       </div>
       <p className="text-xs leading-relaxed text-on-surface-variant">
         {review.body}
@@ -125,22 +131,18 @@ function SuggestionCard({ product }: { product: Product }) {
           sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-x-3 top-3 flex items-center justify-between pointer-events-none">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white shadow-xs backdrop-blur-sm ${
-              product.badgeTone === "ember"
-                ? "bg-secondary-container"
-                : "bg-primary/90"
-            }`}
-          >
-            <Sparkles size={11} className="text-secondary-fixed" />
-            {product.badge}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2 py-0.5 text-[11px] font-bold text-on-surface shadow-xs backdrop-blur-sm">
-            <Star size={11} className="fill-amber-400 text-amber-500" />
-            {product.rating.toFixed(1)}
-          </span>
-        </div>
+        {/* Review Badge */}
+        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2 py-0.5 text-[11px] font-bold text-on-surface shadow-xs backdrop-blur-sm">
+          <Star size={11} className="fill-amber-400 text-amber-500" />
+          {product.rating.toFixed(1)}Monitor your grow room conditions 24/7 with
+          our JHUB-certified IoT sensor kit. The hub measures ambient
+          temperature, humidity, CO₂ concentration, and substrate moisture in
+          real-time, sending data to your phone via Safaricom's IoT SIM network.
+          SMS alerts fire automatically when readings breach your configured
+          thresholds — so you catch problems before they damage your crop.
+          Powered by a solar panel with 14-day lithium battery backup for
+          uninterrupted monitoring during outages.
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-4">
         <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
@@ -243,7 +245,9 @@ export default function ProductDetailView({
 
   const scrollToReviews = (e: React.MouseEvent) => {
     e.preventDefault();
-    document.getElementById("customer-reviews")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("customer-reviews")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   const categorySectionHref =
@@ -340,20 +344,7 @@ export default function ProductDetailView({
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
             </div>
 
-            {/* Badges overlay */}
-            <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2 z-10">
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-white shadow-md backdrop-blur-sm ${
-                  product.badgeTone === "ember"
-                    ? "bg-secondary-container"
-                    : "bg-primary/90"
-                }`}
-              >
-                <Sparkles size={13} className="text-secondary-fixed" />
-                {product.badge}
-              </span>
-            </div>
-
+            {/* In Stock & Rating Badges */}
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
               <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-primary shadow-md backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -407,7 +398,8 @@ export default function ProductDetailView({
                 {avgRating.toFixed(1)}
               </span>
               <span className="text-xs text-primary underline underline-offset-2 font-medium">
-                ({allReviews.length} verified {allReviews.length === 1 ? "review" : "reviews"})
+                ({allReviews.length} verified{" "}
+                {allReviews.length === 1 ? "review" : "reviews"})
               </span>
             </a>
 
@@ -435,10 +427,7 @@ export default function ProductDetailView({
               <ul className="space-y-1.5 pl-1 text-xs text-on-surface-variant">
                 {product.features.map((feat) => (
                   <li key={feat} className="flex items-start gap-2">
-                    <Check
-                      size={13}
-                      className="mt-0.5 shrink-0 text-primary"
-                    />
+                    <Check size={13} className="mt-0.5 shrink-0 text-primary" />
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -517,10 +506,7 @@ export default function ProductDetailView({
                   Juja &amp; Westlands Pickup
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <Icon
-                    name="verified"
-                    className="text-[14px] text-primary"
-                  />
+                  <Icon name="verified" className="text-[14px] text-primary" />
                   JKUAT Certified
                 </span>
               </div>
@@ -596,7 +582,8 @@ export default function ProductDetailView({
                 </div>
               ) : (
                 <div className="rounded-2xl border border-surface-container-high/60 bg-surface-container-low/40 p-6 text-sm text-on-surface-variant">
-                  Certified agricultural specifications guaranteed directly by SmartMushroom Juja Lab.
+                  Certified agricultural specifications guaranteed directly by
+                  SmartMushroom Juja Lab.
                 </div>
               )}
             </div>
@@ -621,7 +608,8 @@ export default function ProductDetailView({
                 Customer Reviews
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-on-surface-variant">
-                Real feedback from mushroom outgrowers, restaurants, and homesteaders across Kenya.
+                Real feedback from mushroom outgrowers, restaurants, and
+                homesteaders across Kenya.
               </p>
             </div>
 
@@ -748,15 +736,21 @@ export default function ProductDetailView({
               </div>
               <p className="mt-2 text-xs text-on-surface-variant font-medium">
                 Based on {allReviews.length}{" "}
-                {allReviews.length === 1 ? "verified review" : "verified reviews"}
+                {allReviews.length === 1
+                  ? "verified review"
+                  : "verified reviews"}
               </p>
             </div>
 
             <div className="sm:col-span-2 space-y-2">
               {ratingCounts.map((rc) => (
-                <div key={rc.stars} className="flex items-center gap-2.5 text-xs">
+                <div
+                  key={rc.stars}
+                  className="flex items-center gap-2.5 text-xs"
+                >
                   <span className="w-9 font-bold text-on-surface flex items-center gap-0.5">
-                    {rc.stars} <Star size={10} className="fill-amber-400 text-amber-500" />
+                    {rc.stars}{" "}
+                    <Star size={10} className="fill-amber-400 text-amber-500" />
                   </span>
                   <div className="flex-1 h-2.5 rounded-full bg-surface-container overflow-hidden">
                     <div
@@ -814,7 +808,8 @@ export default function ProductDetailView({
                 You Might Also Like
               </h2>
               <p className="mt-1 text-xs text-on-surface-variant">
-                Complementary mushroom strains, equipment, and resources for your farm
+                Complementary mushroom strains, equipment, and resources for
+                your farm
               </p>
             </div>
             <Link
