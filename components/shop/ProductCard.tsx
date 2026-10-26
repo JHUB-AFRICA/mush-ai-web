@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ShoppingCart, Star, Calendar, Sparkles } from "lucide-react";
+import { Check, ShoppingCart, Star, Sparkles } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import type { Product } from "@/lib/products";
 import { useCart } from "./CartProvider";
@@ -23,8 +23,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1400);
   };
-
-  const isTraining = product.category === "Training";
 
   return (
     <Link
@@ -112,11 +110,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Check size={14} strokeWidth={3} />
                 Added!
               </>
-            ) : isTraining ? (
-              <>
-                <Calendar size={13} aria-hidden="true" />
-                {product.cta}
-              </>
             ) : (
               <>
                 <ShoppingCart size={13} aria-hidden="true" />
@@ -129,4 +122,3 @@ export default function ProductCard({ product }: ProductCardProps) {
     </Link>
   );
 }
-
