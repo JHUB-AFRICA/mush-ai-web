@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   Check,
   ChevronRight,
-  Calendar,
   Minus,
   Plus,
   ShoppingCart,
@@ -197,8 +196,6 @@ export default function ProductDetailView({
   const [newBody, setNewBody] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const isTraining = product.category === "Training";
-
   function handleAdd() {
     add(product.id, qty);
     setAdded(true);
@@ -250,7 +247,6 @@ export default function ProductDetailView({
   };
 
   const categorySectionHref =
-    product.category === "Training" ||
     product.category === "Grow Kits & Structures"
       ? "/shop#services-we-offer"
       : "/shop#mushroom-sales";
@@ -491,11 +487,6 @@ export default function ProductDetailView({
                     <>
                       <Check size={18} strokeWidth={3} />
                       Added to Pickup Cart!
-                    </>
-                  ) : isTraining ? (
-                    <>
-                      <Calendar size={16} />
-                      Book {qty} {qty === 1 ? "Seat" : "Seats"}
                     </>
                   ) : (
                     <>

@@ -13,7 +13,7 @@ import ProductCard from "./ProductCard";
 import Icon from "@/components/ui/Icon";
 
 // Definition of which categories fall under Mushroom Sales vs Services
-const serviceCategories: string[] = ["Grow Kits & Structures", "Training"];
+const serviceCategories: string[] = ["Grow Kits & Structures"];
 
 const categoryIcons: Record<FilterTab, string> = {
   "All Products": "apps",
@@ -21,7 +21,6 @@ const categoryIcons: Record<FilterTab, string> = {
   "Strains & Spawn": "biotech",
   "Grow Kits & Structures": "inventory_2",
   "By-products & Compost": "recycling",
-  "Training": "school",
 };
 
 export type SortOption = "featured" | "price-asc" | "price-desc" | "rating";
