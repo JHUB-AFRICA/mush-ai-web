@@ -83,7 +83,7 @@ export default function ProductCatalog({
   );
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-12">
+    <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-6">
       {/* Category Filter and Sort By Toolbar */}
       <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 sm:p-5 shadow-xs space-y-4">
         {/* Top Control Bar: Category Meta, Item Counter & Compact Sort */}
@@ -107,32 +107,33 @@ export default function ProductCatalog({
             )}
           </div>
 
-          {/* Sort By Dropdown */}
-          <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-            <label
-              htmlFor="catalog-sort"
-              className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1"
-            >
+          {/* Sort By: checkbox group */}
+          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto shrink-0">
+            <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
               <Icon name="swap_vert" className="text-[16px]" />
               Sort By:
-            </label>
-            <div className="relative">
-              <select
-                id="catalog-sort"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
-                aria-label="Sort products"
-                className="appearance-none cursor-pointer rounded-xl border border-surface-container-high bg-surface-container/60 pl-3 pr-8 py-1.5 text-xs font-bold text-on-surface transition-all hover:bg-surface-container hover:border-surface-container-highest focus:outline-none focus:ring-2 focus:ring-primary/20"
-              >
-                {sortOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
+            </span>
+            <div
+              role="group"
+              aria-label="Sort products"
+              className="flex flex-wrap items-center gap-2"
+            >
+              {sortOptions.map((opt) => (
+                <label
+                  key={opt.value}
+                  className="inline-flex cursor-pointer select-none items-center gap-2 rounded-full bg-surface-container px-3 py-1.5 transition-all hover:bg-surface-container-high"
+                >
+                  <input
+                    type="checkbox"
+                    checked={sortBy === opt.value}
+                    onChange={() => setSortBy(opt.value)}
+                    className="h-3.5 w-3.5 cursor-pointer accent-primary"
+                  />
+                  <span className="text-xs font-bold text-on-surface-variant">
                     {opt.label}
-                  </option>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant">
-                <Icon name="expand_more" className="text-[16px]" />
-              </span>
+                  </span>
+                </label>
+              ))}
             </div>
           </div>
         </div>
@@ -237,9 +238,9 @@ export default function ProductCatalog({
         <section
           id="services-we-offer"
           aria-labelledby="services-heading"
-          className="scroll-mt-24 pt-6"
+          className="scroll-mt-24 pt-2"
         >
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6 border-b border-surface-container-high/80 pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-3 border-b border-surface-container-high/80 pb-2">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary-container">
                 <Wrench size={14} />
