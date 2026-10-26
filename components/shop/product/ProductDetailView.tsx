@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import type { Product, ReviewItem } from "@/lib/products";
-import { useCart } from "./CartProvider";
-import ProductBreadcrumbs from "./ProductBreadcrumbs";
-import ProductHero from "./ProductHero";
-import ProductSpecs from "./ProductSpecs";
-import ProductReviews from "./ProductReviews";
-import RelatedProducts from "./RelatedProducts";
+import { useCart } from "../cart/CartProvider";
+import ProductBreadcrumbs from "../navigation/ProductBreadcrumbs";
+import ProductHero from "../product/ProductHero";
+import ProductSpecs from "../product/ProductSpecs";
+import ProductReviews from "../reviews/ProductReviews";
+import RelatedProducts from "../product/RelatedProducts";
 
 interface ProductDetailViewProps {
   product: Product;

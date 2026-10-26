@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Minus, Plus, Trash2, X, ArrowRight, ShoppingBag } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import { products } from "@/lib/products";
-import { useCart } from "./CartProvider";
+import { useCart } from "../cart/CartProvider";
 
 export default function CartDrawer() {
   const { lines, total, isOpen, close, setQty, remove } = useCart();

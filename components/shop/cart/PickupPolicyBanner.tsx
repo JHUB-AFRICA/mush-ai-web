@@ -1,7 +1,7 @@
 "use client";
 
 import { Truck } from "lucide-react";
-import { useCart } from "./CartProvider";
+import { useCart } from "../cart/CartProvider";
 
 export default function PickupPolicyBanner() {
   const { open } = useCart();

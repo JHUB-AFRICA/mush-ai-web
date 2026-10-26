@@ -6,7 +6,7 @@ import {
   getRelatedProducts,
   reviewsData,
 } from "@/lib/products";
-import ProductDetailView from "@/components/shop/ProductDetailView";
+import ProductDetailView from "@/components/shop/product/ProductDetailView";
 
 // Generate static params for all product IDs
 export function generateStaticParams() {

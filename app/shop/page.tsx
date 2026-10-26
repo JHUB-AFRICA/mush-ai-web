@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ShopView from "@/components/shop/ShopView";
+import ShopView from "@/components/shop/navigation/ShopView";
 
 export const metadata: Metadata = {
   title: "Shop & Services | SmartMushroom Kenya",

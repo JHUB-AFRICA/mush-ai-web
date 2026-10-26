@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Check, ShoppingCart, Star } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import type { Product } from "@/lib/products";
-import { useCart } from "./CartProvider";
+import { useCart } from "../cart/CartProvider";
 
 interface ProductCardProps {
   product: Product;
