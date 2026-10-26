@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ShoppingCart, Star, Sparkles } from "lucide-react";
+import { Check, ShoppingCart, Star } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import type { Product } from "@/lib/products";
 import { useCart } from "./CartProvider";
@@ -38,30 +38,18 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* Badge Overlay */}
-        <div className="absolute inset-x-3 top-3 flex items-center justify-between gap-2 pointer-events-none">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white shadow-xs backdrop-blur-sm ${
-              product.badgeTone === "ember"
-                ? "bg-secondary-container"
-                : "bg-primary/90"
-            }`}
-          >
-            <Sparkles size={11} className="text-secondary-fixed" />
-            {product.badge}
+        {/* Review Badge */}
+        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-on-surface shadow-xs backdrop-blur-sm">
+          <Star
+            size={11}
+            className="fill-amber-400 text-amber-500"
+            aria-hidden="true"
+          />
+          <span>{product.rating.toFixed(1)}</span>
+          <span className="text-on-surface-variant font-normal">
+            ({product.reviews.replace(" reviews", "")})
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-on-surface shadow-xs backdrop-blur-sm">
-            <Star
-              size={11}
-              className="fill-amber-400 text-amber-500"
-              aria-hidden="true"
-            />
-            <span>{product.rating.toFixed(1)}</span>
-            <span className="text-on-surface-variant font-normal">
-              ({product.reviews.replace(" reviews", "")})
-            </span>
-          </span>
-        </div>
+        </span>
       </div>
 
       {/* Card Content */}
