@@ -2,8 +2,8 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import ShopHeader from "@/components/shop/ShopHeader";
-import ProductCatalog from "@/components/shop/ProductCatalog";
+import ShopHeader from "@/components/shop/navigation/ShopHeader";
+import ProductCatalog from "@/components/shop/product/ProductCatalog";
 
 function ShopContent() {
   const searchParams = useSearchParams();

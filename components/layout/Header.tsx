@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Icon from "@/components/ui/Icon";
 import { LOGO_HEADER, NAV_LINKS } from "@/lib/site";
-import { useCart } from "@/components/shop/CartProvider";
+import { useCart } from "@/components/shop/cart/CartProvider";
 
 export default function Header({ cartCount = 0 }: { cartCount?: number }) {
   const pathname = usePathname();

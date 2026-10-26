@@ -16,7 +16,7 @@ import {
   Smartphone,
   X,
 } from "lucide-react";
-import { useCart } from "@/components/shop/CartProvider";
+import { useCart } from "@/components/shop/cart/CartProvider";
 import { products } from "@/lib/products";
 import { formatKsh } from "@/lib/format";
 import Icon from "@/components/ui/Icon";

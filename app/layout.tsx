@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { CartProvider } from "@/components/shop/CartProvider";
+import { CartProvider } from "@/components/shop/cart/CartProvider";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-outfit", display: "swap" });

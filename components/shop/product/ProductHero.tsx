@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import Icon from "@/components/ui/Icon";
-import Stars from "./Stars";
+import Stars from "../reviews/Stars";
 import type { Product } from "@/lib/products";
 
 interface ProductHeroProps {
