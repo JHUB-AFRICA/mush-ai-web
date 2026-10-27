@@ -50,7 +50,7 @@ export default function ProductCatalog({
       const inTab = tab === "All Products" || p.category === tab;
       const inSearch =
         q === "" ||
-        `${p.name} ${p.description} ${p.meta} ${p.tag} ${p.category}`
+        `${p.name} ${p.description} ${p.category}`
           .toLowerCase()
           .includes(q);
       return inTab && inSearch;

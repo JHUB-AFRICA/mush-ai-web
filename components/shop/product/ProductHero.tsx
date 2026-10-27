@@ -87,12 +87,6 @@ export default function ProductHero({
             >
               {product.category}
             </Link>
-            <span className="rounded-full bg-secondary-container/15 px-3 py-1 text-secondary-container">
-              {product.tag}
-            </span>
-            <span className="rounded-full bg-surface-container px-3 py-1 text-on-surface-variant">
-              {product.meta}
-            </span>
           </div>
 
           {/* Title */}
@@ -195,25 +189,6 @@ export default function ProductHero({
                 Items reserved in your pickup cart. Pick up at Juja Hub.
               </p>
             )}
-
-            {/* Trust signals */}
-            <div className="mt-4 flex flex-wrap items-center gap-3 text-[11px] text-on-surface-variant">
-              <span className="inline-flex items-center gap-1">
-                <Shield size={12} className="text-primary" />
-                Quality Guaranteed
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <Icon
-                  name="local_shipping"
-                  className="text-[14px] text-primary"
-                />
-                Juja Pickup
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <Icon name="verified" className="text-[14px] text-primary" />
-                JKUAT Certified
-              </span>
-            </div>
           </div>
         </div>
       </div>

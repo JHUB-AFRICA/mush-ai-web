@@ -31,8 +31,6 @@ export type Product = {
   badgeTone: "forest" | "ember";
   rating: number;
   reviews: string;
-  meta: string;
-  tag: string;
   description: string;
   longDescription?: string;
   features: string[];
@@ -53,8 +51,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.9,
     reviews: "28 reviews",
-    meta: "MODULAR ARCHITECTURE",
-    tag: "Masonry + Tech",
     description:
       "Complete pumice kit - modular structure for adult mushroom yield, ultra-sterile casing soil.",
     longDescription:
@@ -87,8 +83,6 @@ export const products: Product[] = [
     badgeTone: "ember",
     rating: 4.8,
     reviews: "84 reviews",
-    meta: "AGARICUS BISPORUS",
-    tag: "Lab Pure Strain",
     description:
       "Certified laboratory-grade White Agaricus grain spawn - high colonizer.",
     longDescription:
@@ -121,8 +115,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.9,
     reviews: "150+ reviews",
-    meta: "CULINARY FRESH",
-    tag: "Grade-A Closed-Cap",
     description:
       "Freshly harvested from our climate-controlled room within 6 hours of pickup.",
     longDescription:
@@ -155,8 +147,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.8,
     reviews: "21 reviews",
-    meta: "SOIL AMENDMENT",
-    tag: "NPK Rich",
     description:
       "Nutrient-dense post-condition soil bio-fertilizer recycled directly from past harvest cycles.",
     longDescription:
@@ -189,8 +179,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 5.0,
     reviews: "42 reviews",
-    meta: "HARDWARE TELEMETRY",
-    tag: "Safaricom IoT SIM",
     description:
       "Real-time substrate telemetry, ambient humidity & temp sensor hub with Safaricom IoT SIM.",
     longDescription:
@@ -223,8 +211,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.7,
     reviews: "65 reviews",
-    meta: "PHASE II COMPOST",
-    tag: "Moisture 68%",
     description:
       "Steam-conditioned wheat straw and poultry-enriched organic compost. Balanced pH (7.2) for even colonization.",
     longDescription:
