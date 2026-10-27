@@ -45,7 +45,8 @@ export default function PickupStationSelector({
             />
           </div>
           <p className="text-[11px] text-on-surface-variant">
-            JKUAT Gate C agronomy farm. Full stock of spawn, pumice units, and compost.
+            JKUAT Gate C agronomy farm. Full stock of spawn, pumice units, and
+            compost.
           </p>
           <span className="mt-2 text-[10px] font-semibold text-emerald-700">
             Open 07:00 AM – 06:00 PM Daily
@@ -60,9 +61,7 @@ export default function PickupStationSelector({
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-bold text-on-surface">
-              Westlands Station (Nairobi)
-            </span>
+            <span className="text-xs font-bold text-on-surface">Delivery</span>
             <input
               type="radio"
               name="hub"
@@ -72,11 +71,8 @@ export default function PickupStationSelector({
             />
           </div>
           <p className="text-[11px] text-on-surface-variant">
-            Ring Road Parklands cold terminal. Ideal for fresh gourmet mushrooms and spawn bags.
+            We can send it to you, the cost is based on your location
           </p>
-          <span className="mt-2 text-[10px] font-semibold text-emerald-700">
-            Open 08:30 AM – 05:30 PM Daily
-          </span>
         </label>
       </div>
 

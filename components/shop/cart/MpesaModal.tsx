@@ -8,11 +8,7 @@ interface MpesaModalProps {
   onClose: () => void;
 }
 
-export default function MpesaModal({
-  phone,
-  total,
-  onClose,
-}: MpesaModalProps) {
+export default function MpesaModal({ phone, total, onClose }: MpesaModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -51,14 +47,16 @@ export default function MpesaModal({
           Lipa Na M-Pesa Online
         </h3>
         <p className="mt-1 text-xs text-on-surface-variant leading-relaxed">
-          In production, this will trigger the Safaricom Daraja STK Push prompt on
-          your mobile phone:
+          In production, this will trigger the Safaricom Daraja STK Push prompt
+          on your mobile phone:
         </p>
 
         <div className="my-4 rounded-2xl border border-[#00a94e]/30 bg-[#00a94e]/5 p-4 space-y-2 text-xs">
           <div className="flex justify-between">
             <span className="text-on-surface-variant">Paybill / Merchant:</span>
-            <span className="font-bold text-on-surface">SmartMushroom (JHUB)</span>
+            <span className="font-bold text-on-surface">
+              SmartMushroom (JHUB)
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-on-surface-variant">Phone Number:</span>
@@ -75,9 +73,10 @@ export default function MpesaModal({
         </div>
 
         <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-[11px] text-amber-900 mb-5">
-          <strong>Notice:</strong> This button is wired and ready for API credentials.
-          In the upcoming phase, connecting your Safaricom Consumer Key &amp; Passkey
-          will send the live USSD PIN popup directly to the customer.
+          <strong>Notice:</strong> This button is wired and ready for API
+          credentials. In the upcoming phase, connecting your Safaricom Consumer
+          Key &amp; Passkey will send the live USSD PIN popup directly to the
+          customer.
         </div>
 
         <button
