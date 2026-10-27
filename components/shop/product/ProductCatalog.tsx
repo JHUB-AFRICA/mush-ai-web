@@ -50,9 +50,7 @@ export default function ProductCatalog({
       const inTab = tab === "All Products" || p.category === tab;
       const inSearch =
         q === "" ||
-        `${p.name} ${p.description} ${p.category}`
-          .toLowerCase()
-          .includes(q);
+        `${p.name} ${p.description} ${p.category}`.toLowerCase().includes(q);
       return inTab && inSearch;
     });
   }, [tab, query]);
@@ -137,11 +135,11 @@ export default function ProductCatalog({
           </div>
         </div>
 
-        {/* Category Pills (Full width, horizontal scrolling on mobile, clean layout) */}
+        {/* Category Pills (Wrap on small screens so every category stays visible, single row from sm up) */}
         <div
           role="group"
           aria-label="Filter catalog categories"
-          className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-t border-surface-container-high/60 pt-3.5"
+          className="flex flex-wrap items-center gap-1.5 border-t border-surface-container-high/60 pt-3.5 sm:gap-2"
         >
           {filterTabs.map((t) => {
             const countForTab =
@@ -156,7 +154,7 @@ export default function ProductCatalog({
                 type="button"
                 aria-pressed={isTabActive}
                 onClick={() => setTab(t)}
-                className={`inline-flex items-center gap-2 shrink-0 rounded-full px-4 py-2 text-xs font-bold transition-all duration-150 ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 shrink-0 rounded-full px-3 py-2 text-[11px] sm:text-xs font-bold transition-all duration-150 ${
                   isTabActive
                     ? "bg-primary text-on-primary shadow-xs ring-1 ring-primary/20"
                     : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
@@ -164,7 +162,7 @@ export default function ProductCatalog({
               >
                 <Icon
                   name={categoryIcons[t]}
-                  className={`text-[15px] ${
+                  className={`text-[14px] sm:text-[15px] ${
                     isTabActive ? "text-primary-fixed" : "text-primary/70"
                   }`}
                 />
@@ -208,11 +206,6 @@ export default function ProductCatalog({
                 spawn bags, and high-nitrogen organic compost conditioned for
                 high yield.
               </p>
-            </div>
-
-            <div className="inline-flex items-center gap-2 self-start rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary sm:self-auto">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{mushroomSales.length} In Stock for Pickup</span>
             </div>
           </div>
 

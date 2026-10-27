@@ -57,12 +57,8 @@ export default function ProductHero({
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
           </div>
 
-          {/* In Stock & Rating Badges */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
-            <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-primary shadow-md backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              In Stock &bull; Ready for Pickup
-            </span>
+          {/* Rating Badge */}
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-end pointer-events-none z-10">
             <span className="flex items-center gap-1 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-on-surface shadow-md backdrop-blur-sm">
               <Star
                 size={12}
