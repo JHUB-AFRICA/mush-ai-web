@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ShopPageClient from "@/components/shop/ShopPageClient";
+import ShopView from "@/components/shop/navigation/ShopView";
 
 export const metadata: Metadata = {
   title: "Shop & Services | SmartMushroom Kenya",
@@ -8,5 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function ShopPage() {
-  return <ShopPageClient />;
+  return <ShopView />;
 }
+

@@ -1,15 +1,15 @@
 export const filterTabs = [
   "All Products",
-  "Grow Kits & Structures",
-  "Strains & Spawn",
   "Fresh Mushrooms",
+  "Strains & Spawn",
+  "Grow Kits & Structures",
   "By-products & Compost",
-  "Training",
 ] as const;
 
 export type FilterTab = (typeof filterTabs)[number];
 
 export type Category = Exclude<FilterTab, "All Products">;
+
 
 /* ── Review type ── */
 export type ReviewItem = {
@@ -31,8 +31,6 @@ export type Product = {
   badgeTone: "forest" | "ember";
   rating: number;
   reviews: string;
-  meta: string;
-  tag: string;
   description: string;
   longDescription?: string;
   features: string[];
@@ -53,15 +51,13 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.9,
     reviews: "28 reviews",
-    meta: "MODULAR ARCHITECTURE",
-    tag: "Masonry + Tech",
     description:
       "Complete pumice kit - modular structure for adult mushroom yield, ultra-sterile casing soil.",
     longDescription:
-      "Our flagship Tier 1 Grow Kit delivers a fully assembled volcanic pumice growing structure, engineered to maintain passive thermal buffering between 18°C and 22°C without active HVAC. Each unit arrives with pre-cut pumice blocks, timber framing, corrugated roofing, misting lines, and sterile casing soil — everything you need to begin commercial mushroom production from day one. Designed by JKUAT agricultural engineers and tested across 14 outgrower farms in Kiambu and Murang'a counties.",
+      "Our flagship Tier 1 Grow Kit delivers a fully assembled volcanic pumice growing structure, engineered to maintain passive thermal buffering between 18°C and 22°C without active HVAC. Each unit arrives with pre-cut pumice blocks, timber framing, corrugated roofing, misting lines, and sterile casing soil - everything you need to begin commercial mushroom production from day one. Designed by JKUAT agricultural engineers and tested across 14 outgrower farms in Kiambu and Murang'a counties.",
     features: [
       "Scaled for starting yield / 1,200 substrate bags",
-      "Passive 18°C–22°C ambient thermal buffering",
+      "Passive 18°C-22°C ambient thermal buffering",
       "Pre-cut volcanic pumice blocks with micro-cellular air voids",
       "Includes timber framing and corrugated roofing",
       "Misting lines and humidity regulation built-in",
@@ -69,7 +65,7 @@ export const products: Product[] = [
     specs: [
       { label: "Dimensions", value: "6m × 3m × 2.8m (L×W×H)" },
       { label: "Capacity", value: "1,200 substrate bags" },
-      { label: "Thermal Range", value: "18°C – 22°C passive" },
+      { label: "Thermal Range", value: "18°C - 22°C passive" },
       { label: "Material", value: "Volcanic pumice + timber" },
       { label: "Warranty", value: "2-year structural" },
     ],
@@ -87,12 +83,10 @@ export const products: Product[] = [
     badgeTone: "ember",
     rating: 4.8,
     reviews: "84 reviews",
-    meta: "AGARICUS BISPORUS",
-    tag: "Lab Pure Strain",
     description:
       "Certified laboratory-grade White Agaricus grain spawn - high colonizer.",
     longDescription:
-      "Our grain spawn is produced in a JKUAT-certified cleanroom laboratory under HEPA-filtered laminar flow conditions. Each 5kg bag contains fully colonized wheat grain inoculated with high-vigor Agaricus bisporus mycelium. The strain has been selected for rapid colonization (14–18 days), strong pinning, and resistance to common contaminants. Ideal for both first-time growers and commercial operations scaling up production.",
+      "Our grain spawn is produced in a JKUAT-certified cleanroom laboratory under HEPA-filtered laminar flow conditions. Each 5kg bag contains fully colonized wheat grain inoculated with high-vigor Agaricus bisporus mycelium. The strain has been selected for rapid colonization (14-18 days), strong pinning, and resistance to common contaminants. Ideal for both first-time growers and commercial operations scaling up production.",
     features: [
       "Solid harvest in 14-18 days of spawn",
       "Inoculates up to 100 kg of mushroom compost",
@@ -103,7 +97,7 @@ export const products: Product[] = [
     specs: [
       { label: "Species", value: "Agaricus bisporus (White Button)" },
       { label: "Weight", value: "5 kg per bag" },
-      { label: "Colonization", value: "14–18 days" },
+      { label: "Colonization", value: "14-18 days" },
       { label: "Coverage", value: "100 kg compost per bag" },
       { label: "Storage", value: "4°C refrigerated, 30-day viability" },
     ],
@@ -114,6 +108,70 @@ export const products: Product[] = [
     imageAlt: "Bag of colonized white mushroom grain spawn",
   },
   {
+    id: "jambo101-oyster-spawn",
+    name: "Jambo101 Oyster Mushroom Spawn",
+    category: "Strains & Spawn",
+    badge: "High Yield Oyster Strain",
+    badgeTone: "forest",
+    rating: 4.9,
+    reviews: "37 reviews",
+    description:
+      "Quality JHUB & JKUAT certified Pleurotus ostreatus grain spawn for successful cultivation.",
+    longDescription:
+      "Jambo101 is our premium oyster mushroom grain spawn, produced in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa. Each 5kg bag is packed with fully colonized grain inoculated with vigorous Pleurotus ostreatus mycelium, selected for rapid colonization, dense pinning and heavy flushes. The culture is clean, pure and naturally disease resistant, making it an excellent choice for both first-time growers and commercial oyster farms scaling up production.",
+    features: [
+      "High-yield Pleurotus ostreatus strain",
+      "Disease resistant, clean & pure culture",
+      "JHUB Africa & JKUAT cleanroom certified",
+      "Rapid colonization with dense pinning",
+      "Inoculates up to 100 kg of substrate",
+    ],
+    specs: [
+      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
+      { label: "Weight", value: "5 kg per bag" },
+      { label: "Colonization", value: "12-16 days" },
+      { label: "Coverage", value: "100 kg substrate per bag" },
+      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/jambo.jpeg",
+    imageAlt: "Bag of Jambo101 oyster mushroom spawn beside fresh oyster mushrooms",
+  },
+  {
+    id: "mambo101-oyster-spawn",
+    name: "Mambo101 Oyster Mushroom Spawn",
+    category: "Strains & Spawn",
+    badge: "Disease Resistant Strain",
+    badgeTone: "forest",
+    rating: 4.7,
+    reviews: "24 reviews",
+    description:
+      "Certified Pleurotus ostreatus grain spawn engineered for sustainable mushroom farming.",
+    longDescription:
+      "Mambo101 is the oyster spawn we recommend for sustainable, low-input mushroom farming. Grown and packed in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa, each 5kg bag contains fully colonized grain carrying aggressive Pleurotus ostreatus mycelium. The strain colonizes fast, tolerates a wide temperature range, and fruits heavily on a broad choice of substrates - straw, sawdust or pasteurized compost - so it suits smallholder growers and commercial houses alike.",
+    features: [
+      "High-yield Pleurotus ostreatus strain",
+      "Disease resistant, clean & pure culture",
+      "JHUB Africa & JKUAT cleanroom certified",
+      "Wide substrate and temperature tolerance",
+      "Inoculates up to 100 kg of substrate",
+    ],
+    specs: [
+      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
+      { label: "Weight", value: "5 kg per bag" },
+      { label: "Colonization", value: "12-16 days" },
+      { label: "Coverage", value: "100 kg substrate per bag" },
+      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/mambo.jpeg",
+    imageAlt: "Bag of Mambo101 oyster mushroom spawn beside fresh oyster mushrooms",
+  },
+  {
     id: "fresh-gourmet-button",
     name: "Fresh Gourmet Button Mushrooms",
     category: "Fresh Mushrooms",
@@ -121,8 +179,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.9,
     reviews: "150+ reviews",
-    meta: "CULINARY FRESH",
-    tag: "Grade-A Closed-Cap",
     description:
       "Freshly harvested from our climate-controlled room within 6 hours of pickup.",
     longDescription:
@@ -136,8 +192,8 @@ export const products: Product[] = [
     ],
     specs: [
       { label: "Weight", value: "500g per punnet" },
-      { label: "Grade", value: "A – Closed Cap" },
-      { label: "Shelf Life", value: "5–7 days at 4°C" },
+      { label: "Grade", value: "A - Closed Cap" },
+      { label: "Shelf Life", value: "5-7 days at 4°C" },
       { label: "Harvest", value: "Daily, pre-dawn" },
       { label: "Pickup", value: "Juja Hub & Westlands" },
     ],
@@ -155,8 +211,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.8,
     reviews: "21 reviews",
-    meta: "SOIL AMENDMENT",
-    tag: "NPK Rich",
     description:
       "Nutrient-dense post-condition soil bio-fertilizer recycled directly from past harvest cycles.",
     longDescription:
@@ -170,8 +224,8 @@ export const products: Product[] = [
     ],
     specs: [
       { label: "Weight", value: "15 kg per bag" },
-      { label: "NPK Ratio", value: "2.0 – 1.5 – 1.8" },
-      { label: "pH", value: "6.8 – 7.2" },
+      { label: "NPK Ratio", value: "2.0 - 1.5 - 1.8" },
+      { label: "pH", value: "6.8 - 7.2" },
       { label: "Moisture", value: "≤ 40%" },
       { label: "Application", value: "Gardens, nurseries, farms" },
     ],
@@ -182,40 +236,6 @@ export const products: Product[] = [
     imageAlt: "Bags of organic spent mushroom compost ready for field use",
   },
   {
-    id: "hands-on-agronomy-workshop",
-    name: "Hands-On Agronomy Workshop",
-    category: "Training",
-    badge: "In-person Training",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "48 reviews",
-    meta: "JKUAT CAMPUS",
-    tag: "Next Cohort",
-    description:
-      "2-day guided training on JKUAT. Includes substrate preparation, sensor monitoring and spawn inoculation.",
-    longDescription:
-      "Join our intensive 2-day mushroom agronomy masterclass held at JKUAT campus in Juja. Led by experienced agricultural scientists and SmartMushroom's founding growers, this hands-on workshop covers the complete mushroom production cycle: from substrate preparation and pasteurization, through spawn inoculation and incubation, to harvesting techniques and post-harvest handling. Participants receive a certificate of completion and ongoing access to our grower community WhatsApp group for continued support.",
-    features: [
-      "Access to instructor + attendance log systems",
-      "Course certificate following completion",
-      "Hands-on substrate preparation lab session",
-      "IoT sensor monitoring demonstration",
-      "Post-course WhatsApp community access",
-    ],
-    specs: [
-      { label: "Duration", value: "2 full days (8am–5pm)" },
-      { label: "Location", value: "JKUAT Campus, Juja" },
-      { label: "Class Size", value: "Max 20 participants" },
-      { label: "Includes", value: "Lunch, materials, certificate" },
-      { label: "Next Cohort", value: "Monthly intake" },
-    ],
-    unit: "Per Seat/2 Days",
-    price: 20000,
-    cta: "Book Seat",
-    image: "/images/shop/masterclass.jpg",
-    imageAlt: "Trainees and an instructor inside a mushroom grow room",
-  },
-  {
     id: "iot-sensor-kit",
     name: "Farm Starter IoT Microclimate Sensor Kit",
     category: "Grow Kits & Structures",
@@ -223,12 +243,10 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 5.0,
     reviews: "42 reviews",
-    meta: "HARDWARE TELEMETRY",
-    tag: "Safaricom IoT SIM",
     description:
       "Real-time substrate telemetry, ambient humidity & temp sensor hub with Safaricom IoT SIM.",
     longDescription:
-      "Monitor your grow room conditions 24/7 with our JHUB-certified IoT sensor kit. The hub measures ambient temperature, humidity, CO₂ concentration, and substrate moisture in real-time, sending data to your phone via Safaricom's IoT SIM network. SMS alerts fire automatically when readings breach your configured thresholds — so you catch problems before they damage your crop. Powered by a solar panel with 14-day lithium battery backup for uninterrupted monitoring during outages.",
+      "Monitor your grow room conditions 24/7 with our JHUB-certified IoT sensor kit. The hub measures ambient temperature, humidity, CO₂ concentration, and substrate moisture in real-time, sending data to your phone via Safaricom's IoT SIM network. SMS alerts fire automatically when readings breach your configured thresholds - so you catch problems before they damage your crop. Powered by a solar panel with 14-day lithium battery backup for uninterrupted monitoring during outages.",
     features: [
       "Cellular 4G & SMS alert engine",
       "14-day lithium backup reserve",
@@ -257,8 +275,6 @@ export const products: Product[] = [
     badgeTone: "forest",
     rating: 4.7,
     reviews: "65 reviews",
-    meta: "PHASE II COMPOST",
-    tag: "Moisture 68%",
     description:
       "Steam-conditioned wheat straw and poultry-enriched organic compost. Balanced pH (7.2) for even colonization.",
     longDescription:
@@ -283,9 +299,74 @@ export const products: Product[] = [
     image: "/images/shop/substrate-blocks.jpg",
     imageAlt: "Stacked pasteurized substrate blocks in a warehouse",
   },
+  {
+    id: "mushroom-wine",
+    name: "MushWine Mushroom Infused Wine",
+    category: "By-products & Compost",
+    badge: "Fermented Beverage",
+    badgeTone: "ember",
+    rating: 4.7,
+    reviews: "12 reviews",
+    description:
+      "Handcrafted wine infused with gourmet mushroom essence, aged for depth and complexity.",
+    longDescription:
+      "Our signature MushWine is a unique fermented beverage that blends the earthy notes of gourmet mushrooms with traditional winemaking. Each 750ml bottle captures the terroir of our Juja farm, delivering a smooth, complex drink perfect for pairing with mushroom-based dishes or enjoying on its own. Naturally fermented, unfiltered, and bottled at source.",
+    features: [
+      "750ml glass bottle",
+      "Naturally fermented mushroom infusion",
+      "Earthy complex flavor profile",
+      "Pairs well with mushroom dishes",
+      "Bottled at SmartMushroom Juja farm",
+    ],
+    specs: [
+      { label: "Volume", value: "750 ml per bottle" },
+      { label: "Alcohol", value: "11.5% ABV" },
+      { label: "Variety", value: "Mushroom-infused table wine" },
+      { label: "Serving", value: "Chilled, 8-10°C" },
+      { label: "Shelf Life", value: "2 years unopened" },
+    ],
+    unit: "750ml Bottle",
+    price: 1800,
+    cta: "Add to Cart",
+    image: "/images/shop/mushwine.jpeg",
+    imageAlt: "Bottle of MushWine mushroom infused wine",
+  },
+  {
+    id: "fresh-punnets",
+    name: "Fresh Mushroom Punnets",
+    category: "Fresh Mushrooms",
+    badge: "Pre-Packed",
+    badgeTone: "forest",
+    rating: 4.9,
+    reviews: "34 reviews",
+    description:
+      "Pre-packed 250g punnets of fresh button mushrooms, ready for immediate use.",
+    longDescription:
+      "Convenient pre-packed punnets of our Grade-A closed-cap button mushrooms. Each 250g punnet is harvested at dawn, packed within hours, and maintained at 4°C through our cold-chain process. Perfect for restaurants, meal prep, or households that want consistent quality without the hassle of weighing loose mushrooms.",
+    features: [
+      "250g pre-packed punnet",
+      "Grade-A closed-cap button mushrooms",
+      "Harvested at dawn, packed same-day",
+      "4°C cold-chain maintained",
+      "Ready to cook, no weighing needed",
+    ],
+    specs: [
+      { label: "Weight", value: "250 g per punnet" },
+      { label: "Grade", value: "A - Closed Cap" },
+      { label: "Shelf Life", value: "5-7 days at 4°C" },
+      { label: "Harvest", value: "Daily, pre-dawn" },
+      { label: "Pickup", value: "Juja Hub & Westlands" },
+    ],
+    unit: "250g Punnet",
+    price: 350,
+    cta: "Add to Cart",
+    image: "/images/shop/punnets.jpeg",
+    imageAlt: "Pre-packed punnet of fresh button mushrooms",
+  },
 ];
 
 export const featuredProductId = "button-grain-spawn";
+
 
 /** Look up a product by its ID */
 export function getProductById(id: string): Product | undefined {
@@ -314,7 +395,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-09-15",
       title: "Best investment for my farm",
-      body: "The pumice unit arrived fully assembled. Temperature stays at 20°C even during the hottest afternoons. My first flush yielded 180kg — far beyond expectations. The SmartMushroom team guided me through the entire setup process.",
+      body: "The pumice unit arrived fully assembled. Temperature stays at 20°C even during the hottest afternoons. My first flush yielded 180kg - far beyond expectations. The SmartMushroom team guided me through the entire setup process.",
       verified: true,
     },
     {
@@ -324,7 +405,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-08-22",
       title: "Revolutionary growing structure",
-      body: "I was using a converted shipping container before — electricity bills were insane. This pumice unit cut my cooling costs by almost 70%. The volcanic stone blocks truly work. Highly recommend for serious growers.",
+      body: "I was using a converted shipping container before - electricity bills were insane. This pumice unit cut my cooling costs by almost 70%. The volcanic stone blocks truly work. Highly recommend for serious growers.",
       verified: true,
     },
     {
@@ -334,7 +415,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 4,
       date: "2026-07-30",
       title: "Solid build quality",
-      body: "Very well constructed. The only reason I give 4 stars is because delivery took slightly longer than promised due to road conditions. But the unit itself is fantastic — 3 flushes in and no issues.",
+      body: "Very well constructed. The only reason I give 4 stars is because delivery took slightly longer than promised due to road conditions. But the unit itself is fantastic - 3 flushes in and no issues.",
       verified: true,
     },
   ],
@@ -388,7 +469,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-10-10",
       title: "Restaurant-quality, every time",
-      body: "I order 10 punnets weekly for my restaurant. The freshness is unmatched — firm caps, clean gills, and they last almost a week in our walk-in cooler. My mushroom risotto has never been better. These are the real deal.",
+      body: "I order 10 punnets weekly for my restaurant. The freshness is unmatched - firm caps, clean gills, and they last almost a week in our walk-in cooler. My mushroom risotto has never been better. These are the real deal.",
       verified: true,
     },
     {
@@ -434,38 +515,6 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       verified: true,
     },
   ],
-  "hands-on-agronomy-workshop": [
-    {
-      id: "r13",
-      author: "Michael O.",
-      location: "Kisumu",
-      rating: 5,
-      date: "2026-10-05",
-      title: "Life-changing workshop",
-      body: "Travelled from Kisumu specifically for this training and it was worth every shilling. The hands-on substrate preparation session was incredibly valuable. I'm now running my own small operation back home. The WhatsApp group support after the course is a huge bonus.",
-      verified: true,
-    },
-    {
-      id: "r14",
-      author: "Agnes N.",
-      location: "Eldoret",
-      rating: 5,
-      date: "2026-09-22",
-      title: "Comprehensive and practical",
-      body: "Unlike other trainings that are mostly theory, this one had us actually making substrate, inoculating bags, and setting up sensors. The instructors were patient and knowledgeable. Got my certificate and started my farm the following week!",
-      verified: true,
-    },
-    {
-      id: "r15",
-      author: "Dennis W.",
-      location: "Mombasa",
-      rating: 4,
-      date: "2026-09-10",
-      title: "Great training, wish it was longer",
-      body: "Packed 2 days with incredible knowledge. My only suggestion would be to extend it to 3 days — there's so much to cover. The IoT sensor demo was particularly impressive. Lunch was also excellent!",
-      verified: true,
-    },
-  ],
   "iot-sensor-kit": [
     {
       id: "r16",
@@ -494,7 +543,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-09-12",
       title: "Professional-grade monitoring",
-      body: "The dashboard is clean and easy to understand. Love being able to see historical trends — helped me optimize my ventilation schedule. Battery backup lasted through a 3-day power cut without issues.",
+      body: "The dashboard is clean and easy to understand. Love being able to see historical trends - helped me optimize my ventilation schedule. Battery backup lasted through a 3-day power cut without issues.",
       verified: true,
     },
   ],
@@ -506,7 +555,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-10-03",
       title: "Perfect substrate, zero contamination",
-      body: "Tried making my own substrate before and kept getting green mould. These blocks are perfectly pasteurized — 30 blocks, zero contamination. The moisture content is spot-on and colonization was fast and even.",
+      body: "Tried making my own substrate before and kept getting green mould. These blocks are perfectly pasteurized - 30 blocks, zero contamination. The moisture content is spot-on and colonization was fast and even.",
       verified: true,
     },
     {
@@ -526,7 +575,7 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       rating: 5,
       date: "2026-08-28",
       title: "Commercial-grade quality",
-      body: "Running 200 blocks per cycle now and the consistency is remarkable. Every block has the same moisture, same pH, same results. This is what commercial mushroom farming needs — reliable inputs.",
+      body: "Running 200 blocks per cycle now and the consistency is remarkable. Every block has the same moisture, same pH, same results. This is what commercial mushroom farming needs - reliable inputs.",
       verified: true,
     },
   ],
