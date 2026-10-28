@@ -1,9 +1,12 @@
+import Image from "next/image";
+
+// Icons live in /public/images/monitor
 const ITEMS = [
-  { emoji: "🌡️", title: "Temperature", text: "Maintained between 18°C–22°C to ensure steady mycelial vegetative colonization.", tone: "text-secondary" },
-  { emoji: "💧", title: "Humidity", text: "85%–92% RH micro-misting prevents pinhead cap drying without blotch.", tone: "text-primary" },
-  { emoji: "🫧", title: "CO₂ levels", text: "Automated damper control keeping carbon dioxide under 1,200 ppm for thick caps.", tone: "text-secondary" },
-  { emoji: "💡", title: "Light", text: "Safeguards against light exposure to preserve pure white button pigmentation.", tone: "text-primary" },
-  { emoji: "🌱", title: "Moisture", text: "Substrate capacitive monitoring ensuring balanced 65%–70% casing hydration.", tone: "text-secondary" },
+  { icon: "/images/monitor/temperature.png", title: "Temperature", text: "Maintained between 18°C–22°C to ensure steady mycelial vegetative colonization." },
+  { icon: "/images/monitor/humidity.png", title: "Humidity", text: "85%–92% RH micro-misting prevents pinhead cap drying without blotch." },
+  { icon: "/images/monitor/co2.png", title: "CO₂ levels", text: "Automated damper control keeping carbon dioxide under 1,200 ppm for thick caps." },
+  { icon: "/images/monitor/light.png", title: "Light", text: "Safeguards against light exposure to preserve pure white button pigmentation." },
+  { icon: "/images/monitor/moisture.png", title: "Moisture", text: "Substrate capacitive monitoring ensuring balanced 65%–70% casing hydration." },
 ];
 
 export default function Monitor() {
@@ -26,8 +29,8 @@ export default function Monitor() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {ITEMS.map((i) => (
             <div key={i.title} className="flex flex-col justify-between rounded-3xl bg-surface-container-lowest p-6 shadow-sm transition-shadow hover:shadow-md">
-              <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-container ${i.tone}`}>
-                <span className="text-[24px]" aria-hidden="true">{i.emoji}</span>
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container">
+                <Image src={i.icon} alt="" width={32} height={32} className="h-8 w-8 object-contain" />
               </div>
               <h3 className="mb-2 font-headline-sm text-headline-sm text-on-surface">{i.title}</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant">{i.text}</p>

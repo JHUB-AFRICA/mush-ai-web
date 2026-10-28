@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 import { SOCIAL } from "@/lib/site";
 
 const POSTS = [

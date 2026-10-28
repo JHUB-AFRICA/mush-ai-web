@@ -7,11 +7,8 @@ export type NavLink = {
 // Add a new page here and it shows up in the navbar and footer.
 export const mainLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Farm Structure", href: "/farm-structure" },
-  { label: "The Process", href: "/the-process" },
-  { label: "Shop", href: "/shop" },
-  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
+  { label: "Shop & Services", href: "/shop" },
 ];
 
 export const legalLinks: NavLink[] = [

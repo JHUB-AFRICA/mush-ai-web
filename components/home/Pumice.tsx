@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
 
 const POINTS = [
   { title: "Passive Climate Buffering", text: "Absorbs daytime scorching heat and releases it gently through cold East African nights." },
@@ -53,8 +53,8 @@ export default function Pumice() {
                 </div>
               ))}
             </div>
-            <Link href="/farm-structure" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-label-lg text-label-lg text-on-primary transition-all duration-200 hover:bg-primary-container">
-              Explore Farm Structure Specs <Icon name="arrow_forward" className="text-[18px]" />
+            <Link href="/about#grow-room" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-label-lg text-label-lg text-on-primary transition-all duration-200 hover:bg-primary-container">
+              Explore about <Icon name="arrow_forward" className="text-[18px]" />
             </Link>
           </div>
         </div>

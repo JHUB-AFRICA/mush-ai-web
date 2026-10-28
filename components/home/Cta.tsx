@@ -17,7 +17,7 @@ export default function Cta() {
           <Link href="/shop" className="rounded-full bg-secondary-container px-8 py-4 font-label-lg text-label-lg text-on-secondary shadow-lg transition-all hover:-translate-y-0.5 hover:bg-secondary">
             Explore the Shop
           </Link>
-          <Link href="/about" className="rounded-full border border-on-primary/10 bg-surface/10 px-8 py-4 font-label-lg text-label-lg text-on-primary backdrop-blur-md transition-all hover:bg-surface/20">
+          <Link href="/contact" className="rounded-full border border-on-primary/10 bg-surface/10 px-8 py-4 font-label-lg text-label-lg text-on-primary backdrop-blur-md transition-all hover:bg-surface/20">
             Get in Touch
           </Link>
         </div>
