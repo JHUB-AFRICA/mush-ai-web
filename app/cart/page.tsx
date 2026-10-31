@@ -121,8 +121,8 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Order Summary below items */}
-        <div className="max-w-md ml-auto mb-6">
+        {/* Order Summary */}
+        <div className="mb-6">
           <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm">
             <h2 className="font-headline-sm text-base font-bold text-on-surface mb-4">
               Order Summary
@@ -143,12 +143,12 @@ export default function CartPage() {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors mb-2"
+              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors"
             >
               Proceed to Checkout
             </button>
             {!user && (
-              <p className="text-xs text-center text-on-surface-variant">
+              <p className="text-xs text-center text-on-surface-variant mt-3">
                 You&apos;ll need to sign in to checkout
               </p>
             )}
