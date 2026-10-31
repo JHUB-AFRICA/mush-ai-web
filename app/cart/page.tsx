@@ -36,15 +36,15 @@ export default function CartPage() {
   ];
 
   // Get suggested products (products not in cart)
-  const cartProductIds = new Set(lines.map(l => l.id));
+  const cartProductIds = new Set(lines.map((l) => l.id));
   const suggestedProducts = products
-    .filter(p => !cartProductIds.has(p.id))
+    .filter((p) => !cartProductIds.has(p.id))
     .slice(0, 4);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
       <div className="mb-8">
         <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
           Shopping Cart
@@ -54,9 +54,9 @@ export default function CartPage() {
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-12 mb-12">
+      <div className="mb-12">
         {/* Cart Items */}
-        <div className="lg:col-span-8">
+        <div className="mb-6">
           <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest overflow-hidden">
             <div className="p-4 sm:p-6 border-b border-surface-container-high/80">
               <h2 className="font-headline-sm text-base font-bold text-on-surface">
@@ -83,10 +83,15 @@ export default function CartPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between gap-2 mb-2">
                         <div>
-                          <Link href={`/shop/${product.id}`} className="font-semibold text-on-surface hover:text-primary transition-colors">
+                          <Link
+                            href={`/shop/${product.id}`}
+                            className="font-semibold text-on-surface hover:text-primary transition-colors"
+                          >
                             {product.name}
                           </Link>
-                          <p className="text-xs text-on-surface-variant mt-0.5">{product.unit}</p>
+                          <p className="text-xs text-on-surface-variant mt-0.5">
+                            {product.unit}
+                          </p>
                         </div>
                         <button
                           onClick={() => remove(line.id)}
@@ -98,12 +103,16 @@ export default function CartPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => setQty(line.id, Math.max(1, line.qty - 1))}
+                            onClick={() =>
+                              setQty(line.id, Math.max(1, line.qty - 1))
+                            }
                             className="w-7 h-7 rounded-lg border border-surface-container-high flex items-center justify-center hover:bg-surface-container transition-colors"
                           >
                             <Minus size={14} />
                           </button>
-                          <span className="w-8 text-center text-sm font-medium">{line.qty}</span>
+                          <span className="w-8 text-center text-sm font-medium">
+                            {line.qty}
+                          </span>
                           <button
                             onClick={() => setQty(line.id, line.qty + 1)}
                             className="w-7 h-7 rounded-lg border border-surface-container-high flex items-center justify-center hover:bg-surface-container transition-colors"
@@ -111,7 +120,9 @@ export default function CartPage() {
                             <Plus size={14} />
                           </button>
                         </div>
-                        <p className="font-bold text-on-surface">{formatKsh(lineTotal)}</p>
+                        <p className="font-bold text-on-surface">
+                          {formatKsh(lineTotal)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -121,9 +132,9 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Order Summary & Checkout */}
-        <div className="lg:col-span-4">
-          <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm sticky top-24">
+        {/* Order Summary */}
+        <div className="mb-6">
+          <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm">
             <h2 className="font-headline-sm text-base font-bold text-on-surface mb-4">
               Order Summary
             </h2>
@@ -132,10 +143,6 @@ export default function CartPage() {
                 <span>Subtotal ({count} items)</span>
                 <span>{formatKsh(total)}</span>
               </div>
-              <div className="flex justify-between text-on-surface-variant">
-                <span>Handling</span>
-                <span className="text-emerald-700">Free</span>
-              </div>
               <div className="pt-3 border-t border-surface-container-high/80 flex justify-between text-base font-bold text-on-surface">
                 <span>Total</span>
                 <span>{formatKsh(total)}</span>
@@ -143,16 +150,10 @@ export default function CartPage() {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors mb-3"
+              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors"
             >
               Proceed to Checkout
             </button>
-            <Link
-              href="/shop"
-              className="block w-full text-center rounded-xl border border-surface-container-high hover:bg-surface-container text-on-surface py-2.5 text-sm font-medium transition-colors"
-            >
-              Continue Shopping
-            </Link>
             {!user && (
               <p className="text-xs text-center text-on-surface-variant mt-3">
                 You&apos;ll need to sign in to checkout
