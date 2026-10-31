@@ -36,15 +36,15 @@ export default function CartPage() {
   ];
 
   // Get suggested products (products not in cart)
-  const cartProductIds = new Set(lines.map(l => l.id));
+  const cartProductIds = new Set(lines.map((l) => l.id));
   const suggestedProducts = products
-    .filter(p => !cartProductIds.has(p.id))
+    .filter((p) => !cartProductIds.has(p.id))
     .slice(0, 4);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
       <div className="mb-8">
         <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
           Shopping Cart
@@ -83,10 +83,15 @@ export default function CartPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between gap-2 mb-2">
                         <div>
-                          <Link href={`/shop/${product.id}`} className="font-semibold text-on-surface hover:text-primary transition-colors">
+                          <Link
+                            href={`/shop/${product.id}`}
+                            className="font-semibold text-on-surface hover:text-primary transition-colors"
+                          >
                             {product.name}
                           </Link>
-                          <p className="text-xs text-on-surface-variant mt-0.5">{product.unit}</p>
+                          <p className="text-xs text-on-surface-variant mt-0.5">
+                            {product.unit}
+                          </p>
                         </div>
                         <button
                           onClick={() => remove(line.id)}
@@ -98,12 +103,16 @@ export default function CartPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => setQty(line.id, Math.max(1, line.qty - 1))}
+                            onClick={() =>
+                              setQty(line.id, Math.max(1, line.qty - 1))
+                            }
                             className="w-7 h-7 rounded-lg border border-surface-container-high flex items-center justify-center hover:bg-surface-container transition-colors"
                           >
                             <Minus size={14} />
                           </button>
-                          <span className="w-8 text-center text-sm font-medium">{line.qty}</span>
+                          <span className="w-8 text-center text-sm font-medium">
+                            {line.qty}
+                          </span>
                           <button
                             onClick={() => setQty(line.id, line.qty + 1)}
                             className="w-7 h-7 rounded-lg border border-surface-container-high flex items-center justify-center hover:bg-surface-container transition-colors"
@@ -111,7 +120,9 @@ export default function CartPage() {
                             <Plus size={14} />
                           </button>
                         </div>
-                        <p className="font-bold text-on-surface">{formatKsh(lineTotal)}</p>
+                        <p className="font-bold text-on-surface">
+                          {formatKsh(lineTotal)}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -131,10 +142,6 @@ export default function CartPage() {
               <div className="flex justify-between text-on-surface-variant">
                 <span>Subtotal ({count} items)</span>
                 <span>{formatKsh(total)}</span>
-              </div>
-              <div className="flex justify-between text-on-surface-variant">
-                <span>Handling</span>
-                <span className="text-emerald-700">Free</span>
               </div>
               <div className="pt-3 border-t border-surface-container-high/80 flex justify-between text-base font-bold text-on-surface">
                 <span>Total</span>
