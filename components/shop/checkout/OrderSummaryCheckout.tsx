@@ -5,7 +5,11 @@ import { formatKsh } from "@/lib/format";
 import { products } from "@/lib/products";
 import { useCart } from "@/components/shop/cart/CartProvider";
 
-export default function OrderSummaryCheckout() {
+interface OrderSummaryCheckoutProps {
+  showHandling?: boolean;
+}
+
+export default function OrderSummaryCheckout({ showHandling = true }: OrderSummaryCheckoutProps) {
   const { lines, total } = useCart();
 
   return (
@@ -52,10 +56,12 @@ export default function OrderSummaryCheckout() {
           <span>Subtotal</span>
           <span>{formatKsh(total)}</span>
         </div>
-        <div className="flex justify-between text-on-surface-variant">
-          <span>Handling Fee</span>
-          <span className="text-emerald-700 font-medium">Free</span>
-        </div>
+        {showHandling && (
+          <div className="flex justify-between text-on-surface-variant">
+            <span>Handling Fee</span>
+            <span className="text-emerald-700 font-medium">Free</span>
+          </div>
+        )}
         <div className="flex justify-between pt-2 border-t border-surface-container-high/80 text-base font-bold text-on-surface">
           <span>Total</span>
           <span>{formatKsh(total)}</span>
