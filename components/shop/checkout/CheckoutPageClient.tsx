@@ -39,7 +39,7 @@ export default function CheckoutPageClient() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
       <div className="mb-8">
         <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
           Checkout
@@ -56,12 +56,6 @@ export default function CheckoutPageClient() {
         <div className="lg:col-span-5">
           <div className="sticky top-24 space-y-6">
             <OrderSummaryCheckout showHandling={false} />
-            <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-4">
-              <div className="flex items-center gap-2 text-xs text-on-surface-variant">
-                <Lock size={14} />
-                <span>Secure checkout - Your information is protected</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
