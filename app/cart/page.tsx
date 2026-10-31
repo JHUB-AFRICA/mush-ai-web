@@ -54,9 +54,9 @@ export default function CartPage() {
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-12 mb-12">
+      <div className="mb-12">
         {/* Cart Items */}
-        <div className="lg:col-span-8">
+        <div className="mb-6">
           <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest overflow-hidden">
             <div className="p-4 sm:p-6 border-b border-surface-container-high/80">
               <h2 className="font-headline-sm text-base font-bold text-on-surface">
@@ -121,9 +121,9 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Order Summary & Checkout */}
-        <div className="lg:col-span-4">
-          <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm sticky top-24">
+        {/* Order Summary below items */}
+        <div className="max-w-md ml-auto mb-6">
+          <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm">
             <h2 className="font-headline-sm text-base font-bold text-on-surface mb-4">
               Order Summary
             </h2>
@@ -143,18 +143,12 @@ export default function CartPage() {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors mb-3"
+              className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors mb-2"
             >
               Proceed to Checkout
             </button>
-            <Link
-              href="/shop"
-              className="block w-full text-center rounded-xl border border-surface-container-high hover:bg-surface-container text-on-surface py-2.5 text-sm font-medium transition-colors"
-            >
-              Continue Shopping
-            </Link>
             {!user && (
-              <p className="text-xs text-center text-on-surface-variant mt-3">
+              <p className="text-xs text-center text-on-surface-variant">
                 You&apos;ll need to sign in to checkout
               </p>
             )}
