@@ -1,4 +1,4 @@
-import CartPageClient from "@/components/cart/CartPageClient";
+import CartPageClient from "@/components/shop/cart/CartPageClient";
 
 export const metadata = {
   title: "Shopping Cart | SmartMushroom",

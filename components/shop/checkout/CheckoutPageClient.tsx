@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
 import { useAuth } from "@/components/auth/AuthProvider";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
-import ShippingForm from "@/components/checkout/ShippingForm";
-import OrderSummaryCheckout from "@/components/checkout/OrderSummaryCheckout";
+import ShippingForm from "@/components/shop/checkout/ShippingForm";
+import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
 import { Lock } from "lucide-react";
 
 export default function CheckoutPageClient() {

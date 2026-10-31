@@ -1,4 +1,4 @@
-import PaymentPageClient from "@/components/payment/PaymentPageClient";
+import PaymentPageClient from "@/components/shop/payment/PaymentPageClient";
 
 export const metadata = {
   title: "Payment | SmartMushroom",

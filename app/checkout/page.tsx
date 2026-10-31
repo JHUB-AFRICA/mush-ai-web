@@ -1,4 +1,4 @@
-import CheckoutPageClient from "@/components/checkout/CheckoutPageClient";
+import CheckoutPageClient from "@/components/shop/checkout/CheckoutPageClient";
 
 export const metadata = {
   title: "Checkout | SmartMushroom",

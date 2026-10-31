@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
 import { useAuth } from "@/components/auth/AuthProvider";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
-import PaymentMethod from "@/components/payment/PaymentMethod";
-import OrderSummaryCheckout from "@/components/checkout/OrderSummaryCheckout";
+import PaymentMethod from "@/components/shop/payment/PaymentMethod";
+import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
 import MpesaModal from "@/components/shop/cart/MpesaModal";
 import CardModal from "@/components/shop/cart/CardModal";
 
