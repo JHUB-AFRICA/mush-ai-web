@@ -14,7 +14,7 @@ import ProductCard from "@/components/shop/product/ProductCard";
 
 export default function CartPageClient() {
   const router = useRouter();
-  const { lines, total, count, setQty, remove } = useCart();
+  const { lines, total, count, setQty, remove, clearCart } = useCart();
   const { user } = useAuth();
 
   if (count === 0) {
@@ -44,13 +44,21 @@ export default function CartPageClient() {
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
       
-      <div className="mb-8">
-        <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
-          Shopping Cart
-        </h1>
-        <p className="mt-1 text-sm text-on-surface-variant">
-          {count} {count === 1 ? "item" : "items"} in your cart
-        </p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
+            Shopping Cart
+          </h1>
+          <p className="mt-1 text-sm text-on-surface-variant">
+            {count} {count === 1 ? "item" : "items"} in your cart
+          </p>
+        </div>
+        <button
+          onClick={clearCart}
+          className="text-sm text-red-600 hover:text-red-700 font-medium transition-colors"
+        >
+          Clear Cart
+        </button>
       </div>
 
       <div className="mb-12">
