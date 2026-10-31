@@ -175,6 +175,13 @@ export default function PaymentMethod({ total, phone = "", onPaymentSelect }: Pa
           </div>
         )}
       </div>
+
+      <div className="pt-4 mt-4 border-t border-surface-container-high/80">
+        <div className="flex justify-between items-center">
+          <span className="font-semibold text-on-surface">Amount to Pay</span>
+          <span className="text-xl font-bold text-on-surface">{formatKsh(total)}</span>
+        </div>
+      </div>
     </div>
   );
 }
