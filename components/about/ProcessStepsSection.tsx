@@ -1,109 +1,59 @@
-"use client";
-
-import { motion } from "motion/react";
 import Icon from "@/components/ui/Icon";
+import SectionHeading from "./SectionHeading";
 
-const PROCESS_STEPS = [
+const STEPS = [
   {
-    number: "1",
-    title: "Sense",
+    icon: "grass",
+    title: "Prepare the substrate",
+    text: "Farm waste like bagasse, wheat straw or coffee husks becomes the growing medium.",
+  },
+  {
+    icon: "science",
+    title: "Add the spawn",
+    text: "We seed the substrate with high-yield JKUAT strains, JAMBO101 and MAMBO101.",
+  },
+  {
+    icon: "home_work",
+    title: "Grow in the pumice room",
+    text: "The room holds a steady, cool and humid climate while the mushrooms develop.",
+  },
+  {
     icon: "sensors",
-    description:
-      "Sensors placed throughout the grow room continuously track temperature, humidity, CO₂, light, and moisture 24 hours a day.",
-    accent: false,
+    title: "Mush AI keeps watch",
+    text: "Sensors and alerts catch problems early, so the farmer can act in time.",
   },
   {
-    number: "2",
-    title: "Understand",
-    icon: "analytics",
-    description:
-      "Readings are checked against the ideal conditions for healthy mushroom growth, and any drift or drop is flagged immediately.",
-    accent: false,
-  },
-  {
-    number: "3",
-    title: "Advise",
-    icon: "tips_and_updates",
-    description:
-      "Instead of confusing raw graphs, the system translates numbers into clear, practical guidance on what is changing and what to do.",
-    accent: false,
-  },
-  {
-    number: "4",
-    title: "Act",
-    icon: "tune",
-    description:
-      "Fans, humidifiers, and ventilation respond automatically — or the farmer adjusts conditions easily. You remain in complete control.",
-    accent: true,
+    icon: "agriculture",
+    title: "Harvest and return",
+    text: "Mushrooms are harvested and processed. Spent substrate goes back to farmers as fertilizer.",
   },
 ];
 
 export default function ProcessStepsSection() {
   return (
-    <section id="the-process" className="scroll-mt-24 py-16 lg:py-24 bg-surface">
+    <section className="w-full bg-surface-container-low py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mx-auto mb-14 max-w-3xl text-center">
-          <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-secondary">
-            Continuous Intelligence
-          </span>
-          <h2 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
-            Step by Step: How It Keeps Every Room Healthy
-          </h2>
-          <p className="mt-3 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-            No guesswork. No missed changes. Just consistent conditions monitored continuously day and night.
-          </p>
-        </div>
+        <SectionHeading
+          center
+          eyebrow="The process"
+          title="From farm waste to fresh harvest"
+          intro="Five steps, and nothing goes to waste."
+        />
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {PROCESS_STEPS.map((step, idx) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.08 }}
-              className="flex flex-col justify-between rounded-3xl border border-surface-container-high/80 bg-surface-container-lowest p-7 shadow-xs transition-all duration-200 hover:shadow-md"
-            >
-              <div>
-                <div className="mb-6 flex items-center justify-between">
-                  <span
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl font-headline font-bold text-lg ${
-                      step.accent
-                        ? "bg-secondary-container text-on-secondary"
-                        : "bg-primary text-on-primary"
-                    }`}
-                  >
-                    {step.number}
-                  </span>
-                  <span
-                    className={`text-[26px] ${
-                      step.accent ? "text-secondary-container" : "text-primary"
-                    }`}
-                  >
-                    <Icon name={step.icon} />
-                  </span>
-                </div>
-
-                <h3 className="mb-3 font-headline-sm text-headline-sm font-bold text-primary">
-                  {step.title}
-                </h3>
-
-                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-
-              <div className="mt-6 border-t border-surface-container-high/50 pt-4">
-                <span className="font-label-sm text-label-sm font-semibold text-secondary">
-                  {step.number === "1" && "24/7 Monitoring"}
-                  {step.number === "2" && "Early Drift Flagging"}
-                  {step.number === "3" && "Plain Phone Guidance"}
-                  {step.number === "4" && "Farmer in Control"}
-                </span>
-              </div>
-            </motion.div>
+        <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          {STEPS.map((s, i) => (
+            <li key={s.title} className="relative rounded-2xl border border-[#f1dfd8] bg-white p-6">
+              <span className="absolute -top-3 left-6 rounded-full bg-[#00a94e] px-3 py-0.5 text-xs font-bold text-white">
+                Step {i + 1}
+              </span>
+              <span className="mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#002e20] text-white">
+                <Icon name={s.icon} className="text-[24px]" />
+              </span>
+              <h3 className="mt-4 text-base font-semibold text-on-surface">{s.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-on-surface-variant">{s.text}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

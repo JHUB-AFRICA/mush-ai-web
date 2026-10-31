@@ -28,7 +28,7 @@ export default function InspectionCtaSection() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
-                href="/about"
+                href="/contact"
                 className="inline-flex items-center gap-2 rounded-full bg-secondary-container px-8 py-3.5 font-label-lg text-label-lg font-bold text-on-secondary shadow-md transition-all duration-200 hover:bg-secondary hover:shadow-lg"
               >
                 <span>Book a Demonstration Visit</span>

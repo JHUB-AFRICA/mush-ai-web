@@ -13,7 +13,7 @@ const PARTNERS = [
   { name: "JHUB Africa", src: "/partners/jhub.png", w: 76, h: 31 },
   { name: "European Union (EU)", src: "/partners/eu.png", w: 96, h: 18 },
   { name: "BRIDGE-AI", src: "/partners/bridge-ai.png", w: 52, h: 38 },
-  { name: "Bill & Melinda Gates Foundation", src: "/partners/gates.png", w: 40, h: 36 },
+  { name: "Gates Foundation", src: "/partners/gates.png", w: 38, h: 37 },
 ];
 
 function PartnerList({ hidden = false }: { hidden?: boolean }) {
@@ -46,39 +46,34 @@ function PartnerList({ hidden = false }: { hidden?: boolean }) {
 
 export default function Partners() {
   return (
-    <section aria-label="Our partners" className="bg-surface px-4 py-10 md:px-8">
-      {/* Pill-shaped frame: rounded ends, thin grey outline */}
-      <div className="mx-auto flex max-w-6xl items-stretch overflow-hidden rounded-full border-2 border-[#231916]/35 bg-[#fff8f6]">
-        {/* Static label (left end): does not move */}
-        <div className="flex w-36 shrink-0 items-center bg-[#fff0ec] py-4 pl-7 pr-3 sm:w-56 sm:pl-10 sm:pr-5 md:w-64">
-          <p className="text-xs font-semibold leading-snug text-[#231916] sm:text-sm">
-            Our partners &amp; supporters
-          </p>
-        </div>
+    <section aria-label="Our partners" className="w-full bg-surface py-12 md:py-14">
+      {/* Title: aligned with the other section titles */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
+          Our Partners &amp; Supporters
+        </h2>
+      </div>
 
-        {/* Moving logos */}
-        <div className="partners-mask relative min-w-0 flex-1 self-center overflow-hidden py-4">
-          <div className="partners-track flex w-max">
-            <PartnerList />
-            <PartnerList hidden />
-          </div>
+      {/* Full-width marquee: runs from one edge of the page to the other */}
+      <div className="partners-marquee relative mt-6 w-full overflow-hidden border-y border-[#f1dfd8] bg-[#fff8f6] py-5">
+        <div className="partners-track flex w-max">
+          <PartnerList />
+          <PartnerList hidden />
+          <PartnerList hidden />
+          <PartnerList hidden />
         </div>
       </div>
 
       <style>{`
-        .partners-track { animation: partners-scroll 40s linear infinite; }
+        .partners-track { animation: partners-scroll 60s linear infinite; }
         .partners-track:hover { animation-play-state: paused; }
-        .partners-mask {
-          -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-        }
         @keyframes partners-scroll {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
         }
         @media (prefers-reduced-motion: reduce) {
           .partners-track { animation: none; }
-          .partners-mask { overflow-x: auto; }
+          .partners-marquee { overflow-x: auto; }
         }
       `}</style>
     </section>

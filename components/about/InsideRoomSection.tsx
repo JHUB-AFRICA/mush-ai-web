@@ -1,103 +1,60 @@
-"use client";
+import Image from "next/image";
+import SectionHeading from "./SectionHeading";
 
-import { motion } from "motion/react";
-import Icon from "@/components/ui/Icon";
-
-const ROOM_PILLARS = [
-  {
-    icon: "sensors",
-    title: "Sensors Across Grow Zones",
-    description:
-      "Placed at the ceiling, mid-canopy, and substrate bags to track temperature, humidity, CO₂, and air movement with zero blind spots.",
-  },
-  {
-    icon: "air",
-    title: "Ventilation & Fresh Air",
-    description:
-      "Filtered fresh air intakes and quiet exhaust fans safely evacuate heavy CO₂ buildup so mushrooms grow full, thick caps instead of thin stems.",
-  },
-  {
-    icon: "water_drop",
-    title: "Fine Fog Humidity Control",
-    description:
-      "Micro-mist nozzles deliver fine, cool fog that stays suspended in the air (85–95% RH) without soaking or rotting delicate mushroom pinheads.",
-  },
-  {
-    icon: "grid_view",
-    title: "Pumice Substrate Racks",
-    description:
-      "Multi-tier porous aggregate shelving engineered for optimal airflow circulation around every single substrate bag and easy harvesting.",
-  },
+const PARTS = [
+  { title: "Pumice walls", text: "Insulate the room and soften outside heat and dryness." },
+  { title: "Stacked shelves", text: "Growing levels use height instead of land, so no arable land is needed." },
+  { title: "Substrate beds", text: "Bagasse, wheat straw or coffee husks that the mushrooms grow in." },
+  { title: "Smart sensors", text: "Read temperature, humidity and CO₂ on every grow unit." },
+  { title: "Roof vents", text: "Let stale air out and fresh air in to keep CO₂ down." },
 ];
 
 export default function InsideRoomSection() {
   return (
-    <section id="inside-room" className="scroll-mt-24 py-16 lg:py-24 bg-surface-container-low/40 border-y border-surface-container-high/60">
+    <section className="w-full bg-background py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mx-auto mb-14 max-w-3xl text-center">
-          <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-secondary">
-            Uniform Growing Environment
-          </span>
-          <h2 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
-            Inside the Room: Everything in Balance
-          </h2>
-          <p className="mt-3 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-            The room is fitted with sensors and climate-control equipment placed for even coverage —
-            no cold spots, no dry corners, and no missed readings.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="Inside the room"
+          title="What you will find in every grow room"
+          intro="Five simple parts working together."
+        />
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {ROOM_PILLARS.map((pillar, idx) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.08 }}
-              className="group flex flex-col rounded-3xl border border-surface-container-high/80 bg-surface-container-lowest p-7 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container-low text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary">
-                <Icon name={pillar.icon} className="text-[28px]" />
-              </div>
-              <h3 className="mb-3 font-headline-sm text-headline-sm font-bold text-primary">
-                {pillar.title}
-              </h3>
-              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                {pillar.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Why It Matters Callout Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mt-12 rounded-3xl bg-surface-container-lowest p-8 lg:p-10 border border-surface-container-high shadow-xs flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div className="max-w-2xl">
-            <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-secondary">
-              Why It Matters
-            </span>
-            <h3 className="mt-1 font-headline-sm text-headline-sm font-bold text-primary">
-              Good Architecture Does Half the Work First
-            </h3>
-            <p className="mt-2 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-              A well-built room does half the work before any technology is even switched on.
-              Ours is designed first for the mushrooms, then fitted with the sensors that keep it that way.
-            </p>
+        <div className="mt-10 grid items-start gap-10 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md">
+              <Image
+                src="/images/about/pumice-cutaway.jpg"
+                alt="Cutaway of a pumice grow room showing stacked shelves"
+                fill
+                sizes="(max-width: 1024px) 90vw, 45vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-md">
+              <Image
+                src="/images/about/mushrooms-brown.jpg"
+                alt="Brown mushrooms fruiting on beds inside a grow room"
+                fill
+                sizes="(max-width: 1024px) 90vw, 45vw"
+                className="object-cover"
+              />
+            </div>
           </div>
-          <a
-            href="#the-process"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary px-8 py-4 font-label-lg text-label-lg font-semibold text-on-primary shadow-sm transition-all duration-200 hover:bg-primary-container"
-          >
-            <span>See How the System Works</span>
-            <Icon name="arrow_downward" className="text-[18px]" />
-          </a>
-        </motion.div>
+
+          <ol className="space-y-4">
+            {PARTS.map((p, i) => (
+              <li key={p.title} className="flex items-start gap-4 rounded-2xl border border-[#f1dfd8] bg-white p-5">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#00a94e] font-bold text-white">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="font-semibold text-on-surface">{p.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-on-surface-variant">{p.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

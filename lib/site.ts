@@ -18,8 +18,8 @@ export const FOOTER_QUICK_LINKS = [
 ];
 
 export const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms of Service", href: "/terms-of-service" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
   { label: "Outgrower Agreement", href: "/farmer-portal-access" },
 ];
 
