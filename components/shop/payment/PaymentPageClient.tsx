@@ -60,15 +60,7 @@ export default function PaymentPageClient() {
 
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-7 space-y-6">
-          <PaymentMethod total={total} onPaymentSelect={handlePaymentSelect} />
-          
-          <button
-            onClick={handlePayNow}
-            disabled={!selectedMethod}
-            className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {selectedMethod === "mpesa" ? "Pay with M-Pesa" : selectedMethod === "card" ? "Pay with Card" : "Select Payment Method"}
-          </button>
+          <PaymentMethod total={total} phone={user.phone || ""} onPaymentSelect={handlePaymentSelect} />
         </div>
         <div className="lg:col-span-5">
           <div className="sticky top-24">
