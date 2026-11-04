@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
           <span>{product.rating.toFixed(1)}</span>
           <span className="text-on-surface-variant font-normal">
-            ({product.reviews.replace(" reviews", "")})
+            ({product.reviews.replace(/\s*reviews?/i, "")})
           </span>
         </span>
       </div>

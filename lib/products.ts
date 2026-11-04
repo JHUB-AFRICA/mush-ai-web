@@ -42,349 +42,6 @@ export type Product = {
   imageAlt: string;
 };
 
-export const products: Product[] = [
-  {
-    id: "smart-pumice-grow-kit",
-    name: "Smart Pumice Grow Kit (Tier 1)",
-    category: "Grow Kits & Structures",
-    badge: "Turnkey Infrastructure",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "28 reviews",
-    description:
-      "Complete pumice kit - modular structure for adult mushroom yield, ultra-sterile casing soil.",
-    longDescription:
-      "Our flagship Tier 1 Grow Kit delivers a fully assembled volcanic pumice growing structure, engineered to maintain passive thermal buffering between 18°C and 22°C without active HVAC. Each unit arrives with pre-cut pumice blocks, timber framing, corrugated roofing, misting lines, and sterile casing soil - everything you need to begin commercial mushroom production from day one. Designed by JKUAT agricultural engineers and tested across 14 outgrower farms in Kiambu and Murang'a counties.",
-    features: [
-      "Scaled for starting yield / 1,200 substrate bags",
-      "Passive 18°C-22°C ambient thermal buffering",
-      "Pre-cut volcanic pumice blocks with micro-cellular air voids",
-      "Includes timber framing and corrugated roofing",
-      "Misting lines and humidity regulation built-in",
-    ],
-    specs: [
-      { label: "Dimensions", value: "6m × 3m × 2.8m (L×W×H)" },
-      { label: "Capacity", value: "1,200 substrate bags" },
-      { label: "Thermal Range", value: "18°C - 22°C passive" },
-      { label: "Material", value: "Volcanic pumice + timber" },
-      { label: "Warranty", value: "2-year structural" },
-    ],
-    unit: "Farm Gate Price",
-    price: 360000,
-    cta: "Add to Cart",
-    image: "/images/shop/modular-pumice-unit.jpg",
-    imageAlt: "Completed pumice grow unit with a corrugated roof on a farm",
-  },
-  {
-    id: "button-grain-spawn",
-    name: "Button Mushroom Grain Spawn",
-    category: "Strains & Spawn",
-    badge: "Bestseller Strain",
-    badgeTone: "ember",
-    rating: 4.8,
-    reviews: "84 reviews",
-    description:
-      "Certified laboratory-grade White Agaricus grain spawn - high colonizer.",
-    longDescription:
-      "Our grain spawn is produced in a JKUAT-certified cleanroom laboratory under HEPA-filtered laminar flow conditions. Each 5kg bag contains fully colonized wheat grain inoculated with high-vigor Agaricus bisporus mycelium. The strain has been selected for rapid colonization (14-18 days), strong pinning, and resistance to common contaminants. Ideal for both first-time growers and commercial operations scaling up production.",
-    features: [
-      "Solid harvest in 14-18 days of spawn",
-      "Inoculates up to 100 kg of mushroom compost",
-      "JKUAT cleanroom laboratory certified",
-      "HEPA-filtered laminar flow production",
-      "High contamination resistance strain",
-    ],
-    specs: [
-      { label: "Species", value: "Agaricus bisporus (White Button)" },
-      { label: "Weight", value: "5 kg per bag" },
-      { label: "Colonization", value: "14-18 days" },
-      { label: "Coverage", value: "100 kg compost per bag" },
-      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
-    ],
-    unit: "5kg Spawn Bag",
-    price: 1200,
-    cta: "Add to Cart",
-    image: "/images/shop/spawn-bag.jpg",
-    imageAlt: "Bag of colonized white mushroom grain spawn",
-  },
-  {
-    id: "jambo101-oyster-spawn",
-    name: "Jambo101 Oyster Mushroom Spawn",
-    category: "Strains & Spawn",
-    badge: "High Yield Oyster Strain",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "37 reviews",
-    description:
-      "Quality JHUB & JKUAT certified Pleurotus ostreatus grain spawn for successful cultivation.",
-    longDescription:
-      "Jambo101 is our premium oyster mushroom grain spawn, produced in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa. Each 5kg bag is packed with fully colonized grain inoculated with vigorous Pleurotus ostreatus mycelium, selected for rapid colonization, dense pinning and heavy flushes. The culture is clean, pure and naturally disease resistant, making it an excellent choice for both first-time growers and commercial oyster farms scaling up production.",
-    features: [
-      "High-yield Pleurotus ostreatus strain",
-      "Disease resistant, clean & pure culture",
-      "JHUB Africa & JKUAT cleanroom certified",
-      "Rapid colonization with dense pinning",
-      "Inoculates up to 100 kg of substrate",
-    ],
-    specs: [
-      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
-      { label: "Weight", value: "5 kg per bag" },
-      { label: "Colonization", value: "12-16 days" },
-      { label: "Coverage", value: "100 kg substrate per bag" },
-      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
-    ],
-    unit: "5kg Spawn Bag",
-    price: 1200,
-    cta: "Add to Cart",
-    image: "/images/shop/jambo.jpeg",
-    imageAlt: "Bag of Jambo101 oyster mushroom spawn beside fresh oyster mushrooms",
-  },
-  {
-    id: "mambo101-oyster-spawn",
-    name: "Mambo101 Oyster Mushroom Spawn",
-    category: "Strains & Spawn",
-    badge: "Disease Resistant Strain",
-    badgeTone: "forest",
-    rating: 4.7,
-    reviews: "24 reviews",
-    description:
-      "Certified Pleurotus ostreatus grain spawn engineered for sustainable mushroom farming.",
-    longDescription:
-      "Mambo101 is the oyster spawn we recommend for sustainable, low-input mushroom farming. Grown and packed in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa, each 5kg bag contains fully colonized grain carrying aggressive Pleurotus ostreatus mycelium. The strain colonizes fast, tolerates a wide temperature range, and fruits heavily on a broad choice of substrates - straw, sawdust or pasteurized compost - so it suits smallholder growers and commercial houses alike.",
-    features: [
-      "High-yield Pleurotus ostreatus strain",
-      "Disease resistant, clean & pure culture",
-      "JHUB Africa & JKUAT cleanroom certified",
-      "Wide substrate and temperature tolerance",
-      "Inoculates up to 100 kg of substrate",
-    ],
-    specs: [
-      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
-      { label: "Weight", value: "5 kg per bag" },
-      { label: "Colonization", value: "12-16 days" },
-      { label: "Coverage", value: "100 kg substrate per bag" },
-      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
-    ],
-    unit: "5kg Spawn Bag",
-    price: 1200,
-    cta: "Add to Cart",
-    image: "/images/shop/mambo.jpeg",
-    imageAlt: "Bag of Mambo101 oyster mushroom spawn beside fresh oyster mushrooms",
-  },
-  {
-    id: "fresh-gourmet-button",
-    name: "Fresh Gourmet Button Mushrooms",
-    category: "Fresh Mushrooms",
-    badge: "Daily Harvest",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "150+ reviews",
-    description:
-      "Freshly harvested from our climate-controlled room within 6 hours of pickup.",
-    longDescription:
-      "Our Grade-A closed-cap button mushrooms are hand-harvested at dawn from SmartMushroom's climate-controlled growing rooms in Juja. Each 500g punnet is packed within 6 hours of harvest and maintained at 4°C through our cold-chain process. These mushrooms are grown without pesticides on pasteurized organic substrates, delivering restaurant-quality flavour and firm texture. Available for daily pickup at our Juja Hub and Westlands collection points.",
-    features: [
-      "Refrigerated transportation / 4°C cold-chain",
-      "Harvested at peak pin-selection",
-      "Zero pesticide, organic substrate grown",
-      "Available for same-day pickup",
-      "Restaurant-quality Grade-A selection",
-    ],
-    specs: [
-      { label: "Weight", value: "500g per punnet" },
-      { label: "Grade", value: "A - Closed Cap" },
-      { label: "Shelf Life", value: "5-7 days at 4°C" },
-      { label: "Harvest", value: "Daily, pre-dawn" },
-      { label: "Pickup", value: "Juja Hub & Westlands" },
-    ],
-    unit: "500g Punnet",
-    price: 450,
-    cta: "Add to Cart",
-    image: "/images/shop/fresh-mushrooms.jpg",
-    imageAlt: "Punnet of fresh white gourmet button mushrooms",
-  },
-  {
-    id: "organic-spent-compost",
-    name: "Organic Spent Mushroom Compost",
-    category: "By-products & Compost",
-    badge: "Eco-Repurposed",
-    badgeTone: "forest",
-    rating: 4.8,
-    reviews: "21 reviews",
-    description:
-      "Nutrient-dense post-condition soil bio-fertilizer recycled directly from past harvest cycles.",
-    longDescription:
-      "Our spent mushroom compost is the nutrient-rich byproduct of completed growing cycles, packed with nitrogen, phosphorus, potassium, and beneficial humic acids. Each 15kg bag is composted for an additional 2 weeks after mushroom harvest to ensure pathogen-free, garden-ready amendment. Perfect for vegetable gardens, flower beds, and tree nurseries. This circular economy product helps reduce agricultural waste while enriching your soil naturally.",
-    features: [
-      "Rich nitrogen, humic matter & peat moss lines",
-      "15kg sealed woven sack",
-      "2-week post-harvest composting for safety",
-      "Garden-ready, no further treatment needed",
-      "Circular economy waste-to-value product",
-    ],
-    specs: [
-      { label: "Weight", value: "15 kg per bag" },
-      { label: "NPK Ratio", value: "2.0 - 1.5 - 1.8" },
-      { label: "pH", value: "6.8 - 7.2" },
-      { label: "Moisture", value: "≤ 40%" },
-      { label: "Application", value: "Gardens, nurseries, farms" },
-    ],
-    unit: "Per Bag",
-    price: 550,
-    cta: "Add to Cart",
-    image: "/images/shop/substrate-blocks.jpg",
-    imageAlt: "Bags of organic spent mushroom compost ready for field use",
-  },
-  {
-    id: "iot-sensor-kit",
-    name: "Farm Starter IoT Microclimate Sensor Kit",
-    category: "Grow Kits & Structures",
-    badge: "JHUB Certified",
-    badgeTone: "forest",
-    rating: 5.0,
-    reviews: "42 reviews",
-    description:
-      "Real-time substrate telemetry, ambient humidity & temp sensor hub with Safaricom IoT SIM.",
-    longDescription:
-      "Monitor your grow room conditions 24/7 with our JHUB-certified IoT sensor kit. The hub measures ambient temperature, humidity, CO₂ concentration, and substrate moisture in real-time, sending data to your phone via Safaricom's IoT SIM network. SMS alerts fire automatically when readings breach your configured thresholds - so you catch problems before they damage your crop. Powered by a solar panel with 14-day lithium battery backup for uninterrupted monitoring during outages.",
-    features: [
-      "Cellular 4G & SMS alert engine",
-      "14-day lithium backup reserve",
-      "Solar-powered with panel included",
-      "Temperature, humidity, CO₂, moisture sensors",
-      "Mobile dashboard via Safaricom IoT SIM",
-    ],
-    specs: [
-      { label: "Connectivity", value: "Safaricom 4G IoT SIM" },
-      { label: "Sensors", value: "Temp, humidity, CO₂, moisture" },
-      { label: "Battery", value: "14-day lithium reserve" },
-      { label: "Power", value: "Solar panel included" },
-      { label: "Alerts", value: "SMS + push notifications" },
-    ],
-    unit: "Complete Kit",
-    price: 42000,
-    cta: "Add to Cart",
-    image: "/images/shop/iot-sensor-kit.jpg",
-    imageAlt: "Solar-powered IoT hub mounted above mushroom racks",
-  },
-  {
-    id: "pasteurized-substrate",
-    name: "Pasteurized Enriched Substrate Blocks (20kg)",
-    category: "By-products & Compost",
-    badge: "Ready For Spawning",
-    badgeTone: "forest",
-    rating: 4.7,
-    reviews: "65 reviews",
-    description:
-      "Steam-conditioned wheat straw and poultry-enriched organic compost. Balanced pH (7.2) for even colonization.",
-    longDescription:
-      "Our Phase II pasteurized substrate blocks are the foundation of a successful mushroom harvest. Each 20kg block is prepared from a precise blend of wheat straw and poultry manure, steam-conditioned at 60°C for 8 hours to eliminate competing organisms while preserving beneficial thermophilic bacteria. The result is a nutrient-rich, pathogen-free growing medium with optimal moisture (68%) and pH (7.2) for rapid and even Agaricus colonization.",
-    features: [
-      "High nitrogen formulation",
-      "Pre-formed in 20kg breathable polyethylene block",
-      "Steam-pasteurized at 60°C for 8 hours",
-      "Optimal 68% moisture content",
-      "pH-balanced at 7.2 for Agaricus",
-    ],
-    specs: [
-      { label: "Weight", value: "20 kg per block" },
-      { label: "Composition", value: "Wheat straw + poultry manure" },
-      { label: "Moisture", value: "68%" },
-      { label: "pH", value: "7.2" },
-      { label: "Pasteurization", value: "60°C / 8 hours" },
-    ],
-    unit: "Per 20kg Block",
-    price: 1200,
-    cta: "Add to Cart",
-    image: "/images/shop/substrate-blocks.jpg",
-    imageAlt: "Stacked pasteurized substrate blocks in a warehouse",
-  },
-  {
-    id: "mushroom-wine",
-    name: "MushWine Mushroom Infused Wine",
-    category: "By-products & Compost",
-    badge: "Fermented Beverage",
-    badgeTone: "ember",
-    rating: 4.7,
-    reviews: "12 reviews",
-    description:
-      "Handcrafted wine infused with gourmet mushroom essence, aged for depth and complexity.",
-    longDescription:
-      "Our signature MushWine is a unique fermented beverage that blends the earthy notes of gourmet mushrooms with traditional winemaking. Each 750ml bottle captures the terroir of our Juja farm, delivering a smooth, complex drink perfect for pairing with mushroom-based dishes or enjoying on its own. Naturally fermented, unfiltered, and bottled at source.",
-    features: [
-      "750ml glass bottle",
-      "Naturally fermented mushroom infusion",
-      "Earthy complex flavor profile",
-      "Pairs well with mushroom dishes",
-      "Bottled at SmartMushroom Juja farm",
-    ],
-    specs: [
-      { label: "Volume", value: "750 ml per bottle" },
-      { label: "Alcohol", value: "11.5% ABV" },
-      { label: "Variety", value: "Mushroom-infused table wine" },
-      { label: "Serving", value: "Chilled, 8-10°C" },
-      { label: "Shelf Life", value: "2 years unopened" },
-    ],
-    unit: "750ml Bottle",
-    price: 1800,
-    cta: "Add to Cart",
-    image: "/images/shop/mushwine.jpeg",
-    imageAlt: "Bottle of MushWine mushroom infused wine",
-  },
-  {
-    id: "fresh-punnets",
-    name: "Fresh Mushroom Punnets",
-    category: "Fresh Mushrooms",
-    badge: "Pre-Packed",
-    badgeTone: "forest",
-    rating: 4.9,
-    reviews: "34 reviews",
-    description:
-      "Pre-packed 250g punnets of fresh button mushrooms, ready for immediate use.",
-    longDescription:
-      "Convenient pre-packed punnets of our Grade-A closed-cap button mushrooms. Each 250g punnet is harvested at dawn, packed within hours, and maintained at 4°C through our cold-chain process. Perfect for restaurants, meal prep, or households that want consistent quality without the hassle of weighing loose mushrooms.",
-    features: [
-      "250g pre-packed punnet",
-      "Grade-A closed-cap button mushrooms",
-      "Harvested at dawn, packed same-day",
-      "4°C cold-chain maintained",
-      "Ready to cook, no weighing needed",
-    ],
-    specs: [
-      { label: "Weight", value: "250 g per punnet" },
-      { label: "Grade", value: "A - Closed Cap" },
-      { label: "Shelf Life", value: "5-7 days at 4°C" },
-      { label: "Harvest", value: "Daily, pre-dawn" },
-      { label: "Pickup", value: "Juja Hub & Westlands" },
-    ],
-    unit: "250g Punnet",
-    price: 350,
-    cta: "Add to Cart",
-    image: "/images/shop/punnets.jpeg",
-    imageAlt: "Pre-packed punnet of fresh button mushrooms",
-  },
-];
-
-export const featuredProductId = "button-grain-spawn";
-
-
-/** Look up a product by its ID */
-export function getProductById(id: string): Product | undefined {
-  return products.find((p) => p.id === id);
-}
-
-/** Get related products (same category, excluding current) */
-export function getRelatedProducts(product: Product, limit = 3): Product[] {
-  const sameCategory = products.filter(
-    (p) => p.category === product.category && p.id !== product.id,
-  );
-  // Fill remaining slots with other products if not enough in same category
-  const others = products.filter(
-    (p) => p.category !== product.category && p.id !== product.id,
-  );
-  return [...sameCategory, ...others].slice(0, limit);
-}
-
 /* ── Reviews data (keyed by product ID) ── */
 export const reviewsData: Record<string, ReviewItem[]> = {
   "smart-pumice-grow-kit": [
@@ -579,4 +236,482 @@ export const reviewsData: Record<string, ReviewItem[]> = {
       verified: true,
     },
   ],
+  "jambo101-oyster-spawn": [
+    {
+      id: "r13",
+      author: "Paul N.",
+      location: "Eldoret",
+      rating: 5,
+      date: "2026-10-05",
+      title: "Extremely vigorous mycelium",
+      body: "Inoculated 15 bags of pasteurized wheat straw. Full colonization took only 13 days. Heavy first flush with zero bag contamination. Truly high-yield oyster spawn.",
+      verified: true,
+    },
+    {
+      id: "r14",
+      author: "Beatrice W.",
+      location: "Kiambu",
+      rating: 5,
+      date: "2026-09-19",
+      title: "Consistently reliable oyster strain",
+      body: "Have ordered 3 batches of Jambo101 so far. Every bag produced beautiful gray clusters. Great customer support from the SmartMushroom agronomy desk.",
+      verified: true,
+    },
+    {
+      id: "r15",
+      author: "Francis M.",
+      location: "Juja",
+      rating: 4,
+      date: "2026-08-30",
+      title: "Fast pinning, great harvest",
+      body: "Pinning was dense and flush timing was predictable. Picked up directly at the Juja hub. Very satisfied with the yield.",
+      verified: true,
+    },
+  ],
+  "mambo101-oyster-spawn": [
+    {
+      id: "r22",
+      author: "Kennedy K.",
+      location: "Machakos",
+      rating: 5,
+      date: "2026-10-02",
+      title: "Tolerates warmer conditions well",
+      body: "Growing in Machakos where afternoon temps can get high. Mambo101 handled the ambient heat much better than other strains I have tried.",
+      verified: true,
+    },
+    {
+      id: "r23",
+      author: "Esther C.",
+      location: "Nyeri",
+      rating: 4,
+      date: "2026-09-14",
+      title: "Healthy spawn, zero green mould",
+      body: "Clean mycelium and pleasant fresh mushroom scent on opening. Colonized maize cobs and chopped straw without issues.",
+      verified: true,
+    },
+    {
+      id: "r24",
+      author: "Daniel T.",
+      location: "Rongai",
+      rating: 5,
+      date: "2026-08-18",
+      title: "Solid commercial yield",
+      body: "Harvested four clean flushes over 6 weeks. The moisture content of the grain was optimal and mycelial coverage was uniform.",
+      verified: true,
+    },
+  ],
+  "mushroom-wine": [
+    {
+      id: "r25",
+      author: "Brian K.",
+      location: "Karen, Nairobi",
+      rating: 5,
+      date: "2026-09-22",
+      title: "Unique earthy notes, pairs delightfully",
+      body: "Pleasantly surprised by how smooth and well-balanced this is. Earthy undertones with subtle dark berry fruit. Served it at a dinner party and guests loved it.",
+      verified: true,
+    },
+    {
+      id: "r26",
+      author: "Wanjiru M.",
+      location: "Westlands",
+      rating: 4,
+      date: "2026-08-10",
+      title: "Distinctive craft beverage",
+      body: "Very distinct flavour profile that mushroom lovers will appreciate. Makes for a great artisanal gift.",
+      verified: true,
+    },
+  ],
+  "fresh-punnets": [
+    {
+      id: "r27",
+      author: "Lillian A.",
+      location: "Kilimani, Nairobi",
+      rating: 5,
+      date: "2026-10-12",
+      title: "Perfect convenience and pristine freshness",
+      body: "The 250g punnets are ideal for weekly meal prep. The closed caps stay white and crisp in the fridge for a full week.",
+      verified: true,
+    },
+    {
+      id: "r28",
+      author: "Martin G.",
+      location: "Thika Road",
+      rating: 5,
+      date: "2026-09-29",
+      title: "Super fresh, zero browning",
+      body: "Picked these up chilled at Juja. Completely clean, no soil residue, and delicious when sautéed in garlic butter.",
+      verified: true,
+    },
+    {
+      id: "r29",
+      author: "Cynthia N.",
+      location: "Parklands",
+      rating: 5,
+      date: "2026-09-08",
+      title: "Far superior to supermarket punnets",
+      body: "Great firm texture and wonderful aroma. Definitely ordering every week.",
+      verified: true,
+    },
+  ],
 };
+
+
+/**
+ * Single source of truth for review statistics.
+ * Computes the exact rating and review count from `reviewsData`
+ * so the shop catalogue and product pages are always identical.
+ */
+export function getProductReviewStats(productId: string): {
+  rating: number;
+  reviewCount: number;
+  reviews: string;
+} {
+  const reviews = reviewsData[productId] ?? [];
+  if (reviews.length === 0) {
+    return { rating: 5.0, reviewCount: 0, reviews: "0 reviews" };
+  }
+  const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+  const rating = Number(avg.toFixed(1));
+  const reviewCount = reviews.length;
+  return {
+    rating,
+    reviewCount,
+    reviews: `${reviewCount} ${reviewCount === 1 ? "review" : "reviews"}`,
+  };
+}
+
+const baseProducts: Omit<Product, "rating" | "reviews">[] = [
+  {
+    id: "smart-pumice-grow-kit",
+    name: "Smart Pumice Grow Kit (Tier 1)",
+    category: "Grow Kits & Structures",
+    badge: "Turnkey Infrastructure",
+    badgeTone: "forest",
+    description:
+      "Complete pumice kit - modular structure for adult mushroom yield, ultra-sterile casing soil.",
+    longDescription:
+      "Our flagship Tier 1 Grow Kit delivers a fully assembled volcanic pumice growing structure, engineered to maintain passive thermal buffering between 18°C and 22°C without active HVAC. Each unit arrives with pre-cut pumice blocks, timber framing, corrugated roofing, misting lines, and sterile casing soil - everything you need to begin commercial mushroom production from day one. Designed by JKUAT agricultural engineers and tested across 14 outgrower farms in Kiambu and Murang'a counties.",
+    features: [
+      "Scaled for starting yield / 1,200 substrate bags",
+      "Passive 18°C-22°C ambient thermal buffering",
+      "Pre-cut volcanic pumice blocks with micro-cellular air voids",
+      "Includes timber framing and corrugated roofing",
+      "Misting lines and humidity regulation built-in",
+    ],
+    specs: [
+      { label: "Dimensions", value: "6m × 3m × 2.8m (L×W×H)" },
+      { label: "Capacity", value: "1,200 substrate bags" },
+      { label: "Thermal Range", value: "18°C - 22°C passive" },
+      { label: "Material", value: "Volcanic pumice + timber" },
+      { label: "Warranty", value: "2-year structural" },
+    ],
+    unit: "Farm Gate Price",
+    price: 360000,
+    cta: "Add to Cart",
+    image: "/images/shop/modular-pumice-unit.jpg",
+    imageAlt: "Completed pumice grow unit with a corrugated roof on a farm",
+  },
+  {
+    id: "button-grain-spawn",
+    name: "Button Mushroom Grain Spawn",
+    category: "Strains & Spawn",
+    badge: "Bestseller Strain",
+    badgeTone: "ember",
+    description:
+      "Certified laboratory-grade White Agaricus grain spawn - high colonizer.",
+    longDescription:
+      "Our grain spawn is produced in a JKUAT-certified cleanroom laboratory under HEPA-filtered laminar flow conditions. Each 5kg bag contains fully colonized wheat grain inoculated with high-vigor Agaricus bisporus mycelium. The strain has been selected for rapid colonization (14-18 days), strong pinning, and resistance to common contaminants. Ideal for both first-time growers and commercial operations scaling up production.",
+    features: [
+      "Solid harvest in 14-18 days of spawn",
+      "Inoculates up to 100 kg of mushroom compost",
+      "JKUAT cleanroom laboratory certified",
+      "HEPA-filtered laminar flow production",
+      "High contamination resistance strain",
+    ],
+    specs: [
+      { label: "Species", value: "Agaricus bisporus (White Button)" },
+      { label: "Weight", value: "5 kg per bag" },
+      { label: "Colonization", value: "14-18 days" },
+      { label: "Coverage", value: "100 kg compost per bag" },
+      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/spawn-bag.jpg",
+    imageAlt: "Bag of colonized white mushroom grain spawn",
+  },
+  {
+    id: "jambo101-oyster-spawn",
+    name: "Jambo101 Oyster Mushroom Spawn",
+    category: "Strains & Spawn",
+    badge: "High Yield Oyster Strain",
+    badgeTone: "forest",
+    description:
+      "Quality JHUB & JKUAT certified Pleurotus ostreatus grain spawn for successful cultivation.",
+    longDescription:
+      "Jambo101 is our premium oyster mushroom grain spawn, produced in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa. Each 5kg bag is packed with fully colonized grain inoculated with vigorous Pleurotus ostreatus mycelium, selected for rapid colonization, dense pinning and heavy flushes. The culture is clean, pure and naturally disease resistant, making it an excellent choice for both first-time growers and commercial oyster farms scaling up production.",
+    features: [
+      "High-yield Pleurotus ostreatus strain",
+      "Disease resistant, clean & pure culture",
+      "JHUB Africa & JKUAT cleanroom certified",
+      "Rapid colonization with dense pinning",
+      "Inoculates up to 100 kg of substrate",
+    ],
+    specs: [
+      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
+      { label: "Weight", value: "5 kg per bag" },
+      { label: "Colonization", value: "12-16 days" },
+      { label: "Coverage", value: "100 kg substrate per bag" },
+      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/jambo.jpeg",
+    imageAlt: "Bag of Jambo101 oyster mushroom spawn beside fresh oyster mushrooms",
+  },
+  {
+    id: "mambo101-oyster-spawn",
+    name: "Mambo101 Oyster Mushroom Spawn",
+    category: "Strains & Spawn",
+    badge: "Disease Resistant Strain",
+    badgeTone: "forest",
+    description:
+      "Certified Pleurotus ostreatus grain spawn engineered for sustainable mushroom farming.",
+    longDescription:
+      "Mambo101 is the oyster spawn we recommend for sustainable, low-input mushroom farming. Grown and packed in the JKUAT cleanroom under HEPA-filtered laminar flow and certified by JHUB Africa, each 5kg bag contains fully colonized grain carrying aggressive Pleurotus ostreatus mycelium. The strain colonizes fast, tolerates a wide temperature range, and fruits heavily on a broad choice of substrates - straw, sawdust or pasteurized compost - so it suits smallholder growers and commercial houses alike.",
+    features: [
+      "High-yield Pleurotus ostreatus strain",
+      "Disease resistant, clean & pure culture",
+      "JHUB Africa & JKUAT cleanroom certified",
+      "Wide substrate and temperature tolerance",
+      "Inoculates up to 100 kg of substrate",
+    ],
+    specs: [
+      { label: "Species", value: "Pleurotus ostreatus (Oyster)" },
+      { label: "Weight", value: "5 kg per bag" },
+      { label: "Colonization", value: "12-16 days" },
+      { label: "Coverage", value: "100 kg substrate per bag" },
+      { label: "Storage", value: "4°C refrigerated, 30-day viability" },
+    ],
+    unit: "5kg Spawn Bag",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/mambo.jpeg",
+    imageAlt: "Bag of Mambo101 oyster mushroom spawn beside fresh oyster mushrooms",
+  },
+  {
+    id: "fresh-gourmet-button",
+    name: "Fresh Gourmet Button Mushrooms",
+    category: "Fresh Mushrooms",
+    badge: "Daily Harvest",
+    badgeTone: "forest",
+    description:
+      "Freshly harvested from our climate-controlled room within 6 hours of pickup.",
+    longDescription:
+      "Our Grade-A closed-cap button mushrooms are hand-harvested at dawn from SmartMushroom's climate-controlled growing rooms in Juja. Each 500g punnet is packed within 6 hours of harvest and maintained at 4°C through our cold-chain process. These mushrooms are grown without pesticides on pasteurized organic substrates, delivering restaurant-quality flavour and firm texture. Available for daily pickup at our Juja Hub and Westlands collection points.",
+    features: [
+      "Refrigerated transportation / 4°C cold-chain",
+      "Harvested at peak pin-selection",
+      "Zero pesticide, organic substrate grown",
+      "Available for same-day pickup",
+      "Restaurant-quality Grade-A selection",
+    ],
+    specs: [
+      { label: "Weight", value: "500g per punnet" },
+      { label: "Grade", value: "A - Closed Cap" },
+      { label: "Shelf Life", value: "5-7 days at 4°C" },
+      { label: "Harvest", value: "Daily, pre-dawn" },
+      { label: "Pickup", value: "Juja Hub & Westlands" },
+    ],
+    unit: "500g Punnet",
+    price: 450,
+    cta: "Add to Cart",
+    image: "/images/shop/fresh-mushrooms.jpg",
+    imageAlt: "Punnet of fresh white gourmet button mushrooms",
+  },
+  {
+    id: "organic-spent-compost",
+    name: "Organic Spent Mushroom Compost",
+    category: "By-products & Compost",
+    badge: "Eco-Repurposed",
+    badgeTone: "forest",
+    description:
+      "Nutrient-dense post-condition soil bio-fertilizer recycled directly from past harvest cycles.",
+    longDescription:
+      "Our spent mushroom compost is the nutrient-rich byproduct of completed growing cycles, packed with nitrogen, phosphorus, potassium, and beneficial humic acids. Each 15kg bag is composted for an additional 2 weeks after mushroom harvest to ensure pathogen-free, garden-ready amendment. Perfect for vegetable gardens, flower beds, and tree nurseries. This circular economy product helps reduce agricultural waste while enriching your soil naturally.",
+    features: [
+      "Rich nitrogen, humic matter & peat moss lines",
+      "15kg sealed woven sack",
+      "2-week post-harvest composting for safety",
+      "Garden-ready, no further treatment needed",
+      "Circular economy waste-to-value product",
+    ],
+    specs: [
+      { label: "Weight", value: "15 kg per bag" },
+      { label: "NPK Ratio", value: "2.0 - 1.5 - 1.8" },
+      { label: "pH", value: "6.8 - 7.2" },
+      { label: "Moisture", value: "≤ 40%" },
+      { label: "Application", value: "Gardens, nurseries, farms" },
+    ],
+    unit: "Per Bag",
+    price: 550,
+    cta: "Add to Cart",
+    image: "/images/shop/substrate-blocks.jpg",
+    imageAlt: "Bags of organic spent mushroom compost ready for field use",
+  },
+  {
+    id: "iot-sensor-kit",
+    name: "Farm Starter IoT Microclimate Sensor Kit",
+    category: "Grow Kits & Structures",
+    badge: "JHUB Certified",
+    badgeTone: "forest",
+    description:
+      "Real-time substrate telemetry, ambient humidity & temp sensor hub with Safaricom IoT SIM.",
+    longDescription:
+      "Monitor your grow room conditions 24/7 with our JHUB-certified IoT sensor kit. The hub measures ambient temperature, humidity, CO₂ concentration, and substrate moisture in real-time, sending data to your phone via Safaricom's IoT SIM network. SMS alerts fire automatically when readings breach your configured thresholds - so you catch problems before they damage your crop. Powered by a solar panel with 14-day lithium battery backup for uninterrupted monitoring during outages.",
+    features: [
+      "Cellular 4G & SMS alert engine",
+      "14-day lithium backup reserve",
+      "Solar-powered with panel included",
+      "Temperature, humidity, CO₂, moisture sensors",
+      "Mobile dashboard via Safaricom IoT SIM",
+    ],
+    specs: [
+      { label: "Connectivity", value: "Safaricom 4G IoT SIM" },
+      { label: "Sensors", value: "Temp, humidity, CO₂, moisture" },
+      { label: "Battery", value: "14-day lithium reserve" },
+      { label: "Power", value: "Solar panel included" },
+      { label: "Alerts", value: "SMS + push notifications" },
+    ],
+    unit: "Complete Kit",
+    price: 42000,
+    cta: "Add to Cart",
+    image: "/images/shop/iot-sensor-kit.jpg",
+    imageAlt: "Solar-powered IoT hub mounted above mushroom racks",
+  },
+  {
+    id: "pasteurized-substrate",
+    name: "Pasteurized Enriched Substrate Blocks (20kg)",
+    category: "By-products & Compost",
+    badge: "Ready For Spawning",
+    badgeTone: "forest",
+    description:
+      "Steam-conditioned wheat straw and poultry-enriched organic compost. Balanced pH (7.2) for even colonization.",
+    longDescription:
+      "Our Phase II pasteurized substrate blocks are the foundation of a successful mushroom harvest. Each 20kg block is prepared from a precise blend of wheat straw and poultry manure, steam-conditioned at 60°C for 8 hours to eliminate competing organisms while preserving beneficial thermophilic bacteria. The result is a nutrient-rich, pathogen-free growing medium with optimal moisture (68%) and pH (7.2) for rapid and even Agaricus colonization.",
+    features: [
+      "High nitrogen formulation",
+      "Pre-formed in 20kg breathable polyethylene block",
+      "Steam-pasteurized at 60°C for 8 hours",
+      "Optimal 68% moisture content",
+      "pH-balanced at 7.2 for Agaricus",
+    ],
+    specs: [
+      { label: "Weight", value: "20 kg per block" },
+      { label: "Composition", value: "Wheat straw + poultry manure" },
+      { label: "Moisture", value: "68%" },
+      { label: "pH", value: "7.2" },
+      { label: "Pasteurization", value: "60°C / 8 hours" },
+    ],
+    unit: "Per 20kg Block",
+    price: 1200,
+    cta: "Add to Cart",
+    image: "/images/shop/substrate-blocks.jpg",
+    imageAlt: "Stacked pasteurized substrate blocks in a warehouse",
+  },
+  {
+    id: "mushroom-wine",
+    name: "MushWine Mushroom Infused Wine",
+    category: "By-products & Compost",
+    badge: "Fermented Beverage",
+    badgeTone: "ember",
+    description:
+      "Handcrafted wine infused with gourmet mushroom essence, aged for depth and complexity.",
+    longDescription:
+      "Our signature MushWine is a unique fermented beverage that blends the earthy notes of gourmet mushrooms with traditional winemaking. Each 750ml bottle captures the terroir of our Juja farm, delivering a smooth, complex drink perfect for pairing with mushroom-based dishes or enjoying on its own. Naturally fermented, unfiltered, and bottled at source.",
+    features: [
+      "750ml glass bottle",
+      "Naturally fermented mushroom infusion",
+      "Earthy complex flavor profile",
+      "Pairs well with mushroom dishes",
+      "Bottled at SmartMushroom Juja farm",
+    ],
+    specs: [
+      { label: "Volume", value: "750 ml per bottle" },
+      { label: "Alcohol", value: "11.5% ABV" },
+      { label: "Variety", value: "Mushroom-infused table wine" },
+      { label: "Serving", value: "Chilled, 8-10°C" },
+      { label: "Shelf Life", value: "2 years unopened" },
+    ],
+    unit: "750ml Bottle",
+    price: 1800,
+    cta: "Add to Cart",
+    image: "/images/shop/mushwine.jpeg",
+    imageAlt: "Bottle of MushWine mushroom infused wine",
+  },
+  {
+    id: "fresh-punnets",
+    name: "Fresh Mushroom Punnets",
+    category: "Fresh Mushrooms",
+    badge: "Pre-Packed",
+    badgeTone: "forest",
+    description:
+      "Pre-packed 250g punnets of fresh button mushrooms, ready for immediate use.",
+    longDescription:
+      "Convenient pre-packed punnets of our Grade-A closed-cap button mushrooms. Each 250g punnet is harvested at dawn, packed within hours, and maintained at 4°C through our cold-chain process. Perfect for restaurants, meal prep, or households that want consistent quality without the hassle of weighing loose mushrooms.",
+    features: [
+      "250g pre-packed punnet",
+      "Grade-A closed-cap button mushrooms",
+      "Harvested at dawn, packed same-day",
+      "4°C cold-chain maintained",
+      "Ready to cook, no weighing needed",
+    ],
+    specs: [
+      { label: "Weight", value: "250 g per punnet" },
+      { label: "Grade", value: "A - Closed Cap" },
+      { label: "Shelf Life", value: "5-7 days at 4°C" },
+      { label: "Harvest", value: "Daily, pre-dawn" },
+      { label: "Pickup", value: "Juja Hub & Westlands" },
+    ],
+    unit: "250g Punnet",
+    price: 350,
+    cta: "Add to Cart",
+    image: "/images/shop/punnets.jpeg",
+    imageAlt: "Pre-packed punnet of fresh button mushrooms",
+  },
+];
+
+
+
+export const products: Product[] = baseProducts.map((p) => {
+  const stats = getProductReviewStats(p.id);
+  return {
+    ...p,
+    rating: stats.rating,
+    reviews: stats.reviews,
+  };
+});
+
+export const featuredProductId = "button-grain-spawn";
+
+
+/** Look up a product by its ID */
+export function getProductById(id: string): Product | undefined {
+  return products.find((p) => p.id === id);
+}
+
+/** Get related products (same category, excluding current) */
+export function getRelatedProducts(product: Product, limit = 3): Product[] {
+  const sameCategory = products.filter(
+    (p) => p.category === product.category && p.id !== product.id,
+  );
+  // Fill remaining slots with other products if not enough in same category
+  const others = products.filter(
+    (p) => p.category !== product.category && p.id !== product.id,
+  );
+  return [...sameCategory, ...others].slice(0, limit);
+}
+
