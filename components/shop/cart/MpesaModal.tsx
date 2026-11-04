@@ -6,9 +6,18 @@ interface MpesaModalProps {
   phone: string;
   total: number;
   onClose: () => void;
+  /** Creates the order + payment on the server. */
+  onConfirm: () => void | Promise<void>;
+  paying?: boolean;
 }
 
-export default function MpesaModal({ phone, total, onClose }: MpesaModalProps) {
+export default function MpesaModal({
+  phone,
+  total,
+  onClose,
+  onConfirm,
+  paying = false,
+}: MpesaModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -81,10 +90,11 @@ export default function MpesaModal({ phone, total, onClose }: MpesaModalProps) {
 
         <button
           type="button"
-          onClick={onClose}
-          className="w-full rounded-xl bg-[#00a94e] hover:bg-[#009143] text-white py-3 text-xs font-bold shadow-md transition-colors"
+          disabled={paying}
+          onClick={() => void onConfirm()}
+          className="w-full rounded-xl bg-[#00a94e] hover:bg-[#009143] text-white py-3 text-xs font-bold shadow-md transition-colors disabled:opacity-60"
         >
-          Confirm &amp; Simulate STK Push
+          {paying ? "Processing payment…" : "Confirm & Simulate STK Push"}
         </button>
       </div>
     </div>

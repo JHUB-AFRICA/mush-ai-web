@@ -32,13 +32,13 @@ export default function SignupPage() {
 
     setLoading(true);
 
-    const success = await signup(name, email, password, phone);
+    const result = await signup(name, email, password, phone);
     setLoading(false);
 
-    if (success) {
+    if (result.ok) {
       router.push("/cart");
     } else {
-      setError("Signup failed. Please try again.");
+      setError(result.error ?? "Signup failed. Please try again.");
     }
   };
 

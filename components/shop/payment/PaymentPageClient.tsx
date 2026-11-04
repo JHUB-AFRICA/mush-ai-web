@@ -9,15 +9,19 @@ import PaymentMethod from "@/components/shop/payment/PaymentMethod";
 import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
 import MpesaModal from "@/components/shop/cart/MpesaModal";
 import CardModal from "@/components/shop/cart/CardModal";
+import { loadShipping, clearShipping } from "@/lib/checkout";
+import { createOrder, createPayment } from "@/lib/orders";
 
 export default function PaymentPageClient() {
   const router = useRouter();
-  const { total, count } = useCart();
+  const { total, count, lines, clearCart } = useCart();
   const { user } = useAuth();
   const [paymentModal, setPaymentModal] = useState<"mpesa" | "card" | null>(null);
   const [selectedMethod, setSelectedMethod] = useState<"mpesa" | "card" | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  if (count === 0) {
+  if (count === 0 && !submitting) {
     router.push("/cart");
     return null;
   }
@@ -33,10 +37,50 @@ export default function PaymentPageClient() {
 
   const handlePayNow = () => {
     if (!selectedMethod) {
-      alert("Please select a payment method");
+      setError("Please select a payment method");
       return;
     }
     setPaymentModal(selectedMethod);
+  };
+
+  /**
+   * Creates the order on the server, records the payment against it, then
+   * clears the local cart.
+   */
+  const processPayment = async (method: "mpesa" | "card"): Promise<void> => {
+    const shipping = loadShipping();
+    if (!shipping) {
+      setError("Your shipping details are missing — please restart checkout.");
+      setPaymentModal(null);
+      return;
+    }
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const order = await createOrder({
+        items: lines.map((line) => ({ productId: line.id, quantity: line.qty })),
+        shipping,
+        userId: user.id,
+      });
+
+      await createPayment({
+        orderId: order.id,
+        method,
+        amount: order.total,
+        ...(method === "mpesa" ? { phone: shipping.phone } : {}),
+      });
+
+      clearShipping();
+      clearCart();
+      setPaymentModal(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Payment failed. Please try again.");
+      setPaymentModal(null);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const breadcrumbItems = [
@@ -58,9 +102,24 @@ export default function PaymentPageClient() {
         </p>
       </div>
 
+      {error && (
+        <div
+          role="alert"
+          className="mb-6 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+        >
+          {error}
+        </div>
+      )}
+
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-7 space-y-6">
-          <PaymentMethod total={total} phone={user.phone || ""} onPaymentSelect={handlePaymentSelect} />
+          <PaymentMethod
+            total={total}
+            phone={user.phone || ""}
+            onPaymentSelect={handlePaymentSelect}
+            onPayNow={handlePayNow}
+            paying={submitting}
+          />
         </div>
         <div className="lg:col-span-5">
           <div className="sticky top-24">
@@ -70,10 +129,21 @@ export default function PaymentPageClient() {
       </div>
 
       {paymentModal === "mpesa" && user && (
-        <MpesaModal phone={user.phone || ""} total={total} onClose={() => setPaymentModal(null)} />
+        <MpesaModal
+          phone={user.phone || ""}
+          total={total}
+          paying={submitting}
+          onConfirm={() => processPayment("mpesa")}
+          onClose={() => setPaymentModal(null)}
+        />
       )}
       {paymentModal === "card" && user && (
-        <CardModal total={total} onClose={() => setPaymentModal(null)} />
+        <CardModal
+          total={total}
+          paying={submitting}
+          onConfirm={() => processPayment("card")}
+          onClose={() => setPaymentModal(null)}
+        />
       )}
     </div>
   );

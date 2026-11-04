@@ -69,11 +69,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const setQty = useCallback((id: string, qty: number) => {
-    setLines((prev) =>
-      qty <= 0
-        ? prev.filter((l) => l.id !== id)
-        : prev.map((l) => (l.id === id ? { ...l, qty } : l)),
-    );
+    setLines((prev) => {
+      if (qty <= 0) {
+        return prev.filter((l) => l.id !== id);
+      }
+      const existing = prev.find((l) => l.id === id);
+      if (existing) {
+        return prev.map((l) => (l.id === id ? { ...l, qty } : l));
+      }
+      return [...prev, { id, qty }];
+    });
   }, []);
 
   const remove = useCallback(

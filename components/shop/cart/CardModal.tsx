@@ -5,9 +5,17 @@ import { formatKsh } from "@/lib/format";
 interface CardModalProps {
   total: number;
   onClose: () => void;
+  /** Creates the order + payment on the server. */
+  onConfirm: () => void | Promise<void>;
+  paying?: boolean;
 }
 
-export default function CardModal({ total, onClose }: CardModalProps) {
+export default function CardModal({
+  total,
+  onClose,
+  onConfirm,
+  paying = false,
+}: CardModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -88,10 +96,11 @@ export default function CardModal({ total, onClose }: CardModalProps) {
 
         <button
           type="button"
-          onClick={onClose}
-          className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-xs font-bold shadow-md transition-colors"
+          disabled={paying}
+          onClick={() => void onConfirm()}
+          className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-xs font-bold shadow-md transition-colors disabled:opacity-60"
         >
-          Acknowledge &amp; Close Preview
+          {paying ? "Processing payment…" : `Pay ${formatKsh(total)}`}
         </button>
       </div>
     </div>
