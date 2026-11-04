@@ -13,7 +13,12 @@ type AuthContextValue = {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
-  signup: (name: string, email: string, password: string, phone?: string) => Promise<boolean>;
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    phone?: string,
+  ) => Promise<{ ok: boolean; error?: string }>;
   logout: () => void;
 };
 
@@ -58,21 +63,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signup = async (name: string, email: string, password: string, phone?: string): Promise<boolean> => {
+  const signup = async (
+    name: string,
+    email: string,
+    password: string,
+    phone?: string,
+  ): Promise<{ ok: boolean; error?: string }> => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      
-      const mockUser: User = {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, phone }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        return {
+          ok: false,
+          error: body?.error ?? "Signup failed. Please try again.",
+        };
+      }
+
+      const data = await res.json();
+      const newUser: User = data.user ?? {
         id: "usr_" + Date.now(),
         name,
         email,
         phone,
       };
-      setUser(mockUser);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
-      return true;
+
+      setUser(newUser);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
+      return { ok: true };
     } catch {
-      return false;
+      return { ok: false, error: "Network error. Please try again." };
     }
   };
 
