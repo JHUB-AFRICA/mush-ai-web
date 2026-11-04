@@ -27,6 +27,7 @@ interface ProductHeroProps {
   allReviews: { length: number } | { length: number; [key: string]: unknown };
   scrollToReviews: (e: React.MouseEvent) => void;
   categorySectionHref: string;
+  inCartQty?: number;
 }
 
 export default function ProductHero({
@@ -39,6 +40,7 @@ export default function ProductHero({
   allReviews,
   scrollToReviews,
   categorySectionHref,
+  inCartQty = 0,
 }: ProductHeroProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-12">
@@ -169,7 +171,12 @@ export default function ProductHero({
                 {added ? (
                   <>
                     <Check size={18} strokeWidth={3} />
-                    Added to Pickup Cart!
+                    {inCartQty > 0 ? "Cart Updated!" : "Added to Pickup Cart!"}
+                  </>
+                ) : inCartQty > 0 ? (
+                  <>
+                    <ShoppingCart size={16} />
+                    {qty === inCartQty ? `${inCartQty} in Cart (Set to ${qty})` : `Update Cart to ${qty}`}
                   </>
                 ) : (
                   <>
@@ -181,9 +188,15 @@ export default function ProductHero({
             </div>
 
             {added && (
-              <p className="mt-2 text-center text-xs font-semibold text-primary">
-                Items reserved in your pickup cart. Pick up at Juja Hub.
-              </p>
+              <div className="mt-2.5 flex items-center justify-between rounded-xl bg-primary/10 px-3.5 py-2 text-xs font-semibold text-primary">
+                <span>{inCartQty > 0 ? "Cart updated!" : "Added to pickup cart!"}</span>
+                <Link
+                  href="/cart"
+                  className="inline-flex items-center gap-1 font-bold underline hover:text-primary-container transition-colors"
+                >
+                  View Cart →
+                </Link>
+              </div>
             )}
           </div>
         </div>

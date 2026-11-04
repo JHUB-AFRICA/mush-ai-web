@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Product, ReviewItem } from "@/lib/products";
 import { useCart } from "../cart/CartProvider";
 import ProductBreadcrumbs from "../navigation/ProductBreadcrumbs";
@@ -20,10 +20,20 @@ export default function ProductDetailView({
   relatedProducts,
   reviews: initialReviews,
 }: ProductDetailViewProps) {
-  const { add } = useCart();
-  const [qty, setQty] = useState(1);
+  const { lines, setQty: setCartQty } = useCart();
+  const cartItem = lines.find((l) => l.id === product.id);
+  const inCartQty = cartItem?.qty ?? 0;
+
+  const [qty, setQty] = useState(inCartQty > 0 ? inCartQty : 1);
   const [added, setAdded] = useState(false);
   const [allReviews, setAllReviews] = useState<ReviewItem[]>(initialReviews);
+
+  // Keep local qty in sync if cart changes
+  useEffect(() => {
+    if (inCartQty > 0) {
+      setQty(inCartQty);
+    }
+  }, [inCartQty]);
 
   // Review submission form state
   const [showReviewForm, setShowReviewForm] = useState(false);
@@ -35,37 +45,45 @@ export default function ProductDetailView({
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   function handleAdd() {
-    add(product.id, qty);
+    setCartQty(product.id, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 2200);
   }
 
-  function handleReviewSubmit(e: React.FormEvent) {
+  async function handleReviewSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!newAuthor.trim() || !newTitle.trim() || !newBody.trim()) return;
 
-    const newRev: ReviewItem = {
-      id: `review-${Date.now()}`,
-      author: newAuthor.trim(),
-      location: newLocation.trim() || "Nairobi, Kenya",
-      rating: newRating,
-      date: new Date().toISOString().split("T")[0],
-      title: newTitle.trim(),
-      body: newBody.trim(),
-      verified: true,
-    };
+    try {
+      const res = await fetch(`/api/products/${product.id}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          author: newAuthor.trim(),
+          location: newLocation.trim() || "Nairobi, Kenya",
+          rating: newRating,
+          title: newTitle.trim(),
+          body: newBody.trim(),
+        }),
+      });
 
-    setAllReviews([newRev, ...allReviews]);
-    setNewAuthor("");
-    setNewLocation("");
-    setNewRating(5);
-    setNewTitle("");
-    setNewBody("");
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setShowReviewForm(false);
-    }, 2000);
+      if (!res.ok) return;
+
+      const { review } = await res.json();
+      setAllReviews((prev) => [review, ...prev]);
+      setNewAuthor("");
+      setNewLocation("");
+      setNewRating(5);
+      setNewTitle("");
+      setNewBody("");
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setShowReviewForm(false);
+      }, 2000);
+    } catch {
+      // Network failure — leave the form intact so the user can retry.
+    }
   }
 
   // Calculate dynamic rating breakdown
@@ -106,6 +124,7 @@ export default function ProductDetailView({
         allReviews={allReviews}
         scrollToReviews={scrollToReviews}
         categorySectionHref={categorySectionHref}
+        inCartQty={inCartQty}
       />
 
       <ProductSpecs product={product} />

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ShoppingCart, Star } from "lucide-react";
+import { Check, Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import { formatKsh } from "@/lib/format";
 import type { Product } from "@/lib/products";
 import { useCart } from "../cart/CartProvider";
@@ -13,8 +13,11 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { add } = useCart();
+  const { lines, add, setQty } = useCart();
   const [justAdded, setJustAdded] = useState(false);
+
+  const cartItem = lines.find((l) => l.id === product.id);
+  const inCartQty = cartItem?.qty ?? 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -22,6 +25,18 @@ export default function ProductCard({ product }: ProductCardProps) {
     add(product.id, 1);
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1400);
+  };
+
+  const handleIncrease = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQty(product.id, inCartQty + 1);
+  };
+
+  const handleDecrease = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQty(product.id, inCartQty - 1);
   };
 
   return (
@@ -84,27 +99,57 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-all duration-150 active:scale-95 ${
-              justAdded
-                ? "bg-primary"
-                : "bg-secondary-container hover:bg-secondary text-on-secondary"
-            }`}
-          >
-            {justAdded ? (
-              <>
-                <Check size={14} strokeWidth={3} />
-                Added!
-              </>
-            ) : (
-              <>
-                <ShoppingCart size={13} aria-hidden="true" />
-                {product.cta}
-              </>
-            )}
-          </button>
+          {inCartQty > 0 ? (
+            <div
+              className="inline-flex items-center rounded-xl border border-primary/30 bg-primary/5 shadow-xs overflow-hidden"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <button
+                type="button"
+                aria-label="Decrease quantity"
+                onClick={handleDecrease}
+                className="p-2 text-primary hover:bg-primary/10 transition-colors"
+              >
+                <Minus size={13} />
+              </button>
+              <span className="px-2 text-xs font-bold text-primary min-w-[20px] text-center">
+                {inCartQty}
+              </span>
+              <button
+                type="button"
+                aria-label="Increase quantity"
+                onClick={handleIncrease}
+                className="p-2 text-primary hover:bg-primary/10 transition-colors"
+              >
+                <Plus size={13} />
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-all duration-150 active:scale-95 ${
+                justAdded
+                  ? "bg-primary"
+                  : "bg-secondary-container hover:bg-secondary text-on-secondary"
+              }`}
+            >
+              {justAdded ? (
+                <>
+                  <Check size={14} strokeWidth={3} />
+                  Added!
+                </>
+              ) : (
+                <>
+                  <ShoppingCart size={13} aria-hidden="true" />
+                  {product.cta}
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </Link>
