@@ -8,9 +8,19 @@ interface PaymentMethodProps {
   total: number;
   phone?: string;
   onPaymentSelect: (method: "mpesa" | "card") => void;
+  /** Called when the user confirms they want to pay with the selected method. */
+  onPayNow?: () => void;
+  /** True while an order/payment request is in flight. */
+  paying?: boolean;
 }
 
-export default function PaymentMethod({ total, phone = "", onPaymentSelect }: PaymentMethodProps) {
+export default function PaymentMethod({
+  total,
+  phone = "",
+  onPaymentSelect,
+  onPayNow,
+  paying = false,
+}: PaymentMethodProps) {
   const [selectedMethod, setSelectedMethod] = useState<"mpesa" | "card" | null>(null);
   const [cardDetails, setCardDetails] = useState({
     number: "",
@@ -72,10 +82,11 @@ export default function PaymentMethod({ total, phone = "", onPaymentSelect }: Pa
             </div>
             <button
               type="button"
-              className="w-full rounded-lg bg-[#00a94e] hover:bg-[#009143] text-white py-2.5 text-sm font-semibold transition-colors"
-              onClick={() => alert("STK Push sent to your phone. Please check your M-Pesa for the prompt.")}
+              className="w-full rounded-lg bg-[#00a94e] hover:bg-[#009143] text-white py-2.5 text-sm font-semibold transition-colors disabled:opacity-60"
+              disabled={paying}
+              onClick={onPayNow}
             >
-              Send STK Push
+              {paying ? "Processing…" : "Send STK Push"}
             </button>
             <p className="text-[10px] text-on-surface-variant text-center">
               You will receive a prompt on your phone to enter your M-Pesa PIN
@@ -167,10 +178,11 @@ export default function PaymentMethod({ total, phone = "", onPaymentSelect }: Pa
             </div>
             <button
               type="button"
-              className="w-full rounded-lg bg-primary hover:bg-primary-container text-on-primary py-2.5 text-sm font-semibold transition-colors"
-              onClick={() => alert("Payment processed successfully!")}
+              className="w-full rounded-lg bg-primary hover:bg-primary-container text-on-primary py-2.5 text-sm font-semibold transition-colors disabled:opacity-60"
+              disabled={paying}
+              onClick={onPayNow}
             >
-              Pay {formatKsh(total)}
+              {paying ? "Processing…" : `Pay ${formatKsh(total)}`}
             </button>
           </div>
         )}

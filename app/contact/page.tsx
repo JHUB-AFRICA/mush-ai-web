@@ -116,31 +116,43 @@ const inputClass =
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError("");
 
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    const name = data.get("name");
-    const email = data.get("email");
-    const subject = data.get("subject");
-    const message = data.get("message");
+    const payload = {
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? ""),
+      message: String(data.get("message") ?? ""),
+    };
 
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      "",
-      String(message),
-    ].join("\n");
+    setSending(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const mailto = `mailto:info@mushai.com?subject=${encodeURIComponent(
-      String(subject)
-    )}&body=${encodeURIComponent(body)}`;
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ?? "Something went wrong");
+      }
 
-    window.location.href = mailto;
-    setSent(true);
+      setSent(true);
+      form.reset();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -295,15 +307,22 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#002e20] px-6 py-3 font-semibold text-white transition hover:bg-[#009143] focus:outline-none focus:ring-2 focus:ring-[#002e20] focus:ring-offset-2 focus:ring-offset-[#fff8f6]"
+              disabled={sending}
+              className="w-full rounded-lg bg-[#002e20] px-6 py-3 font-semibold text-white transition hover:bg-[#009143] focus:outline-none focus:ring-2 focus:ring-[#002e20] focus:ring-offset-2 focus:ring-offset-[#fff8f6] disabled:opacity-60"
             >
-              Send Message
+              {sending ? "Sending…" : "Send Message"}
             </button>
 
             {sent && (
               <p className="text-sm text-[#009143]">
-                Your email app should open with your message ready to send.
-                Please complete sending it there.
+                Thanks — your message has been sent. We&apos;ll get back to you
+                within one business day.
+              </p>
+            )}
+
+            {error && (
+              <p role="alert" className="text-sm text-red-600">
+                {error}
               </p>
             )}
           </form>

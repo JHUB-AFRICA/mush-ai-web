@@ -1,19 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
 import { useAuth } from "@/components/auth/AuthProvider";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
 import ShippingForm from "@/components/shop/checkout/ShippingForm";
 import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
-import { Lock } from "lucide-react";
+import { saveShipping, type ShippingDetails } from "@/lib/checkout";
 
 export default function CheckoutPageClient() {
   const router = useRouter();
   const { count } = useCart();
   const { user } = useAuth();
-  const [shippingData, setShippingData] = useState(null);
 
   if (count === 0) {
     router.push("/cart");
@@ -25,8 +23,9 @@ export default function CheckoutPageClient() {
     return null;
   }
 
-  const handleShippingSubmit = (data: any) => {
-    setShippingData(data);
+  const handleShippingSubmit = (data: ShippingDetails) => {
+    // Carry the details across the page boundary to /payment.
+    saveShipping(data);
     router.push("/payment");
   };
 

@@ -7,6 +7,7 @@ SmartMushroom is a Next.js 16 web application for JKUAT's SmartMushroom initiati
 - [Project Overview](#project-overview)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
+- [Backend API](#backend-api)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 
@@ -31,6 +32,7 @@ SmartMushroom addresses the challenges of traditional mushroom farming (high ene
 | [Framer Motion](https://motion.dev/)          | ^14.6.0 | Animations                      |
 | [Lucide React](https://lucide.dev/)           | ^1.55.0 | Icons                           |
 | [Bun](https://bun.sh/)                        | 1.4.2   | Package manager/runtime         |
+| [PostgreSQL](https://www.postgresql.org/)    | 18      | Primary database (`pg`)         |
 
 ## Architecture
 
@@ -52,15 +54,15 @@ graph TB
 
     subgraph "Current State"
         K[Client-side State] --> L[localStorage - Cart]
-        K --> M[localStorage - Auth Mock]
+        K --> M[localStorage - Session]
     end
 
-    subgraph "Future Backend Needed"
+    subgraph "Backend (PostgreSQL)"
         N[API Routes] --> O[Auth Service]
-        N --> P[Payment Gateway]
+        N --> P[Payment Records]
         N --> Q[Order Management]
         N --> R[Product Inventory]
-        N --> S[IoT Data]
+        N --> S[Reviews / Newsletter / Contact]
     end
 
     A --> E
@@ -68,6 +70,56 @@ graph TB
     D --> M
     I -.-> N
 ```
+
+## Backend API
+
+All data is persisted to PostgreSQL. Route handlers live under `app/api/` and
+share a connection pool plus helpers in `lib/`.
+
+| Method | Route                                | Purpose                                          |
+| ------ | ------------------------------------ | ------------------------------------------------ |
+| `POST` | `/api/newsletter`                    | Subscribe an email (idempotent)                  |
+| `POST` | `/api/contact`                       | Store a contact-form message                     |
+| `POST` | `/api/auth/signup`                   | Create an account (scrypt-hashed password)       |
+| `GET`  | `/api/products`                      | Catalogue, optional `?category=` filter          |
+| `GET`  | `/api/products/[productId]`          | Single product                                   |
+| `GET`  | `/api/products/[productId]/reviews`  | Reviews for a product, newest first              |
+| `POST` | `/api/products/[productId]/reviews`  | Submit a review                                  |
+| `POST` | `/api/orders`                        | Create an order (prices read server-side)        |
+| `GET`  | `/api/orders?id=`                    | Look up an order                                 |
+| `POST` | `/api/payments`                      | Record a payment and mark the order `paid`       |
+| `GET`  | `/api/payments?id=`                  | Look up a payment                                |
+
+> **Login is intentionally not implemented** — only signup is exposed.
+
+Order prices are always computed from the `products` table inside a
+transaction, so a tampered client payload cannot change what is charged.
+Payment gateways (Safaricom Daraja, Paystack/Flutterwave) are not wired up yet;
+`POST /api/payments` records payments in simulation mode and the order flips to
+`paid`. Swap the simulation block for a real gateway call when credentials are
+available.
+
+### Database setup
+
+```bash
+# 1. Point at your Postgres instance
+cp .env.example .env.local   # then edit DATABASE_URL
+
+# 2. Create the schema, then seed from lib/products.ts
+bun run db:migrate
+bun run db:seed
+```
+
+Tables created: `users`, `newsletter_subscribers`, `contact_messages`,
+`products`, `reviews`, `orders`, `order_items`, `payments`.
+
+| File                | Purpose                                             |
+| ------------------- | --------------------------------------------------- |
+| `lib/db/schema.sql` | Schema, constraints and triggers                    |
+| `lib/db/index.ts`   | Shared `Pool`, `query`, `queryOne`, `withTransaction`|
+| `lib/db/mappers.ts` | Postgres rows → frontend `Product` / `ReviewItem`    |
+| `lib/api.ts`        | JSON helpers, validation, `ApiError`                |
+| `lib/auth/`         | scrypt password hashing + user creation             |
 
 ## Getting Started
 
