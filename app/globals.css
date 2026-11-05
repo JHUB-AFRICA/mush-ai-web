@@ -31,6 +31,8 @@
   --spacing-space-lg: 1.5rem; --spacing-space-xl: 2.5rem;
 
   /* ---- Font families (next/font variables set in layout.tsx) ---- */
+  --font-headline: var(--font-outfit), sans-serif;
+  --font-body: var(--font-jakarta), sans-serif;
   --font-headline-xl: var(--font-outfit), sans-serif;
   --font-headline-xl-mobile: var(--font-outfit), sans-serif;
   --font-headline-lg: var(--font-outfit), sans-serif;

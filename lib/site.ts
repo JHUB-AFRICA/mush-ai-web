@@ -5,24 +5,21 @@ export const LOGO_FOOTER =
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Farm Structure", href: "/farm-structure" },
-  { label: "The Process", href: "/the-process" },
-  { label: "Shop", href: "/shop" },
-  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
+  { label: "Shop & Services", href: "/shop" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const FOOTER_QUICK_LINKS = [
   { label: "Home Overview", href: "/" },
-  { label: "Pumice Structures", href: "/farm-structure" },
-  { label: "The IoT Process", href: "/the-process" },
-  { label: "Fresh Spawn & Yields", href: "/shop" },
   { label: "Farmer Training", href: "/about" },
+  { label: "Fresh Spawn & Yields", href: "/shop" },
+   { label: "Contact Us", href: "/contact" },
 ];
 
 export const LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms of Service", href: "/terms-of-service" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
   { label: "Outgrower Agreement", href: "/farmer-portal-access" },
 ];
 

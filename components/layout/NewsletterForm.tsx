@@ -5,12 +5,33 @@ import { useState } from "react";
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: send `email` to your newsletter API route
-    setDone(true);
-    setEmail("");
+    setError("");
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error ?? "Subscription failed");
+      }
+
+      setDone(true);
+      setEmail("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Subscription failed");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -29,13 +50,19 @@ export default function NewsletterForm() {
       />
       <button
         type="submit"
-        className="w-full rounded-lg bg-forest px-3 py-2 text-xs font-semibold text-white hover:brightness-110"
+        disabled={submitting}
+        className="w-full rounded-lg bg-forest px-3 py-2 text-xs font-semibold text-white hover:brightness-110 disabled:opacity-60"
       >
-        Subscribe
+        {submitting ? "Subscribing…" : "Subscribe"}
       </button>
       {done && (
         <p role="status" className="text-xs text-forest">
           You&apos;re subscribed. Look out for the next dispatch.
+        </p>
+      )}
+      {error && (
+        <p role="alert" className="text-xs text-red-600">
+          {error}
         </p>
       )}
     </form>
