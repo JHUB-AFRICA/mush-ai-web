@@ -100,7 +100,7 @@ export default function ProductReviews({
             </div>
 
             {formSubmitted ? (
-              <div className="rounded-xl bg-emerald-100 p-4 text-center text-sm font-bold text-emerald-800">
+              <div className="rounded-xl bg-primary/10 border border-primary/20 p-4 text-center text-sm font-bold text-primary">
                 Thank you! Your verified review has been published.
               </div>
             ) : (

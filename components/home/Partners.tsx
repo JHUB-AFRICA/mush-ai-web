@@ -25,7 +25,7 @@ function PartnerList({ hidden = false }: { hidden?: boolean }) {
       {PARTNERS.map((p) => (
         <li
           key={p.name}
-          className="flex shrink-0 items-center gap-3 rounded-xl border border-[#f1dfd8] bg-white px-4 py-2.5"
+          className="flex shrink-0 items-center gap-3 rounded-xl border border-surface-container-high bg-surface-container-lowest px-4 py-2.5 shadow-xs"
         >
           <Image
             src={p.src}
@@ -35,7 +35,7 @@ function PartnerList({ hidden = false }: { hidden?: boolean }) {
             style={{ width: p.w, height: "auto" }}
             className="shrink-0"
           />
-          <span className="whitespace-nowrap text-[13px] font-semibold text-[#231916]">
+          <span className="whitespace-nowrap text-[13px] font-semibold text-on-surface">
             {p.name}
           </span>
         </li>
@@ -55,7 +55,7 @@ export default function Partners() {
       </div>
 
       {/* Full-width marquee: runs from one edge of the page to the other */}
-      <div className="partners-marquee relative mt-6 w-full overflow-hidden border-y border-[#f1dfd8] bg-[#fff8f6] py-5">
+      <div className="partners-marquee relative mt-6 w-full overflow-hidden border-y border-surface-container-high bg-surface py-5">
         <div className="partners-track flex w-max">
           <PartnerList />
           <PartnerList hidden />

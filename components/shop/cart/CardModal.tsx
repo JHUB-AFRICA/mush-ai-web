@@ -85,7 +85,7 @@ export default function CardModal({
           </div>
           <div className="flex justify-between">
             <span className="text-on-surface-variant">Security:</span>
-            <span className="font-bold text-emerald-700">3D-Secure 2.0 OTP</span>
+            <span className="font-bold text-primary">3D-Secure 2.0 OTP</span>
           </div>
         </div>
 

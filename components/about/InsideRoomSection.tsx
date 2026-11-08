@@ -43,8 +43,8 @@ export default function InsideRoomSection() {
 
           <ol className="space-y-4">
             {PARTS.map((p, i) => (
-              <li key={p.title} className="flex items-start gap-4 rounded-2xl border border-[#f1dfd8] bg-white p-5">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#00a94e] font-bold text-white">
+              <li key={p.title} className="flex items-start gap-4 rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-xs">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-on-primary">
                   {i + 1}
                 </span>
                 <div>

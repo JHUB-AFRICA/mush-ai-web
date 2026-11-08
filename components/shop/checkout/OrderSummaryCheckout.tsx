@@ -59,7 +59,7 @@ export default function OrderSummaryCheckout({ showHandling = true }: OrderSumma
         {showHandling && (
           <div className="flex justify-between text-on-surface-variant">
             <span>Handling Fee</span>
-            <span className="text-emerald-700 font-medium">Free</span>
+            <span className="text-primary font-bold">Free</span>
           </div>
         )}
         <div className="flex justify-between pt-2 border-t border-surface-container-high/80 text-base font-bold text-on-surface">

@@ -51,7 +51,7 @@ export default function Mission() {
             >
               <div
                 style={{ animationDelay: delay }}
-                className="relative h-full w-full animate-[pop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_both] overflow-hidden rounded-full border-[6px] border-[#002e20] shadow-[0_20px_50px_-10px_rgba(0,46,32,0.55)] ring-8 ring-[#002e20]/15 transition-transform duration-300 hover:scale-105"
+                className="relative h-full w-full animate-[pop_0.6s_cubic-bezier(0.34,1.56,0.64,1)_both] overflow-hidden rounded-full border-[6px] border-primary shadow-[0_20px_50px_-10px_rgba(5,45,22,0.55)] ring-8 ring-primary/15 transition-transform duration-300 hover:scale-105"
               >
                 <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 35vw, 20rem" className="object-cover" />
               </div>
@@ -60,7 +60,7 @@ export default function Mission() {
         })}
 
         {/* Main mission circle (on top) */}
-        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center rounded-full bg-[#002e20] p-6 text-center text-on-primary shadow-xl ring-8 ring-[#002e20]/15 sm:p-10 md:p-12">
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center rounded-full bg-primary p-6 text-center text-on-primary shadow-xl ring-8 ring-primary/15 sm:p-10 md:p-12">
           <h2 className="mb-2 font-headline-lg-mobile text-xl font-bold tracking-tight text-on-primary sm:mb-4 md:font-headline-lg md:text-3xl">
             Our Mission
           </h2>

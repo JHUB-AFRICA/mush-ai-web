@@ -20,8 +20,8 @@ export default function ReviewCard({ review }: ReviewCardProps) {
             <p className="flex items-center gap-1.5 text-sm font-bold text-on-surface">
               {review.author}
               {review.verified && (
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
-                  <BadgeCheck size={12} className="text-emerald-600" />
+                <span className="inline-flex items-center gap-0.5 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                  <BadgeCheck size={12} className="text-primary" />
                   Verified Buyer
                 </span>
               )}
