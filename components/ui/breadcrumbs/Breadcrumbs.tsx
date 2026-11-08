@@ -23,7 +23,12 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
               {item.label}
             </Link>
           ) : (
-            <span className="text-on-surface font-medium">{item.label}</span>
+            <span
+              className="text-secondary-container font-bold"
+              aria-current="page"
+            >
+              {item.label}
+            </span>
           )}
           {index < items.length - 1 && (
             <ChevronRight size={12} className="text-on-surface-variant/60" />

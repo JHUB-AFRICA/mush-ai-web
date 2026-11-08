@@ -1,6 +1,7 @@
 "use client";
 
 import FaqAccordion, { type FaqItemData } from "@/components/core/FaqAccordion";
+import { HelpCircle } from "lucide-react";
 
 const FAQS: FaqItemData[] = [
   {
@@ -40,9 +41,10 @@ export default function FarmerFaqSection() {
     <section className="py-16 lg:py-24 bg-surface-container-low/30 border-t border-surface-container-high/60">
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
         <div className="mb-12 text-center">
-          <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-secondary">
-            Got Questions?
-          </span>
+          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
+            <HelpCircle size={14} />
+            <span>Got Questions?</span>
+          </div>
           <h2 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
             Frequently Asked Questions
           </h2>

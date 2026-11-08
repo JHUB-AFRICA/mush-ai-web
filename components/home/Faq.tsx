@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/ui/Icon";
+import { HelpCircle } from "lucide-react";
 
 const FAQS = [
   { q: "What does SmartMushroom actually do?", a: "We grow button mushrooms using a sensor-monitored smart farm, and sell grow kits, spawn, fresh mushrooms and mushroom by-products directly to customers." },
@@ -20,8 +21,9 @@ export default function Faq() {
     <section className="w-full bg-surface py-20">
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
         <div className="mb-14 text-center">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-surface-container px-3 py-1 font-label-sm text-label-sm font-bold uppercase text-secondary">
-            Knowledge Base
+          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
+            <HelpCircle size={14} />
+            <span>Knowledge Base</span>
           </div>
           <h2 className="mb-4 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Frequently Asked Questions

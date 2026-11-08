@@ -2,6 +2,7 @@
 
 import { FormEvent, useState, type SVGProps } from "react";
 import Image from "next/image";
+import { Sparkles } from "lucide-react";
 
 /*
   Palette (from the rest of the site)
@@ -168,9 +169,10 @@ export default function ContactPage() {
 
       {/* Page header */}
       <section className="px-6 py-16 text-center md:py-20">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-fixed-dim">
-          Mush AI Support
-        </p>
+        <div className="mb-3 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary-fixed-dim">
+          <Sparkles size={14} />
+          <span>Mush AI Support</span>
+        </div>
 
         <h1 className="text-4xl font-bold md:text-5xl">Get in Touch</h1>
 
