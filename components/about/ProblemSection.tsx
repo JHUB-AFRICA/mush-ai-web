@@ -43,7 +43,7 @@ export default function ProblemSection() {
           <ul className="mt-8 space-y-5">
             {PROBLEMS.map((p) => (
               <li key={p.title} className="flex items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#002e20] text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary">
                   <Icon name={p.icon} className="text-[22px]" />
                 </span>
                 <div>

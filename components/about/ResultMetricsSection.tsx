@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import Icon from "@/components/ui/Icon";
+import { TrendingUp } from "lucide-react";
 
 export default function ResultMetricsSection() {
   return (
@@ -15,9 +16,10 @@ export default function ResultMetricsSection() {
           transition={{ duration: 0.4 }}
           className="rounded-3xl bg-surface-container-low p-8 md:p-12 border border-surface-container-high/80 text-center"
         >
-          <span className="font-label-sm text-label-sm font-bold uppercase tracking-wider text-secondary">
-            Farmer Impact
-          </span>
+          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
+            <TrendingUp size={14} />
+            <span>Farmer Impact</span>
+          </div>
           <h3 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
             The Result: Dependable Harvests, Every Cycle
           </h3>

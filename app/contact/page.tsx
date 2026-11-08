@@ -2,6 +2,7 @@
 
 import { FormEvent, useState, type SVGProps } from "react";
 import Image from "next/image";
+import { Sparkles } from "lucide-react";
 
 /*
   Palette (from the rest of the site)
@@ -112,7 +113,7 @@ const TOPICS = [
 ];
 
 const inputClass =
-  "w-full rounded-lg border border-[#f1dfd8] bg-white px-4 py-3 text-sm text-[#231916] outline-none transition placeholder:text-[#231916]/40 focus:border-[#00a94e] focus:ring-2 focus:ring-[#a7d1ae]";
+  "w-full rounded-xl border border-surface-container-high bg-white px-4 py-3 text-sm text-on-surface outline-none transition placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-2 focus:ring-primary/20";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -163,14 +164,15 @@ export default function ContactPage() {
         className="absolute inset-0 -z-20 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/mushroom-bg.jpg')" }}
       />
-      {/* Dark overlay so text stays readable. Lower /80 to show more photo. */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-[#231916]/80" />
+      {/* Consistent primary dark overlay */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-primary/90" />
 
       {/* Page header */}
       <section className="px-6 py-16 text-center md:py-20">
-        <p className="mb-3 text-sm font-semibold text-[#a7d1ae]">
-          Mush AI Support
-        </p>
+        <div className="mb-3 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary-fixed-dim">
+          <Sparkles size={14} />
+          <span>Mush AI Support</span>
+        </div>
 
         <h1 className="text-4xl font-bold md:text-5xl">Get in Touch</h1>
 
@@ -194,7 +196,7 @@ export default function ContactPage() {
           <div className="mt-8 space-y-6">
             {CONTACT_DETAILS.map((item) => (
               <div key={item.title} className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/25 bg-[#002e20] text-white">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-container text-on-primary-container border border-white/10">
                   <item.Icon className="h-6 w-6" />
                 </div>
 
@@ -203,7 +205,7 @@ export default function ContactPage() {
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="mt-1 block text-sm text-white/80 transition hover:text-[#a7d1ae]"
+                      className="mt-1 block text-sm text-white/80 transition hover:text-primary-fixed-dim"
                     >
                       {item.value}
                     </a>
@@ -217,10 +219,10 @@ export default function ContactPage() {
         </div>
 
         {/* Contact form */}
-        <div className="rounded-2xl border border-[#f1dfd8] bg-[#fff8f6] p-6 text-[#231916] shadow-lg md:p-8">
+        <div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest p-6 text-on-surface shadow-xl md:p-8">
           <h2 className="text-2xl font-bold">Send Us a Message</h2>
 
-          <p className="mt-2 text-sm leading-6 text-[#231916]/70">
+          <p className="mt-2 text-sm leading-6 text-on-surface-variant">
             Fill in the form below and tell us how we can help.
           </p>
 
@@ -266,13 +268,13 @@ export default function ContactPage() {
                   name="subject"
                   required
                   defaultValue=""
-                  className={`${inputClass} appearance-none pr-10 invalid:text-[#231916]/40`}
+                  className={`${inputClass} appearance-none pr-10 invalid:text-on-surface-variant/60`}
                 >
                   <option value="" disabled>
                     Select a topic
                   </option>
                   {TOPICS.map((topic) => (
-                    <option key={topic} value={topic} className="text-[#231916]">
+                    <option key={topic} value={topic} className="text-on-surface">
                       {topic}
                     </option>
                   ))}
@@ -280,7 +282,7 @@ export default function ContactPage() {
                 <svg
                   aria-hidden
                   viewBox="0 0 20 20"
-                  className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#231916]/60"
+                  className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-on-surface-variant"
                   fill="currentColor"
                 >
                   <path d="M5.5 7.5 10 12l4.5-4.5-1.4-1.4L10 9.2 6.9 6.1z" />
@@ -308,20 +310,20 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={sending}
-              className="w-full rounded-lg bg-[#002e20] px-6 py-3 font-semibold text-white transition hover:bg-[#009143] focus:outline-none focus:ring-2 focus:ring-[#002e20] focus:ring-offset-2 focus:ring-offset-[#fff8f6] disabled:opacity-60"
+              className="w-full rounded-xl bg-secondary-container px-6 py-3.5 font-label-lg text-label-lg font-bold text-on-secondary shadow-md transition-all duration-200 hover:bg-secondary disabled:opacity-60"
             >
               {sending ? "Sending…" : "Send Message"}
             </button>
 
             {sent && (
-              <p className="text-sm text-[#009143]">
+              <p className="text-sm font-semibold text-primary">
                 Thanks — your message has been sent. We&apos;ll get back to you
                 within one business day.
               </p>
             )}
 
             {error && (
-              <p role="alert" className="text-sm text-red-600">
+              <p role="alert" className="text-sm font-semibold text-error">
                 {error}
               </p>
             )}
@@ -333,7 +335,7 @@ export default function ContactPage() {
       <section className="border-t border-white/15 px-6 py-14 text-center md:py-16">
         <h2 className="text-2xl font-bold md:text-3xl">Get Featured and Tag Us On...</h2>
 
-        <p className="mt-2 text-sm font-semibold text-[#a7d1ae] md:text-base">
+        <p className="mt-2 text-sm font-semibold text-primary-fixed-dim md:text-base">
           See how our community brings it to life..
         </p>
 
@@ -350,12 +352,12 @@ export default function ContactPage() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Follow us on ${s.name}`}
-                className="group flex items-center gap-3 rounded-full border border-white/25 bg-white/10 py-2 pl-2 pr-5 transition hover:border-[#a7d1ae] hover:bg-white/20"
+                className="group flex items-center gap-3 rounded-full border border-white/25 bg-white/10 py-2 pl-2 pr-5 transition hover:border-primary-fixed-dim hover:bg-white/20"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white">
                   <Image src={s.icon} alt="" width={26} height={26} className="h-[26px] w-[26px]" />
                 </span>
-                <span className="text-sm font-semibold text-white transition group-hover:text-[#a7d1ae]">
+                <span className="text-sm font-semibold text-white transition group-hover:text-primary-fixed-dim">
                   {s.name}
                 </span>
               </a>

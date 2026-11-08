@@ -51,7 +51,7 @@ export default function ProductBreadcrumbs({
           </li>
           <li
             aria-current="page"
-            className="font-bold text-on-surface truncate max-w-[200px] sm:max-w-none"
+            className="font-bold text-secondary-container truncate max-w-[200px] sm:max-w-none"
           >
             {product.name}
           </li>

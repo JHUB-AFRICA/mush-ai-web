@@ -1,4 +1,5 @@
 import Icon from "@/components/ui/Icon";
+import { Sparkles } from "lucide-react";
 
 /*
   "Why farmers should choose us"
@@ -34,13 +35,13 @@ const MARKET: Item = {
 function Content({ item }: { item: Item }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#002e20] text-white xl:h-12 xl:w-12">
+      <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-on-primary xl:h-12 xl:w-12">
         <Icon name={item.icon} className="text-[20px] xl:text-[24px]" />
       </span>
-      <h3 className="mb-2 text-base font-bold leading-snug text-[#002e20] xl:text-lg">
+      <h3 className="mb-2 text-base font-bold leading-snug text-primary xl:text-lg">
         {item.title}
       </h3>
-      <p className="text-[13px] leading-relaxed text-[#231916]/80 xl:text-sm 2xl:text-base">
+      <p className="text-[13px] leading-relaxed text-on-surface-variant xl:text-sm 2xl:text-base">
         {item.text}
       </p>
     </div>
@@ -57,7 +58,7 @@ function Half({ item, side }: { item: Item; side: "left" | "right" }) {
           ? "0 100% 100% 0 / 0 50% 50% 0"
           : "100% 0 0 100% / 50% 0 0 50%",
       }}
-      className={`flex h-[min(88vw,24rem)] w-[min(70.4vw,19.2rem)] shrink-0 items-center border border-[#f1dfd8] bg-[#fff0ec] shadow-sm xl:aspect-[4/5] xl:h-auto xl:w-[22.4%] xl:self-auto ${
+      className={`flex h-[min(88vw,24rem)] w-[min(70.4vw,19.2rem)] shrink-0 items-center border border-surface-container-high bg-surface-container-low shadow-sm xl:aspect-[4/5] xl:h-auto xl:w-[22.4%] xl:self-auto ${
         left ? "self-start" : "self-end"
       }`}
     >
@@ -73,7 +74,7 @@ function Ring({ item, which }: { item: Item; which: "a" | "b" }) {
   const a = which === "a";
   return (
     <div
-      className={`flex h-[min(88vw,24rem)] w-[min(88vw,24rem)] items-center justify-center rounded-full border-2 border-[#002e20]/20 bg-[#fff0ec] mix-blend-multiply xl:absolute xl:top-0 xl:aspect-square xl:h-full xl:w-auto ${
+      className={`flex h-[min(88vw,24rem)] w-[min(88vw,24rem)] items-center justify-center rounded-full border-2 border-primary/15 bg-surface-container-low mix-blend-multiply xl:absolute xl:top-0 xl:aspect-square xl:h-full xl:w-auto ${
         a
           ? "xl:left-0"
           : "-mt-[min(17.6vw,4.8rem)] xl:right-0 xl:mt-0"
@@ -95,7 +96,11 @@ function Ring({ item, which }: { item: Item; which: "a" | "b" }) {
 export default function WhyFarmers() {
   return (
     <section className="w-full overflow-x-hidden bg-surface py-20">
-      <h2 className="mb-12 px-6 text-center font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-[#002e20] md:mb-16 md:font-headline-lg md:text-headline-lg">
+      <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
+        <Sparkles size={14} />
+        <span>Farmer Advantage</span>
+      </div>
+      <h2 className="mb-12 px-6 text-center font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:mb-16 md:font-headline-lg md:text-headline-lg">
         Why Farmers Should Choose Us
       </h2>
 

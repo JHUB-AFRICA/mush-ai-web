@@ -42,11 +42,11 @@ export default function ProcessStepsSection() {
 
         <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="relative rounded-2xl border border-[#f1dfd8] bg-white p-6">
-              <span className="absolute -top-3 left-6 rounded-full bg-[#00a94e] px-3 py-0.5 text-xs font-bold text-white">
+            <li key={s.title} className="relative rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-6 shadow-xs">
+              <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-0.5 text-xs font-bold text-on-primary">
                 Step {i + 1}
               </span>
-              <span className="mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#002e20] text-white">
+              <span className="mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
                 <Icon name={s.icon} className="text-[24px]" />
               </span>
               <h3 className="mt-4 text-base font-semibold text-on-surface">{s.title}</h3>

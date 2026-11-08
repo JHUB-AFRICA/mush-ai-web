@@ -82,65 +82,28 @@ export default function ProductCatalog({
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-12 space-y-6">
       {/* Category Filter and Sort By Toolbar */}
-      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 sm:p-5 shadow-xs space-y-4">
-        {/* Top Control Bar: Category Meta, Item Counter & Compact Sort */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
-              <Icon name="tune" className="text-[17px] text-primary" />
-              Categories:
-            </span>
-            <span className="inline-flex items-center rounded-full bg-surface-container px-2.5 py-0.5 text-[11px] font-semibold text-on-surface-variant">
-              {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
-            </span>
-            {tab !== "All Products" && (
-              <button
-                type="button"
-                onClick={() => setTab("All Products")}
-                className="text-[11px] font-semibold text-primary underline underline-offset-2 hover:text-primary-container transition-colors"
-              >
-                Clear filter
-              </button>
-            )}
-          </div>
-
-          {/* Sort By: checkbox group */}
-          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto shrink-0">
-            <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
-              <Icon name="swap_vert" className="text-[16px]" />
-              Sort By:
-            </span>
-            <div
-              role="group"
-              aria-label="Sort products"
-              className="flex flex-wrap items-center gap-2"
-            >
-              {sortOptions.map((opt) => (
-                <label
-                  key={opt.value}
-                  className="inline-flex cursor-pointer select-none items-center gap-2 rounded-full bg-surface-container px-3 py-1.5 transition-all hover:bg-surface-container-high"
-                >
-                  <input
-                    type="checkbox"
-                    checked={sortBy === opt.value}
-                    onChange={() => setSortBy(opt.value)}
-                    className="h-3.5 w-3.5 cursor-pointer accent-primary"
-                  />
-                  <span className="text-xs font-bold text-on-surface-variant">
-                    {opt.label}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Category Pills (Wrap on small screens so every category stays visible, single row from sm up) */}
+      <div className="rounded-2xl border border-surface-container-high/90 bg-surface-container-lowest p-4 sm:p-5 shadow-xs space-y-3.5">
+        {/* Row 1: Categories on one single line */}
         <div
           role="group"
           aria-label="Filter catalog categories"
-          className="flex flex-wrap items-center gap-1.5 border-t border-surface-container-high/60 pt-3.5 sm:gap-2"
+          className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-1 scrollbar-none"
         >
+          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5 shrink-0 whitespace-nowrap mr-0.5">
+            <Icon name="tune" className="text-[17px] text-primary" />
+            Categories:
+          </span>
+
+          {tab !== "All Products" && (
+            <button
+              type="button"
+              onClick={() => setTab("All Products")}
+              className="text-[11px] font-semibold text-primary underline underline-offset-2 hover:text-primary-container transition-colors shrink-0 whitespace-nowrap mr-1"
+            >
+              Clear filter
+            </button>
+          )}
+
           {filterTabs.map((t) => {
             const countForTab =
               t === "All Products"
@@ -154,7 +117,7 @@ export default function ProductCatalog({
                 type="button"
                 aria-pressed={isTabActive}
                 onClick={() => setTab(t)}
-                className={`inline-flex items-center gap-1.5 sm:gap-2 shrink-0 rounded-full px-3 py-2 text-[11px] sm:text-xs font-bold transition-all duration-150 ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 shrink-0 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-bold transition-all duration-150 whitespace-nowrap ${
                   isTabActive
                     ? "bg-primary text-on-primary shadow-xs ring-1 ring-primary/20"
                     : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
@@ -179,6 +142,41 @@ export default function ProductCatalog({
               </button>
             );
           })}
+        </div>
+
+        {/* Row 2: Sort By (Below Categories) */}
+        <div className="flex items-center gap-2 sm:gap-2.5 border-t border-surface-container-high/60 pt-3 overflow-x-auto pb-1 scrollbar-none">
+          <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1 shrink-0 whitespace-nowrap mr-1">
+            <Icon name="swap_vert" className="text-[16px] text-primary" />
+            Sort By:
+          </span>
+          <div
+            role="group"
+            aria-label="Sort products"
+            className="flex items-center gap-2 shrink-0"
+          >
+            {sortOptions.map((opt) => {
+              const checked = sortBy === opt.value;
+              return (
+                <label
+                  key={opt.value}
+                  className={`inline-flex cursor-pointer select-none items-center gap-2 rounded-full px-3 py-1.5 transition-all text-xs font-bold whitespace-nowrap ${
+                    checked
+                      ? "bg-surface-container-high text-on-surface ring-1 ring-primary/25"
+                      : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => setSortBy(opt.value)}
+                    className="h-3.5 w-3.5 cursor-pointer accent-primary"
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              );
+            })}
+          </div>
         </div>
       </div>
 
