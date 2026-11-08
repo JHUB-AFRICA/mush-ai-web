@@ -25,20 +25,29 @@ export default function Header({ cartCount = 0 }: { cartCount?: number }) {
         </Link>
 
         <nav className="hidden items-center gap-space-lg xl:flex">
-          {NAV_LINKS.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={isActive(href) ? "page" : undefined}
-              className={
-                isActive(href)
-                  ? "rounded-full bg-primary-container px-space-md py-space-xs font-label-md text-label-md text-on-primary-container"
-                  : "font-label-lg text-label-lg text-on-surface-variant transition-colors hover:text-on-surface"
-              }
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ label, href }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? "page" : undefined}
+                className={
+                  active
+                    ? "relative rounded-full bg-primary-container px-space-md py-space-xs font-label-md text-label-md text-on-primary-container"
+                    : "relative font-label-lg text-label-lg text-on-surface-variant transition-colors hover:text-on-surface"
+                }
+              >
+                {label}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-primary"
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-space-md">
