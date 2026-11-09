@@ -39,7 +39,7 @@ export default function CartPageClient() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">

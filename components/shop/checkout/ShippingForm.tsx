@@ -34,7 +34,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
   }, [user]);
 
   const counties = [
-    "Nairobi", "Kiambu", "Nakuru", "Mombasa", "Kisumu", "Uasin Gishu", 
+    "Nairobi", "Kiambu", "Nakuru", "Mombasa", "Kisumu", "Uasin Gishu",
     "Machakos", "Kajiado", "Meru", "Nyeri", "Other"
   ];
 
@@ -116,11 +116,10 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
           Collection Method
         </h2>
         <div className="space-y-3">
-          <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-            formData.pickupOption === "jkuat" 
-              ? "border-primary bg-primary/5" 
+          <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${formData.pickupOption === "jkuat"
+              ? "border-primary bg-primary/5"
               : "border-surface-container-high hover:border-primary/40"
-          }`}>
+            }`}>
             <input
               type="radio"
               name="pickupOption"
@@ -134,12 +133,11 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
               <p className="text-xs text-on-surface-variant mt-0.5">Free pickup - Cold chain storage available</p>
             </div>
           </label>
-          
-          <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-            formData.pickupOption === "delivery" 
-              ? "border-primary bg-primary/5" 
+
+          <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${formData.pickupOption === "delivery"
+              ? "border-primary bg-primary/5"
               : "border-surface-container-high hover:border-primary/40"
-          }`}>
+            }`}>
             <input
               type="radio"
               name="pickupOption"

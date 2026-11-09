@@ -43,6 +43,5 @@ export function clearShipping(): void {
   try {
     sessionStorage.removeItem(SHIPPING_KEY);
   } catch {
-    // ignore
   }
 }
