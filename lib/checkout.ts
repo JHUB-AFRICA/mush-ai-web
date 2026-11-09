@@ -23,7 +23,7 @@ export function saveShipping(shipping: ShippingDetails): void {
   } catch {
     // storage disabled — the checkout will fail loudly on submit instead
   }
-}
+} 
 
 export function loadShipping(): ShippingDetails | null {
   try {
