@@ -18,11 +18,6 @@ export default function CheckoutPageClient() {
     return null;
   }
 
-  if (!user) {
-    router.push("/auth/login?redirect=/checkout");
-    return null;
-  }
-
   const handleShippingSubmit = (data: ShippingDetails) => {
     // Carry the details across the page boundary to /payment.
     saveShipping(data);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -20,14 +20,17 @@ export default function PaymentPageClient() {
   const [selectedMethod, setSelectedMethod] = useState<"mpesa" | "card" | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [shippingPhone, setShippingPhone] = useState("");
+
+  useEffect(() => {
+    const s = loadShipping();
+    if (s?.phone) {
+      setShippingPhone(s.phone);
+    }
+  }, []);
 
   if (count === 0 && !submitting) {
     router.push("/cart");
-    return null;
-  }
-
-  if (!user) {
-    router.push("/auth/login?redirect=/payment");
     return null;
   }
 
@@ -62,7 +65,7 @@ export default function PaymentPageClient() {
       const order = await createOrder({
         items: lines.map((line) => ({ productId: line.id, quantity: line.qty })),
         shipping,
-        userId: user.id,
+        userId: user?.id,
       });
 
       await createPayment({
@@ -115,7 +118,7 @@ export default function PaymentPageClient() {
         <div className="lg:col-span-7 space-y-6">
           <PaymentMethod
             total={total}
-            phone={user.phone || ""}
+            phone={shippingPhone || user?.phone || ""}
             onPaymentSelect={handlePaymentSelect}
             onPayNow={handlePayNow}
             paying={submitting}
@@ -128,16 +131,16 @@ export default function PaymentPageClient() {
         </div>
       </div>
 
-      {paymentModal === "mpesa" && user && (
+      {paymentModal === "mpesa" && (
         <MpesaModal
-          phone={user.phone || ""}
+          phone={shippingPhone || user?.phone || ""}
           total={total}
           paying={submitting}
           onConfirm={() => processPayment("mpesa")}
           onClose={() => setPaymentModal(null)}
         />
       )}
-      {paymentModal === "card" && user && (
+      {paymentModal === "card" && (
         <CardModal
           total={total}
           paying={submitting}
