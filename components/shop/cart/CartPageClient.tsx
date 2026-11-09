@@ -22,10 +22,6 @@ export default function CartPageClient() {
   }
 
   const handleCheckout = () => {
-    if (!user) {
-      router.push("/auth/login?redirect=/checkout");
-      return;
-    }
     router.push("/checkout");
   };
 
@@ -148,11 +144,6 @@ export default function CartPageClient() {
             >
               Proceed to Checkout
             </button>
-            {!user && (
-              <p className="text-xs text-center text-on-surface-variant mt-3">
-                You&apos;ll need to sign in to checkout
-              </p>
-            )}
           </div>
         </div>
       </div>
