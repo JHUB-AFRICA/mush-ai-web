@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     // Remote images used in the original design. Download them into /public/images
     // and switch to local paths when you can (these generated URLs may expire).
