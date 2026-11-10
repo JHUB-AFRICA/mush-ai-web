@@ -41,7 +41,6 @@ graph TB
     subgraph "Client Layer"
         A[Next.js App Router] --> B[React Components]
         B --> C[Cart Context]
-        B --> D[Auth Context]
     end
 
     subgraph "Pages/Routes"
@@ -54,12 +53,10 @@ graph TB
 
     subgraph "Current State"
         K[Client-side State] --> L[localStorage - Cart]
-        K --> M[localStorage - Session]
     end
 
     subgraph "Backend (PostgreSQL)"
-        N[API Routes] --> O[Auth Service]
-        N --> P[Payment Records]
+        N[API Routes] --> P[Payment Records]
         N --> Q[Order Management]
         N --> R[Product Inventory]
         N --> S[Reviews / Newsletter / Contact]
@@ -67,7 +64,6 @@ graph TB
 
     A --> E
     C --> L
-    D --> M
     I -.-> N
 ```
 
@@ -80,7 +76,6 @@ share a connection pool plus helpers in `lib/`.
 | ------ | ------------------------------------ | ------------------------------------------------ |
 | `POST` | `/api/newsletter`                    | Subscribe an email (idempotent)                  |
 | `POST` | `/api/contact`                       | Store a contact-form message                     |
-| `POST` | `/api/auth/signup`                   | Create an account (scrypt-hashed password)       |
 | `GET`  | `/api/products`                      | Catalogue, optional `?category=` filter          |
 | `GET`  | `/api/products/[productId]`          | Single product                                   |
 | `GET`  | `/api/products/[productId]/reviews`  | Reviews for a product, newest first              |
@@ -89,8 +84,6 @@ share a connection pool plus helpers in `lib/`.
 | `GET`  | `/api/orders?id=`                    | Look up an order                                 |
 | `POST` | `/api/payments`                      | Record a payment and mark the order `paid`       |
 | `GET`  | `/api/payments?id=`                  | Look up a payment                                |
-
-> **Login is intentionally not implemented** — only signup is exposed.
 
 Order prices are always computed from the `products` table inside a
 transaction, so a tampered client payload cannot change what is charged.
@@ -119,7 +112,6 @@ Tables created: `users`, `newsletter_subscribers`, `contact_messages`,
 | `lib/db/index.ts`   | Shared `Pool`, `query`, `queryOne`, `withTransaction`|
 | `lib/db/mappers.ts` | Postgres rows → frontend `Product` / `ReviewItem`    |
 | `lib/api.ts`        | JSON helpers, validation, `ApiError`                |
-| `lib/auth/`         | scrypt password hashing + user creation             |
 
 ## Getting Started
 
@@ -165,15 +157,13 @@ graph TD
     B --> B3[cart/]
     B --> B4[checkout/]
     B --> B5[payment/]
-    B --> B6[auth/]
-    B --> B7[about/]
-    B --> B8[contact/]
+    B --> B6[about/]
+    B --> B7[contact/]
 
     C --> C1[shop/]
     C --> C2[layout/]
     C --> C3[home/]
-    C --> C4[auth/]
-    C --> C5[ui/]
+    C --> C4[ui/]
 
     C1 --> C1a[cart/]
     C1 --> C1b[product/]

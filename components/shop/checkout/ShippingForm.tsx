@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Truck } from "lucide-react";
-import { useAuth } from "@/components/auth/AuthProvider";
 
 interface ShippingFormProps {
   onSubmit: (data: any) => void;
 }
 
 export default function ShippingForm({ onSubmit }: ShippingFormProps) {
-  const { user } = useAuth();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,18 +18,6 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
     address: "",
     pickupOption: "jkuat" as "jkuat" | "delivery",
   });
-
-  useEffect(() => {
-    if (user) {
-      setFormData((prev) => ({
-        ...prev,
-        firstName: prev.firstName || (user.name ? user.name.split(" ")[0] : ""),
-        lastName: prev.lastName || (user.name ? user.name.split(" ").slice(1).join(" ") : ""),
-        phone: prev.phone || user.phone || "",
-        email: prev.email || user.email || "",
-      }));
-    }
-  }, [user]);
 
   const counties = [
     "Nairobi", "Kiambu", "Nakuru", "Mombasa", "Kisumu", "Uasin Gishu",

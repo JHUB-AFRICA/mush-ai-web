@@ -93,7 +93,9 @@ export default function ProductCatalog({
             <Icon name="tune" className="text-[17px] text-primary" />
             Categories:
           </span>
-
+          <span className="inline-flex items-center rounded-full bg-surface-container px-2.5 py-0.5 text-[11px] font-semibold text-on-surface-variant shrink-0 whitespace-nowrap">
+            {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
+          </span>
           {tab !== "All Products" && (
             <button
               type="button"
@@ -117,25 +119,22 @@ export default function ProductCatalog({
                 type="button"
                 aria-pressed={isTabActive}
                 onClick={() => setTab(t)}
-                className={`inline-flex items-center gap-1.5 sm:gap-2 shrink-0 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-bold transition-all duration-150 whitespace-nowrap ${
-                  isTabActive
-                    ? "bg-primary text-on-primary shadow-xs ring-1 ring-primary/20"
-                    : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
-                }`}
+                className={`inline-flex items-center gap-1.5 sm:gap-2 shrink-0 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-bold transition-all duration-150 whitespace-nowrap ${isTabActive
+                  ? "bg-primary text-on-primary shadow-xs ring-1 ring-primary/20"
+                  : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                  }`}
               >
                 <Icon
                   name={categoryIcons[t]}
-                  className={`text-[14px] sm:text-[15px] ${
-                    isTabActive ? "text-primary-fixed" : "text-primary/70"
-                  }`}
+                  className={`text-[14px] sm:text-[15px] ${isTabActive ? "text-primary-fixed" : "text-primary/70"
+                    }`}
                 />
                 <span>{t}</span>
                 <span
-                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
-                    isTabActive
-                      ? "bg-white/20 text-white"
-                      : "bg-surface-container-highest text-on-surface-variant"
-                  }`}
+                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${isTabActive
+                    ? "bg-white/20 text-white"
+                    : "bg-surface-container-highest text-on-surface-variant"
+                    }`}
                 >
                   {countForTab}
                 </span>
@@ -160,11 +159,10 @@ export default function ProductCatalog({
               return (
                 <label
                   key={opt.value}
-                  className={`inline-flex cursor-pointer select-none items-center gap-2 rounded-full px-3 py-1.5 transition-all text-xs font-bold whitespace-nowrap ${
-                    checked
-                      ? "bg-surface-container-high text-on-surface ring-1 ring-primary/25"
-                      : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
-                  }`}
+                  className={`inline-flex cursor-pointer select-none items-center gap-2 rounded-full px-3 py-1.5 transition-all text-xs font-bold whitespace-nowrap ${checked
+                    ? "bg-surface-container-high text-on-surface ring-1 ring-primary/25"
+                    : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                    }`}
                 >
                   <input
                     type="checkbox"

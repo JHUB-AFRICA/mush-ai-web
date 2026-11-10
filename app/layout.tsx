@@ -3,7 +3,6 @@ import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/components/shop/cart/CartProvider";
-import { AuthProvider } from "@/components/auth/AuthProvider";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-outfit", display: "swap" });
@@ -25,13 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-background font-body-md text-body-md text-on-surface antialiased" suppressHydrationWarning>
-        <AuthProvider>
-          <CartProvider>
-            <Header />
-            <main className="w-full pt-20 bg-background">{children}</main>
-            <Footer />
-          </CartProvider>
-        </AuthProvider>
+        <CartProvider>
+          <Header />
+          <main className="w-full pt-20 bg-background">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

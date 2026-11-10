@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
-import { useAuth } from "@/components/auth/AuthProvider";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
 import PaymentMethod from "@/components/shop/payment/PaymentMethod";
 import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
@@ -15,7 +14,6 @@ import { createOrder, createPayment } from "@/lib/orders";
 export default function PaymentPageClient() {
   const router = useRouter();
   const { total, count, lines, clearCart } = useCart();
-  const { user } = useAuth();
   const [paymentModal, setPaymentModal] = useState<"mpesa" | "card" | null>(null);
   const [selectedMethod, setSelectedMethod] = useState<"mpesa" | "card" | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -65,7 +63,6 @@ export default function PaymentPageClient() {
       const order = await createOrder({
         items: lines.map((line) => ({ productId: line.id, quantity: line.qty })),
         shipping,
-        userId: user?.id,
       });
 
       await createPayment({
@@ -95,7 +92,7 @@ export default function PaymentPageClient() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
       <div className="mb-8">
         <h1 className="font-headline-xl text-2xl sm:text-3xl font-extrabold text-on-surface">
           Payment
@@ -118,7 +115,7 @@ export default function PaymentPageClient() {
         <div className="lg:col-span-7 space-y-6">
           <PaymentMethod
             total={total}
-            phone={shippingPhone || user?.phone || ""}
+            phone={shippingPhone}
             onPaymentSelect={handlePaymentSelect}
             onPayNow={handlePayNow}
             paying={submitting}
@@ -133,7 +130,7 @@ export default function PaymentPageClient() {
 
       {paymentModal === "mpesa" && (
         <MpesaModal
-          phone={shippingPhone || user?.phone || ""}
+          phone={shippingPhone}
           total={total}
           paying={submitting}
           onConfirm={() => processPayment("mpesa")}
