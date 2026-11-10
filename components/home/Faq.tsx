@@ -33,7 +33,7 @@ export default function Faq() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="faq-scroll-area max-h-[520px] overflow-y-auto overscroll-contain pr-2 space-y-4 rounded-2xl">
           {FAQS.map((f, i) => {
             const isOpen = open === i;
             return (

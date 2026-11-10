@@ -41,7 +41,7 @@ function FaqItem({ question, answer, id }: FaqItemData & { id: string }) {
 
 export default function FaqAccordion({ items }: { items: FaqItemData[] }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="faq-scroll-area max-h-[520px] overflow-y-auto overscroll-contain pr-2 flex flex-col gap-4 rounded-2xl">
       {items.map((item, i) => (
         <FaqItem key={item.question} id={`faq-${i}`} {...item} />
       ))}
