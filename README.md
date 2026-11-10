@@ -163,7 +163,9 @@ graph TD
     C --> C1[shop/]
     C --> C2[layout/]
     C --> C3[home/]
-    C --> C4[ui/]
+    C --> C4[about/]
+    C --> C5[contact/]
+    C --> C6[ui/]
 
     C1 --> C1a[cart/]
     C1 --> C1b[product/]
