@@ -70,3 +70,22 @@
 
 html, body { margin: 0; padding: 0; }
 body { overscroll-behavior: none; background: var(--color-background); }
+
+/* Custom sleek scrollbar for self-contained FAQ scroll areas */
+.faq-scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(65, 103, 75, 0.25) transparent;
+}
+.faq-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+.faq-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.faq-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(65, 103, 75, 0.25);
+  border-radius: 9999px;
+}
+.faq-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(65, 103, 75, 0.45);
+}
