@@ -37,9 +37,6 @@ export default function Hero() {
             <Link href="/shop" className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary-container px-8 py-4 font-label-lg text-label-lg text-on-secondary shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary">
               Shop Now <Icon name="arrow_forward" className="text-[18px]" />
             </Link>
-            <Link href="/login" className="inline-flex items-center justify-center gap-2 rounded-full border border-on-primary/10 bg-surface/10 px-8 py-4 font-label-lg text-label-lg text-on-primary backdrop-blur-md transition-all duration-200 hover:bg-surface/20">
-              <Icon name="login" className="text-[18px]" /> Login
-            </Link>
           </div>
         </div>
       </div>

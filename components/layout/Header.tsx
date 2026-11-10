@@ -63,12 +63,6 @@ export default function Header({ cartCount = 0 }: { cartCount?: number }) {
               </span>
             )}
           </Link>
-          <Link
-            href="/login"
-            className="hidden items-center justify-center rounded-full bg-secondary-container px-space-lg py-space-sm font-label-lg text-label-lg text-on-secondary shadow-[0_4px_16px_-2px_rgba(44,34,30,0.08)] transition-all duration-150 hover:-translate-y-0.5 hover:bg-secondary sm:inline-flex"
-          >
-            Login
-          </Link>
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -84,7 +78,7 @@ export default function Header({ cartCount = 0 }: { cartCount?: number }) {
       {open && (
         <nav className="border-t border-outline-variant/30 bg-surface px-6 py-4 xl:hidden">
           <ul className="flex flex-col gap-1">
-            {[...NAV_LINKS, { label: "Login", href: "/login" }].map(({ label, href }) => (
+            {NAV_LINKS.map(({ label, href }) => (
               <li key={href}>
                 <Link
                   href={href}

@@ -3,19 +3,17 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/components/shop/cart/CartProvider";
-import { useAuth } from "@/components/auth/AuthProvider";
 import CartEmpty from "@/components/shop/cart/CartEmpty";
 import Image from "next/image";
 import { formatKsh } from "@/lib/format";
 import { products } from "@/lib/products";
-import { ShoppingBag, Plus, Minus, Trash2, Sparkles } from "lucide-react";
+import { Plus, Minus, Trash2, Sparkles } from "lucide-react";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
 import ProductCard from "@/components/shop/product/ProductCard";
 
 export default function CartPageClient() {
   const router = useRouter();
   const { lines, total, count, setQty, remove, clearCart } = useCart();
-  const { user } = useAuth();
 
   if (count === 0) {
     return <CartEmpty />;

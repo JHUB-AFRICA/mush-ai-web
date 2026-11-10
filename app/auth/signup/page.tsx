@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthProvider";
 
@@ -138,16 +137,6 @@ export default function SignupPage() {
             {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
-
-        <div className="mt-6 text-center text-xs text-on-surface-variant">
-          Already have an account?{" "}
-          <Link
-            href="/auth/login"
-            className="text-primary font-semibold hover:underline"
-          >
-            Sign in
-          </Link>
-        </div>
       </div>
     </div>
   );
