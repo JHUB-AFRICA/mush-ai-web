@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Truck, AlertCircle, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import {
+  Truck,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  MapPin,
+  Clock,
+  ShieldCheck,
+} from "lucide-react";
 import type { ShippingDetails } from "@/lib/checkout";
 import {
   validateEmail,
   validateKenyanPhone,
-  validateKenyanId,
-  sanitizeIdInput,
   sanitizePhoneInput,
 } from "@/lib/validation";
 
@@ -21,7 +28,6 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
     lastName: "",
     phone: "",
     email: "",
-    nationalId: "",
     county: "",
     town: "",
     address: "",
@@ -31,27 +37,86 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
   const [errors, setErrors] = useState<{
     phone?: string;
     email?: string;
-    nationalId?: string;
+    county?: string;
+    town?: string;
+    address?: string;
   }>({});
 
   const [touched, setTouched] = useState<{
     phone?: boolean;
     email?: boolean;
-    nationalId?: boolean;
+    county?: boolean;
+    town?: boolean;
+    address?: boolean;
   }>({});
+
+  const [emailChecking, setEmailChecking] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const counties = [
     "Nairobi", "Kiambu", "Nakuru", "Mombasa", "Kisumu", "Uasin Gishu",
     "Machakos", "Kajiado", "Meru", "Nyeri", "Other"
   ];
 
-  const handleBlur = (field: "phone" | "email" | "nationalId") => {
+  /**
+   * Calls the server endpoint /api/validate-email to perform DNS MX
+   * and disposable domain checks on the email address.
+   */
+  const verifyEmailWithServer = async (emailToVerify: string): Promise<boolean> => {
+    const syntax = validateEmail(emailToVerify);
+    if (!syntax.isValid) {
+      setErrors((prev) => ({ ...prev, email: syntax.error }));
+      setEmailVerified(false);
+      return false;
+    }
+
+    setEmailChecking(true);
+    try {
+      const res = await fetch(
+        `/api/validate-email?email=${encodeURIComponent(emailToVerify)}`
+      );
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok || !data?.isValid) {
+        const errorMsg =
+          data?.error ?? "This email domain does not appear to accept emails.";
+        setErrors((prev) => ({ ...prev, email: errorMsg }));
+        setEmailVerified(false);
+        return false;
+      }
+
+      setErrors((prev) => ({ ...prev, email: undefined }));
+      setEmailVerified(true);
+      return true;
+    } catch {
+      // In case of network interruption, allow syntax check to pass gracefully
+      setErrors((prev) => ({ ...prev, email: undefined }));
+      setEmailVerified(true);
+      return true;
+    } finally {
+      setEmailChecking(false);
+    }
+  };
+
+  const handleBlur = (field: "phone" | "email" | "county" | "town" | "address") => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    runValidationFor(field, formData[field]);
+
+    if (field === "email") {
+      const syntax = validateEmail(formData.email);
+      if (syntax.isValid) {
+        verifyEmailWithServer(formData.email);
+      } else {
+        setErrors((prev) => ({ ...prev, email: syntax.error }));
+        setEmailVerified(false);
+      }
+    } else {
+      runValidationFor(field, formData[field]);
+    }
   };
 
   const runValidationFor = (
-    field: "phone" | "email" | "nationalId",
+    field: "phone" | "email" | "county" | "town" | "address",
     value: string
   ): boolean => {
     let err: string | undefined;
@@ -62,9 +127,12 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
     } else if (field === "phone") {
       const result = validateKenyanPhone(value);
       if (!result.isValid) err = result.error;
-    } else if (field === "nationalId") {
-      const result = validateKenyanId(value);
-      if (!result.isValid) err = result.error;
+    } else if (field === "county" && formData.pickupOption === "delivery") {
+      if (!value.trim()) err = "Please select your delivery county.";
+    } else if (field === "town" && formData.pickupOption === "delivery") {
+      if (!value.trim()) err = "Please enter your town or delivery area.";
+    } else if (field === "address" && formData.pickupOption === "delivery") {
+      if (!value.trim()) err = "Please enter your delivery street or building.";
     }
 
     setErrors((prev) => ({ ...prev, [field]: err }));
@@ -77,56 +145,88 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
     const { name, value } = e.target;
 
     let sanitizedValue = value;
-    if (name === "nationalId") {
-      sanitizedValue = sanitizeIdInput(value);
-    } else if (name === "phone") {
+    if (name === "phone") {
       sanitizedValue = sanitizePhoneInput(value);
     }
 
     setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
 
-    // If already touched, validate live
-    if (name === "phone" || name === "email" || name === "nationalId") {
-      if (touched[name]) {
-        runValidationFor(name, sanitizedValue);
+    if (name === "email") {
+      setEmailVerified(false);
+      if (touched.email) {
+        runValidationFor("email", sanitizedValue);
+      }
+    } else if (name === "phone") {
+      if (touched.phone) {
+        runValidationFor("phone", sanitizedValue);
       }
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mark all validated fields as touched
-    setTouched({ phone: true, email: true, nationalId: true });
+    setTouched({
+      phone: true,
+      email: true,
+      county: formData.pickupOption === "delivery",
+      town: formData.pickupOption === "delivery",
+      address: formData.pickupOption === "delivery",
+    });
 
-    const isEmailValid = runValidationFor("email", formData.email);
     const phoneResult = validateKenyanPhone(formData.phone);
-    const isIdValid = runValidationFor("nationalId", formData.nationalId);
-
     if (!phoneResult.isValid) {
       setErrors((prev) => ({ ...prev, phone: phoneResult.error }));
-    }
-
-    if (!isEmailValid || !phoneResult.isValid || !isIdValid) {
       return;
     }
 
-    // Pass cleaned and normalized phone number to ensure clean M-Pesa STK push
-    onSubmit({
+    // If delivery is chosen, validate destination fields
+    if (formData.pickupOption === "delivery") {
+      const isCountyValid = runValidationFor("county", formData.county);
+      const isTownValid = runValidationFor("town", formData.town);
+      const isAddressValid = runValidationFor("address", formData.address);
+      if (!isCountyValid || !isTownValid || !isAddressValid) {
+        return;
+      }
+    }
+
+    // Always run DNS MX & disposable domain verification before advancing to payment
+    setSubmitting(true);
+    const isEmailValid = await verifyEmailWithServer(formData.email);
+    setSubmitting(false);
+
+    if (!isEmailValid) {
+      return;
+    }
+
+    // For JKUAT pickup, automatically set standard pickup hub info
+    const finalPayload: ShippingDetails = {
       ...formData,
       phone: phoneResult.normalizedLocal || formData.phone,
-    });
-  };
+      county:
+        formData.pickupOption === "jkuat"
+          ? "Kiambu"
+          : formData.county,
+      town:
+        formData.pickupOption === "jkuat"
+          ? "Juja"
+          : formData.town,
+      address:
+        formData.pickupOption === "jkuat"
+          ? "JKUAT Main Campus, Juja Innovation Farm (Collection Point)"
+          : formData.address,
+    };
 
-  const isIdLengthValid =
-    formData.nationalId.length === 8 || formData.nationalId.length === 9;
+    onSubmit(finalPayload);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* 1. Customer Contact Details */}
       <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm">
         <h2 className="font-headline-sm text-base font-bold text-on-surface mb-4 flex items-center gap-2">
           <Truck size={18} className="text-primary" />
-          Customer Identification &amp; Contact
+          Customer Information
         </h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -160,66 +260,10 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
             />
           </div>
 
-          {/* National ID Field */}
-          <div className="sm:col-span-2 rounded-xl bg-surface-container-low/60 p-3.5 border border-surface-container-high/60">
-            <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-semibold text-on-surface">
-                Kenyan National ID Number *
-              </label>
-              <span className="text-[11px] font-medium text-on-surface-variant">
-                {formData.nationalId.length}/9 digits
-              </span>
-            </div>
-
-            <div className="relative">
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={9}
-                name="nationalId"
-                value={formData.nationalId}
-                onChange={handleChange}
-                onBlur={() => handleBlur("nationalId")}
-                placeholder="Enter 8 or 9-digit ID number"
-                required
-                className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
-                  touched.nationalId && errors.nationalId
-                    ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
-                    : touched.nationalId && isIdLengthValid
-                    ? "border-green-600 focus:border-green-600"
-                    : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
-                }`}
-              />
-              {touched.nationalId && isIdLengthValid && !errors.nationalId && (
-                <CheckCircle2
-                  size={16}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 pointer-events-none"
-                />
-              )}
-            </div>
-
-            <p className="mt-1.5 text-[11px] text-on-surface-variant flex items-start gap-1">
-              <span>ℹ️</span>
-              <span>
-                Standard Kenyan IDs have <strong>8 digits</strong>, while newer
-                Maisha Namba / UPI cards have <strong>9 digits</strong>. Both are
-                fully accepted.
-              </span>
-            </p>
-
-            {touched.nationalId && errors.nationalId && (
-              <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                <AlertCircle size={13} />
-                {errors.nationalId}
-              </p>
-            )}
-          </div>
-
           {/* Phone Field */}
           <div>
             <label className="block text-xs font-medium text-on-surface mb-1">
-              Kenyan Phone Number *
+              Phone Number (M-Pesa) *
             </label>
             <input
               type="tel"
@@ -227,7 +271,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
               value={formData.phone}
               onChange={handleChange}
               onBlur={() => handleBlur("phone")}
-              placeholder="07XX XXX XXX or 01XX XXX XXX"
+              placeholder="e.g. 0712 345 678"
               required
               className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
                 touched.phone && errors.phone
@@ -242,34 +286,58 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
               </p>
             ) : (
               <p className="mt-1 text-[11px] text-on-surface-variant">
-                Used for M-Pesa STK push and delivery updates
+                Used for M-Pesa STK push and order dispatch updates
               </p>
             )}
           </div>
 
-          {/* Email Field */}
+          {/* Email Field with live DNS validation */}
           <div>
             <label className="block text-xs font-medium text-on-surface mb-1">
               Email Address *
             </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={() => handleBlur("email")}
-              placeholder="you@example.com"
-              required
-              className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
-                touched.email && errors.email
-                  ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
-                  : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
-              }`}
-            />
+            <div className="relative">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={() => handleBlur("email")}
+                placeholder="e.g. name@example.com"
+                required
+                className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 pr-9 text-sm text-on-surface outline-none transition-colors ${
+                  touched.email && errors.email
+                    ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
+                    : touched.email && emailVerified && !errors.email
+                    ? "border-green-600 focus:border-green-600"
+                    : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
+                }`}
+              />
+              {emailChecking && (
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-primary">
+                  <Loader2 size={16} className="animate-spin" />
+                </span>
+              )}
+              {!emailChecking && touched.email && emailVerified && !errors.email && (
+                <CheckCircle2
+                  size={16}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 pointer-events-none"
+                />
+              )}
+            </div>
+
             {touched.email && errors.email ? (
               <p className="mt-1 text-xs text-red-600 flex items-center gap-1 font-medium">
                 <AlertCircle size={13} />
                 {errors.email}
+              </p>
+            ) : emailChecking ? (
+              <p className="mt-1 text-[11px] text-primary flex items-center gap-1">
+                Verifying email domain validity…
+              </p>
+            ) : touched.email && emailVerified ? (
+              <p className="mt-1 text-[11px] text-green-600 flex items-center gap-1">
+                ✓ Valid email domain
               </p>
             ) : (
               <p className="mt-1 text-[11px] text-on-surface-variant">
@@ -280,6 +348,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
         </div>
       </div>
 
+      {/* 2. Collection Method */}
       <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-sm">
         <h2 className="font-headline-sm text-base font-bold text-on-surface mb-4">
           Collection Method
@@ -288,7 +357,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
           <label
             className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
               formData.pickupOption === "jkuat"
-                ? "border-primary bg-primary/5"
+                ? "border-primary bg-primary/5 ring-1 ring-primary/20"
                 : "border-surface-container-high hover:border-primary/40"
             }`}
           >
@@ -305,7 +374,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
                 Pick up at JKUAT / Juja Innovation Farm
               </p>
               <p className="text-xs text-on-surface-variant mt-0.5">
-                Free pickup - Cold chain storage available
+                Free collection • Cold chain storage available
               </p>
             </div>
           </label>
@@ -313,7 +382,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
           <label
             className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
               formData.pickupOption === "delivery"
-                ? "border-primary bg-primary/5"
+                ? "border-primary bg-primary/5 ring-1 ring-primary/20"
                 : "border-surface-container-high hover:border-primary/40"
             }`}
           >
@@ -328,78 +397,167 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
             <div>
               <p className="text-sm font-semibold text-on-surface">Delivery</p>
               <p className="text-xs text-on-surface-variant mt-0.5">
-                Delivery within Nairobi and surrounding areas
+                Dispatch to your doorstep within Nairobi, Kiambu, and surrounding areas
               </p>
             </div>
           </label>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-surface-container-high/60">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block text-xs font-medium text-on-surface mb-1">
-                County *
-              </label>
-              <select
-                name="county"
-                value={formData.county}
-                onChange={handleChange}
-                required
-                className="w-full rounded-xl border border-surface-container-high bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              >
-                <option value="">Select County</option>
-                {counties.map((county) => (
-                  <option key={county} value={county}>
-                    {county}
-                  </option>
-                ))}
-              </select>
+        {/* Dynamic Section: JKUAT Pickup Info (No redundant inputs required) */}
+        {formData.pickupOption === "jkuat" && (
+          <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4 space-y-3 animate-in fade-in duration-200">
+            <div className="flex items-start gap-3 text-on-surface">
+              <MapPin size={18} className="text-primary shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-sm text-on-surface">Collection Point:</p>
+                <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed">
+                  JKUAT Main Campus, Juja Innovation Farm (Department of Agriculture), Juja, Kiambu County
+                </p>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-medium text-on-surface mb-1">
-                Town / Area *
-              </label>
-              <input
-                type="text"
-                name="town"
-                value={formData.town}
-                onChange={handleChange}
-                placeholder="e.g. Juja, Westlands, Thika"
-                required
-                className="w-full rounded-xl border border-surface-container-high bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              />
+            <div className="flex items-start gap-3 text-on-surface pt-2 border-t border-primary/10">
+              <Clock size={18} className="text-primary shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-xs text-on-surface">Collection Hours:</p>
+                <p className="text-xs text-on-surface-variant mt-0.5">
+                  Monday – Friday: 8:00 AM – 5:00 PM
+                </p>
+              </div>
             </div>
 
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-medium text-on-surface mb-1">
-                {formData.pickupOption === "delivery"
-                  ? "Street / Building / Delivery Address *"
-                  : "Pickup Instructions / Additional Notes *"}
-              </label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder={
-                  formData.pickupOption === "delivery"
-                    ? "e.g. Kimathi Way, Block B, Apt 4"
-                    : "e.g. Picking up on Friday morning"
-                }
-                required
-                className="w-full rounded-xl border border-surface-container-high bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-              />
+            <p className="text-[11px] font-medium text-emerald-800 pt-1">
+              ✓ No address needed for pickup. Just present your Order ID or phone number when collecting.
+            </p>
+          </div>
+        )}
+
+        {/* Dynamic Section: Delivery Destination Details (Only when Delivery is chosen) */}
+        {formData.pickupOption === "delivery" && (
+          <div className="mt-4 pt-4 border-t border-surface-container-high/60 animate-in fade-in duration-200">
+            <p className="text-xs font-semibold text-on-surface mb-3">
+              Delivery Destination
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="block text-xs font-medium text-on-surface mb-1">
+                  County *
+                </label>
+                <select
+                  name="county"
+                  value={formData.county}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur("county")}
+                  required
+                  className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
+                    touched.county && errors.county
+                      ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
+                      : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
+                  }`}
+                >
+                  <option value="">Select County</option>
+                  {counties.map((county) => (
+                    <option key={county} value={county}>
+                      {county}
+                    </option>
+                  ))}
+                </select>
+                {touched.county && errors.county && (
+                  <p className="mt-1 text-xs text-red-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} />
+                    {errors.county}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-on-surface mb-1">
+                  Town / Area *
+                </label>
+                <input
+                  type="text"
+                  name="town"
+                  value={formData.town}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur("town")}
+                  placeholder="e.g. Westlands, Kilimani, Juja, Thika"
+                  required
+                  className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
+                    touched.town && errors.town
+                      ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
+                      : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
+                  }`}
+                />
+                {touched.town && errors.town && (
+                  <p className="mt-1 text-xs text-red-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} />
+                    {errors.town}
+                  </p>
+                )}
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-medium text-on-surface mb-1">
+                  Street / Building / House Address *
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur("address")}
+                  placeholder="e.g. Kimathi Way, Eagle Plaza, 2nd Floor, Apt 4B"
+                  required
+                  className={`w-full rounded-xl border bg-surface-container-lowest px-3 py-2 text-sm text-on-surface outline-none transition-colors ${
+                    touched.address && errors.address
+                      ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-200"
+                      : "border-surface-container-high focus:border-primary focus:ring-1 focus:ring-primary"
+                  }`}
+                />
+                {touched.address && errors.address && (
+                  <p className="mt-1 text-xs text-red-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} />
+                    {errors.address}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
+      {/* 3. Return Policy Notice */}
+      <div className="rounded-2xl border border-surface-container-high/80 bg-surface-container-low/60 p-4 text-xs text-on-surface-variant space-y-1.5">
+        <div className="flex items-center gap-1.5 font-bold text-on-surface text-sm">
+          <ShieldCheck size={16} className="text-primary" />
+          <span>Buyer Protection &amp; Return Policy</span>
+        </div>
+        <p className="text-[11px] leading-relaxed text-on-surface-variant">
+          Fresh mushrooms and live spawn can be reported within 24–48 hours of collection or delivery if damaged. Approved refunds are credited directly to your M-Pesa number. By continuing, you agree to SmartMushroom’s{" "}
+          <Link
+            href="/terms"
+            target="_blank"
+            className="text-primary font-semibold underline hover:text-primary-container"
+          >
+            Terms of Service &amp; Return Policy
+          </Link>.
+        </p>
+      </div>
+
+      {/* 4. Submit Button */}
       <button
         type="submit"
-        className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors"
+        disabled={submitting || emailChecking}
+        className="w-full rounded-xl bg-primary hover:bg-primary-container text-on-primary py-3 text-sm font-bold shadow-md transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
       >
-        Continue to Payment
+        {submitting ? (
+          <>
+            <Loader2 size={16} className="animate-spin" />
+            <span>Verifying Details…</span>
+          </>
+        ) : (
+          "Continue to Payment"
+        )}
       </button>
     </form>
   );

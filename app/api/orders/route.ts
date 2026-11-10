@@ -13,8 +13,8 @@ import {
 import {
   validateEmail,
   validateKenyanPhone,
-  validateKenyanId,
 } from "@/lib/validation";
+import { verifyEmailServer } from "@/lib/email-verifier";
 
 type ItemInput = { productId: string; quantity: number };
 
@@ -83,7 +83,6 @@ export async function POST(request: Request): Promise<Response> {
     const lastName = asString(shipping.lastName);
     const phone = asString(shipping.phone);
     const email = asString(shipping.email)?.toLowerCase();
-    const nationalId = asString(shipping.nationalId);
     const county = asString(shipping.county);
     const town = asString(shipping.town);
     const address = asString(shipping.address);
@@ -99,23 +98,28 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     if (!email) throw new ApiError(400, "Email address is required");
-    const emailCheck = validateEmail(email);
+    const emailCheck = await verifyEmailServer(email);
     if (!emailCheck.isValid) {
       throw new ApiError(400, emailCheck.error ?? "A valid email address is required");
     }
 
-    if (nationalId) {
-      const idCheck = validateKenyanId(nationalId);
-      if (!idCheck.isValid) {
-        throw new ApiError(400, idCheck.error ?? "Kenyan National ID must be 8 or 9 digits");
-      }
-    }
-
-    if (!county) throw new ApiError(400, "County is required");
-    if (!town) throw new ApiError(400, "Town/Area is required");
-    if (!address) throw new ApiError(400, "Additional details are required");
     if (pickupOption !== "jkuat" && pickupOption !== "delivery") {
       throw new ApiError(400, "pickupOption must be 'jkuat' or 'delivery'");
+    }
+
+    const effectiveCounty =
+      pickupOption === "jkuat" ? (county ?? "Kiambu") : county;
+    const effectiveTown =
+      pickupOption === "jkuat" ? (town ?? "Juja") : town;
+    const effectiveAddress =
+      pickupOption === "jkuat"
+        ? (address ?? "JKUAT Main Campus, Juja Innovation Farm (Collection Point)")
+        : address;
+
+    if (pickupOption === "delivery") {
+      if (!effectiveCounty) throw new ApiError(400, "Delivery county is required");
+      if (!effectiveTown) throw new ApiError(400, "Delivery town or area is required");
+      if (!effectiveAddress) throw new ApiError(400, "Delivery street or building address is required");
     }
 
     const userId = asString(body.userId);
@@ -152,67 +156,31 @@ export async function POST(request: Request): Promise<Response> {
         throw new ApiError(400, "Order total must be greater than zero");
       }
 
-      let orderRow;
-      try {
-        orderRow = await client.query<{
-          id: string;
-          status: string;
-          currency: string;
-          created_at: Date;
-        }>(
-          `INSERT INTO orders (
-             user_id, status, first_name, last_name, phone, email,
-             national_id, county, town, address, pickup_option, subtotal, total
-           )
-           VALUES ($1, 'pending', $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $11)
-           RETURNING id, status, currency, created_at`,
-          [
-            userId ?? null,
-            firstName,
-            lastName,
-            phoneCheck.normalizedLocal ?? phone,
-            email,
-            nationalId ?? null,
-            county,
-            town,
-            address,
-            pickupOption,
-            subtotal.toFixed(2),
-          ],
-        );
-      } catch (dbErr: unknown) {
-        const pgErr = dbErr as { code?: string };
-        if (pgErr?.code === "42703") {
-          // national_id column not yet created in older migration
-          orderRow = await client.query<{
-            id: string;
-            status: string;
-            currency: string;
-            created_at: Date;
-          }>(
-            `INSERT INTO orders (
-               user_id, status, first_name, last_name, phone, email,
-               county, town, address, pickup_option, subtotal, total
-             )
-             VALUES ($1, 'pending', $2, $3, $4, $5, $6, $7, $8, $9, $10, $10)
-             RETURNING id, status, currency, created_at`,
-            [
-              userId ?? null,
-              firstName,
-              lastName,
-              phoneCheck.normalizedLocal ?? phone,
-              email,
-              county,
-              town,
-              address,
-              pickupOption,
-              subtotal.toFixed(2),
-            ],
-          );
-        } else {
-          throw dbErr;
-        }
-      }
+      const orderRow = await client.query<{
+        id: string;
+        status: string;
+        currency: string;
+        created_at: Date;
+      }>(
+        `INSERT INTO orders (
+           user_id, status, first_name, last_name, phone, email,
+           county, town, address, pickup_option, subtotal, total
+         )
+         VALUES ($1, 'pending', $2, $3, $4, $5, $6, $7, $8, $9, $10, $10)
+         RETURNING id, status, currency, created_at`,
+        [
+          userId ?? null,
+          firstName,
+          lastName,
+          phoneCheck.normalizedLocal ?? phone,
+          email,
+          effectiveCounty,
+          effectiveTown,
+          effectiveAddress,
+          pickupOption,
+          subtotal.toFixed(2),
+        ],
+      );
 
       const created = orderRow.rows[0];
       if (!created) throw new ApiError(500, "Could not create order");
