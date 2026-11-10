@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { validateEmail } from "@/lib/validation";
 
 const TOPICS = [
   "Product inquiries",
@@ -35,6 +36,12 @@ export default function ContactForm() {
       subject: String(data.get("subject") ?? ""),
       message: String(data.get("message") ?? ""),
     };
+
+    const emailCheck = validateEmail(payload.email);
+    if (!emailCheck.isValid) {
+      setError(emailCheck.error ?? "Please enter a valid email address.");
+      return;
+    }
 
     setSending(true);
     try {

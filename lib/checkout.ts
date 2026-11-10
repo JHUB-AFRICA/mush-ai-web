@@ -9,6 +9,7 @@ export type ShippingDetails = {
   lastName: string;
   phone: string;
   email: string;
+  nationalId: string;
   county: string;
   town: string;
   address: string;

@@ -63,9 +63,11 @@ export function asNumber(value: unknown): number | null {
   return null;
 }
 
-/** Very permissive email shape check — the HTML `type=email` already gates most input. */
+import { EMAIL_REGEX } from "@/lib/validation";
+
+/** Thorough email shape check. */
 export function isEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  return EMAIL_REGEX.test(value);
 }
 
 /** Normalise a Kenyan phone number to `07XXXXXXXX` / `01XXXXXXXX` form. */
