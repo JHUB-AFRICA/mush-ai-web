@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
+import Eyebrow from "@/components/ui/EyeBrow";
 
 export default function Hero() {
   return (
@@ -22,6 +23,10 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 md:pt-20 lg:px-12">
         <div className="flex max-w-3xl flex-col items-start">
+          <Eyebrow className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold text-secondary-fixed border border-white/15 backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-secondary-container" />
+            JHUB Africa &amp; JKUAT Agritech Initiative
+          </Eyebrow>
           <h1 className="mb-6 font-headline-xl-mobile text-headline-xl-mobile tracking-tight text-on-primary md:font-headline-xl md:text-headline-xl">
             Smarter mushroom farming, <span className="text-secondary-fixed">powered by data.</span>
           </h1>

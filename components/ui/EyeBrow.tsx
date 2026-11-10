@@ -6,9 +6,10 @@ type EyebrowProps = {
 export default function Eyebrow({ children, className = "" }: EyebrowProps) {
   return (
     <p
-      className={`text-[11px] font-semibold uppercase tracking-wider text-ember ${className}`}
+      className={`text-[11px] sm:text-xs font-bold uppercase tracking-wider ${className}`}
     >
       {children}
     </p>
   );
 }
+

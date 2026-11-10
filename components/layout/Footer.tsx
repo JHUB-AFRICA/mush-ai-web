@@ -1,119 +1,69 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
+import Icon from "@/components/ui/Icon";
 import NewsletterForm from "./NewsletterForm";
-import { CurrentYear } from "../core/CurrentYear";
+import { FOOTER_QUICK_LINKS, LEGAL_LINKS, LOGO_FOOTER } from "@/lib/site";
 
-const quickLinks = [
-  { label: "Home Overview", href: "/" },
-  { label: "Pumice Structures", href: "/farm-structure" },
-  { label: "The IoT Process", href: "/process" },
-  { label: "Fresh Spawn & Yields", href: "/shop" },
-  { label: "Farmer Training", href: "/training" },
+const BADGES = [
+  { icon: "verified", label: "Made in Kenya" },
+  { icon: "school", label: "JKUAT Innovators" },
+  { icon: "nest_eco_leaf", label: "JHUB Africa Partner" },
 ];
-
-const badges = ["Made in Kenya", "IKUAT Innovators", "JHUB Africa Partner"];
+const CONTACT = ["Nairobi / Juja, Kenya", "JHUB Innovation Ecosystem", "Phone: +254 700 000 000", "Email: info@smartmushroom.africa", "JKUAT Collaboration Wing"];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-page">
-      <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/smartmushroom_logo.png"
-              alt=""
-              width={22}
-              height={22}
-            />
-            <span className="text-sm font-bold">SmartMushroom</span>
+    <footer className="mt-auto w-full bg-surface-container-low text-on-surface">
+      <div className="mx-auto max-w-7xl px-6 pb-space-lg pt-space-xl lg:px-12">
+        <div className="mb-space-xl grid grid-cols-1 gap-space-xl md:grid-cols-2 lg:grid-cols-5">
+          <div className="flex flex-col gap-space-md lg:col-span-2">
+            <div className="flex items-center gap-space-sm">
+              <Image src={LOGO_FOOTER} alt="SmartMushroom logo" width={48} height={48} className="h-12 w-auto object-contain" />
+              <span className="font-headline-sm text-headline-sm text-primary">SmartMushroom</span>
+            </div>
+            <p className="max-w-sm font-body-md text-body-md text-on-surface-variant">
+              Smarter mushroom farming, powered by data. Precision climate-controlled pumice architecture and high-yield IoT substrates across East Africa.
+            </p>
+            <div className="flex flex-wrap gap-space-xs pt-space-xs">
+              {BADGES.map((b) => (
+                <span key={b.label} className="inline-flex items-center gap-1.5 rounded-full bg-surface-container px-space-sm py-1 font-label-sm text-label-sm text-primary">
+                  <Icon name={b.icon} className="text-[14px]" />
+                  {b.label}
+                </span>
+              ))}
+            </div>
           </div>
-          <p className="max-w-xs text-xs leading-relaxed text-muted">
-            Smarter mushroom farming, powered by data. Precision
-            climate-controlled pumice architecture and high-yield IoT substrates
-            across East Africa.
-          </p>
-          <ul className="flex flex-wrap gap-2">
-            {badges.map((b) => (
-              <li
-                key={b}
-                className="rounded-full border border-line bg-white px-2.5 py-1 text-[10px] font-medium text-muted"
-              >
-                {b}
-              </li>
+
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="mb-space-xs font-headline-sm text-headline-sm text-primary">Quick Links</h4>
+            <ul className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+              {FOOTER_QUICK_LINKS.map((l) => (
+                <li key={l.label}><Link href={l.href} className="transition-colors hover:text-on-surface">{l.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="mb-space-xs font-headline-sm text-headline-sm text-primary">Contact &amp; Hub</h4>
+            <ul className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+              {CONTACT.map((c) => <li key={c}>{c}</li>)}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="mb-space-xs font-headline-sm text-headline-sm text-primary">Harvest Dispatch</h4>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Weekly humidity telemetry, spawn releases, and outgrower agronomy reports.</p>
+            <NewsletterForm />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-between gap-space-md pt-space-lg font-label-md text-label-md text-on-surface-variant sm:flex-row">
+          <p>© {new Date().getFullYear()} SmartMushroom Ltd. All rights reserved.</p>
+          <div className="flex items-center gap-space-lg">
+            {LEGAL_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="transition-colors hover:text-on-surface">{l.label}</Link>
             ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="mb-3 text-xs font-bold">Quick Links</h3>
-          <ul className="space-y-2 text-xs text-muted">
-            {quickLinks.map(({ label, href }) => (
-              <li key={label}>
-                <Link href={href} className="hover:text-ink">
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="mb-3 text-xs font-bold">Contact &amp; Hub</h3>
-          <address className="space-y-2 text-xs not-italic text-muted">
-            <p>Nairobi / Juja, Kenya</p>
-            <p>
-              Phone:{" "}
-              <a href="tel:+254700000000" className="hover:text-ink">
-                +254 700 000 000
-              </a>
-            </p>
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:hello@smartmushroom.africa"
-                className="hover:text-ink"
-              >
-                hello@smartmushroom.africa
-              </a>
-            </p>
-            <p>JKUAT Collaboration Wing</p>
-          </address>
-        </div>
-
-        <div>
-          <h3 className="mb-1 text-xs font-bold">Harvest Dispatch</h3>
-          <p className="mb-3 text-xs text-muted">
-            Weekly humidity telemetry, spawn releases, and outgrower agronomy
-            reports.
-          </p>
-          <NewsletterForm />
-        </div>
-      </div>
-
-      <div className="border-t border-line">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-4 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>
-            <CurrentYear /> SmartMushroom Ltd. All rights reserved.
-          </p>
-          <ul className="flex gap-4">
-            <li>
-              <Link href="/privacy" className="hover:text-ink">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="/terms" className="hover:text-ink">
-                Terms of Service
-              </Link>
-            </li>
-            <li>
-              <Link href="/outgrower-agreement" className="hover:text-ink">
-                Outgrower Agreement
-              </Link>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
     </footer>

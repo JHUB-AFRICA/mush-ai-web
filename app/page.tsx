@@ -1,10 +1,10 @@
 import Hero from "@/components/home/Hero";
-import Problem from "@/components/home/Problem";
 import Partners from "@/components/home/Partners";
-import Workflow from "@/components/home/Workflow";
+import Problem from "@/components/home/Problem";
+import Approach from "@/components/home/Approach";
 import Monitor from "@/components/home/Monitor";
-import Pumice from "@/components/home/Pumice";
-import Community from "@/components/home/Community";
+import Mission from "@/components/home/Mission";
+import WhyFarmers from "@/components/home/WhyFarmers";
 import Faq from "@/components/home/Faq";
 import Cta from "@/components/home/Cta";
 
@@ -13,11 +13,11 @@ export default function HomePage() {
     <div className="flex w-full flex-col">
       <Hero />
       <Problem />
-      <Partners />
-      <Workflow />
+      <Approach />
       <Monitor />
-      <Pumice />
-      <Community />
+      <Partners />
+      <Mission />
+      <WhyFarmers />
       <Faq />
       <Cta />
     </div>

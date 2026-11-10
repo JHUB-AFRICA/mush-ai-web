@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Icon from "../Icon";
+import Icon from "@/components/ui/Icon";
+import { HelpCircle } from "lucide-react";
 
 const FAQS = [
   { q: "What does SmartMushroom actually do?", a: "We grow button mushrooms using a sensor-monitored smart farm, and sell grow kits, spawn, fresh mushrooms and mushroom by-products directly to customers." },
   { q: "Do I need any technical knowledge to buy from you?", a: "Not at all. Our shop, training and products are designed for anyone — from first-time growers to experienced farmers." },
   { q: "Where are you based?", a: "We're based in Kenya, and currently offer local pickup for all orders." },
   { q: "How do I contact you?", a: "Use the contact form, WhatsApp, or email in the footer of any page — whichever is easiest for you." },
+  { q: "Is SmartMushroom affiliated with a university or research institution?", a: "Yes — SmartMushroom has worked with institutional partners including JKUAT during its development." },
+  { q: "Do you work with organizations or only individual customers?", a: "Both. We sell directly to individual growers and customers, and welcome partnerships with organizations, cooperatives and suppliers." },
+  { q: "How can I become a partner or supplier?", a: "Reach out through the contact form or email, and let us know what kind of partnership you're interested in." },
 ];
 
 export default function Faq() {
@@ -17,8 +21,9 @@ export default function Faq() {
     <section className="w-full bg-surface py-20">
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
         <div className="mb-14 text-center">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-surface-container px-3 py-1 font-label-sm text-label-sm font-bold uppercase text-secondary">
-            Knowledge Base
+          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
+            <HelpCircle size={14} />
+            <span>Knowledge Base</span>
           </div>
           <h2 className="mb-4 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Frequently Asked Questions
