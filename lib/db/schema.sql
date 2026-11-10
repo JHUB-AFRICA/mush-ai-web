@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS orders (
   last_name     TEXT        NOT NULL,
   phone         TEXT        NOT NULL,
   email         TEXT        NOT NULL,
+  national_id   TEXT,
   county        TEXT        NOT NULL,
   town          TEXT        NOT NULL,
   address       TEXT        NOT NULL,
@@ -88,6 +89,8 @@ CREATE TABLE IF NOT EXISTS orders (
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS national_id TEXT;
 
 CREATE INDEX IF NOT EXISTS orders_user_idx ON orders (user_id);
 CREATE INDEX IF NOT EXISTS orders_email_idx ON orders (email);

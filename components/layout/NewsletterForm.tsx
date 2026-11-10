@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { validateEmail } from "@/lib/validation";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,13 @@ export default function NewsletterForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.isValid) {
+      setError(emailCheck.error ?? "Please enter a valid email address.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
