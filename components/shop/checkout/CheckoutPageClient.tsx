@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/shop/cart/CartProvider";
-import { useAuth } from "@/components/auth/AuthProvider";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
 import ShippingForm from "@/components/shop/checkout/ShippingForm";
 import OrderSummaryCheckout from "@/components/shop/checkout/OrderSummaryCheckout";
@@ -11,7 +10,6 @@ import { saveShipping, type ShippingDetails } from "@/lib/checkout";
 export default function CheckoutPageClient() {
   const router = useRouter();
   const { count } = useCart();
-  const { user } = useAuth();
 
   if (count === 0) {
     router.push("/cart");

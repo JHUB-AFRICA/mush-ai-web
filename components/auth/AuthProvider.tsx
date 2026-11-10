@@ -12,7 +12,6 @@ export type User = {
 type AuthContextValue = {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
   signup: (
     name: string,
     email: string,
@@ -43,25 +42,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   }, []);
-
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Mock auth - in production, call your auth API
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      
-      const mockUser: User = {
-        id: "usr_" + Date.now(),
-        name: email.split("@")[0],
-        email,
-      };
-      setUser(mockUser);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(mockUser));
-      return true;
-    } catch {
-      return false;
-    }
-  };
 
   const signup = async (
     name: string,
@@ -106,7 +86,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );
