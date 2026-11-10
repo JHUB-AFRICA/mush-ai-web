@@ -112,7 +112,7 @@ export default function PaymentPageClient() {
       )}
 
       <div className="grid gap-8 lg:grid-cols-12">
-        <div className="lg:col-span-7 space-y-6">
+        <div className="order-2 lg:order-1 lg:col-span-7 space-y-6">
           <PaymentMethod
             total={total}
             phone={shippingPhone}
@@ -121,7 +121,7 @@ export default function PaymentPageClient() {
             paying={submitting}
           />
         </div>
-        <div className="lg:col-span-5">
+        <div className="order-1 lg:order-2 lg:col-span-5">
           <div className="sticky top-24">
             <OrderSummaryCheckout showHandling={false} />
           </div>
