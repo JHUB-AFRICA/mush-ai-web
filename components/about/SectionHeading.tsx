@@ -4,7 +4,6 @@ export default function SectionHeading({
   title,
   intro,
   center = false,
-
 }: {
   title: string;
   intro?: string;
@@ -13,10 +12,15 @@ export default function SectionHeading({
 }) {
   return (
     <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <div className={`mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary ${center ? "justify-center" : ""}`}>
-      </div>
-      <h2 className="text-3xl font-bold tracking-tight text-primary md:text-4xl">{title}</h2>
-      {intro && <p className="mt-4 text-base leading-7 text-on-surface-variant md:text-lg">{intro}</p>}
+      <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
+        {title}
+      </h2>
+      {intro && (
+        <p className="mt-3 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          {intro}
+        </p>
+      )}
     </div>
   );
 }
+

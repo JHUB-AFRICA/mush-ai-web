@@ -1,6 +1,4 @@
 import Icon from "@/components/ui/Icon";
-import { Sparkles } from "lucide-react";
-import SectionHeading from "./SectionHeading";
 
 const FLOW = [
   { icon: "sensors", title: "Sensor data", text: "Collects temperature, humidity and CO₂." },
@@ -29,36 +27,50 @@ const WATCHES = [
 
 export default function MushAiSection() {
   return (
-    <section className="w-full bg-primary py-16 text-on-primary md:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+    <section className="relative w-full overflow-hidden bg-primary py-20 text-on-primary md:py-28">
+      {/* Ambient lighting accents */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-96 w-96 rounded-full bg-primary-container/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-secondary-container/20 blur-3xl" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-on-primary md:text-4xl">Your farm&apos;s eyes, day and night</h2>
-          <p className="mt-4 text-base leading-7 text-on-primary/85 md:text-lg">
+          <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-on-primary md:font-headline-lg md:text-headline-lg">
+            Your farm&apos;s eyes, <span className="text-secondary-fixed">day and night</span>
+          </h2>
+          <p className="mt-4 font-body-lg text-body-lg text-inverse-on-surface/90 leading-relaxed">
             Mush AI is a smart advisor built for mushroom farmers. It combines sensor data with verified growing
             knowledge, and you can ask it questions in plain language from your phone.
           </p>
         </div>
 
-        <ol className="mt-12 grid gap-4 md:grid-cols-4">
+        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FLOW.map((f, i) => (
-            <li key={f.title} className="relative rounded-2xl bg-white/10 p-5 ring-1 ring-white/15">
-              <span className="text-xs font-bold text-primary-fixed-dim">0{i + 1}</span>
-              <span className="mt-2 flex h-11 w-11 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-                <Icon name={f.icon} className="text-[22px]" />
+            <li
+              key={f.title}
+              className="relative rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-xs shadow-xs"
+            >
+              <span className="text-xs font-bold text-secondary-fixed">0{i + 1}</span>
+              <span className="mt-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-xs">
+                <Icon name={f.icon} className="text-[24px]" />
               </span>
-              <h3 className="mt-3 font-semibold">{f.title}</h3>
-              <p className="mt-1 text-sm leading-6 text-on-primary/75">{f.text}</p>
+              <h3 className="mt-4 font-headline text-lg font-semibold text-white">{f.title}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-inverse-on-surface/80">{f.text}</p>
             </li>
           ))}
         </ol>
 
-        <h3 className="mt-14 text-center text-xl font-bold">What it keeps an eye on</h3>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <h3 className="mt-16 text-center font-headline-md text-headline-md font-bold text-white">
+          What it keeps an eye on
+        </h3>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
           {WATCHES.map((w) => (
-            <div key={w.title} className="rounded-2xl border border-white/20 p-6">
-              <Icon name={w.icon} className="text-[28px] text-primary-fixed-dim" />
-              <h4 className="mt-3 font-semibold">{w.title}</h4>
-              <p className="mt-1 text-sm leading-6 text-on-primary/75">{w.text}</p>
+            <div
+              key={w.title}
+              className="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xs"
+            >
+              <Icon name={w.icon} className="text-[32px] text-secondary-fixed" />
+              <h4 className="mt-4 font-headline text-lg font-semibold text-white">{w.title}</h4>
+              <p className="mt-2 font-body text-sm leading-relaxed text-inverse-on-surface/80">{w.text}</p>
             </div>
           ))}
         </div>

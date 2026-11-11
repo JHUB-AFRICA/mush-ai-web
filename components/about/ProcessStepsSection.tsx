@@ -41,15 +41,18 @@ export default function ProcessStepsSection() {
 
         <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="relative rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-6 shadow-xs">
-              <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-0.5 text-xs font-bold text-on-primary">
+            <li
+              key={s.title}
+              className="relative rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-6 shadow-xs transition-shadow hover:shadow-sm"
+            >
+              <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-0.5 font-label-sm text-label-sm font-bold text-on-primary shadow-xs">
                 Step {i + 1}
               </span>
-              <span className="mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
+              <span className="mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container text-on-primary-container shadow-xs">
                 <Icon name={s.icon} className="text-[24px]" />
               </span>
-              <h3 className="mt-4 text-base font-semibold text-on-surface">{s.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-on-surface-variant">{s.text}</p>
+              <h3 className="mt-4 font-headline text-base font-semibold text-primary">{s.title}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-on-surface-variant">{s.text}</p>
             </li>
           ))}
         </ol>

@@ -22,9 +22,9 @@ const PROBLEMS = [
 
 export default function ProblemSection() {
   return (
-    <section className="w-full bg-background py-16 md:py-24">
+    <section className="w-full bg-background py-16 md:py-24 border-b border-surface-container-high/60">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-12">
-        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl shadow-lg">
+        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl shadow-md border border-surface-container-high/80">
           <Image
             src="/images/about/container-farm.jpg"
             alt="The original container mushroom farm"
@@ -42,12 +42,12 @@ export default function ProblemSection() {
           <ul className="mt-8 space-y-5">
             {PROBLEMS.map((p) => (
               <li key={p.title} className="flex items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary text-on-primary">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-container text-on-primary-container shadow-xs">
                   <Icon name={p.icon} className="text-[22px]" />
                 </span>
                 <div>
-                  <h3 className="font-semibold text-on-surface">{p.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-on-surface-variant">{p.text}</p>
+                  <h3 className="font-headline font-semibold text-base text-primary md:text-lg">{p.title}</h3>
+                  <p className="mt-1 font-body text-sm leading-relaxed text-on-surface-variant">{p.text}</p>
                 </div>
               </li>
             ))}
