@@ -56,7 +56,7 @@ export default function ProductReviews({
   const [reviewList, setReviewList] = useState<ReviewItem[]>(initialReviews);
 
   return (
-    <section id="customer-reviews" className="scroll-mt-20 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-12">
+    <section id="customer-reviews" className="scroll-mt-20 mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-12">
       <div className="rounded-3xl border border-surface-container-high/60 bg-surface-container-lowest p-6 sm:p-10 shadow-xs">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-container-high/80 pb-6 mb-8">

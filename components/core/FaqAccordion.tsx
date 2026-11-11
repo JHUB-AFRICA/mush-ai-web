@@ -32,9 +32,8 @@ export default function FaqAccordion({ items }: { items: FaqItemData[] }) {
                 <span>{item.question}</span>
                 <Icon
                   name="expand_more"
-                  className={`text-primary transition-transform duration-200 shrink-0 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
+                  className={`text-primary transition-transform duration-200 shrink-0 ${isOpen ? "rotate-180" : ""
+                    }`}
                 />
               </button>
             </h3>
@@ -42,9 +41,8 @@ export default function FaqAccordion({ items }: { items: FaqItemData[] }) {
               id={`faq-panel-${i}`}
               role="region"
               aria-labelledby={`faq-btn-${i}`}
-              className={`grid transition-[grid-template-rows] duration-200 ${
-                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-              }`}
+              className={`grid transition-[grid-template-rows] duration-200 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
             >
               <div className="overflow-hidden">
                 <p className="px-6 pb-6 font-body-md text-body-md text-on-surface-variant leading-relaxed">
