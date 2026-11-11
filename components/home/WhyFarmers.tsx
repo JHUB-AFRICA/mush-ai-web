@@ -96,10 +96,6 @@ function Ring({ item, which }: { item: Item; which: "a" | "b" }) {
 export default function WhyFarmers() {
   return (
     <section className="w-full overflow-x-hidden bg-surface py-20">
-      <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-        <Sparkles size={14} />
-        <span>Farmer Advantage</span>
-      </div>
       <h2 className="mb-12 px-6 text-center font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:mb-16 md:font-headline-lg md:text-headline-lg">
         Why Farmers Should Choose Us
       </h2>

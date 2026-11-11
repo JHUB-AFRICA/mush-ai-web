@@ -27,10 +27,7 @@ export default function Approach() {
     <section className="w-full bg-surface py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mx-auto mb-14 max-w-2xl text-center">
-          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-            <Sparkles size={14} />
-            <span>Integrated Solution</span>
-          </div>
+          
           <h2 className="mb-3 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Our Approach
           </h2>

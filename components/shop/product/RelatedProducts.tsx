@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import type { Product } from "@/lib/products";
 import ProductCard from "./ProductCard";
 
@@ -16,10 +16,6 @@ export default function RelatedProducts({ relatedProducts }: RelatedProductsProp
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-12">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-            <Sparkles size={14} />
-            <span>Curated Suggestions</span>
-          </div>
           <h2 className="text-xl font-extrabold text-on-surface sm:text-2xl mt-1">
             You Might Also Like
           </h2>

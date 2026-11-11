@@ -35,7 +35,6 @@ export default function ProcessStepsSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <SectionHeading
           center
-          eyebrow="The process"
           title="From farm waste to fresh harvest"
           intro="Five steps, and nothing goes to waste."
         />

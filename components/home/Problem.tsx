@@ -5,10 +5,6 @@ export default function Problem() {
     <section className="w-full border-b border-outline-variant/30 bg-surface-container-low py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="max-w-3xl">
-          <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-            <Sparkles size={14} />
-            <span>The Growing Challenge</span>
-          </div>
           <h2 className="mb-4 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Mushroom farming is fragile and demanding.
           </h2>

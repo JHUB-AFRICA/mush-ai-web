@@ -16,10 +16,6 @@ export default function Monitor() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-              <Activity size={14} />
-              <span>Precision Telemetry</span>
-            </div>
             <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
               What We Monitor
             </h2>

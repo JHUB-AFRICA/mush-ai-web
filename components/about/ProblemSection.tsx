@@ -36,7 +36,6 @@ export default function ProblemSection() {
 
         <div>
           <SectionHeading
-            eyebrow="Where we started"
             title="The first design worked, but it cost too much"
             intro="Our existing container farm grew mushrooms well. The problem was what it took to keep them cool."
           />

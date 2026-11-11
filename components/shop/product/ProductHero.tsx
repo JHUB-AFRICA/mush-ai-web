@@ -13,7 +13,6 @@ import {
   Star,
 } from "lucide-react";
 import { formatKsh } from "@/lib/format";
-import Icon from "@/components/ui/Icon";
 import Stars from "../reviews/Stars";
 import type { Product } from "@/lib/products";
 

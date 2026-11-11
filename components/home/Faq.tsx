@@ -21,10 +21,6 @@ export default function Faq() {
     <section className="w-full bg-surface py-20">
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
         <div className="mb-14 text-center">
-          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
-            <HelpCircle size={14} />
-            <span>Knowledge Base</span>
-          </div>
           <h2 className="mb-4 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Frequently Asked Questions
           </h2>

@@ -13,10 +13,6 @@ export default function HeroSection() {
     <section className="w-full bg-primary text-on-primary">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:py-24 lg:grid-cols-2 lg:px-12">
         <div>
-          <div className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary-fixed-dim">
-            <Sparkles size={14} />
-            <span>About SmartMushroom</span>
-          </div>
           <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl text-on-primary">
             Smarter mushroom farming, built for Kenya
           </h1>
