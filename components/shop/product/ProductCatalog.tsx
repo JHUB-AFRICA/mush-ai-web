@@ -93,9 +93,6 @@ export default function ProductCatalog({
             <Icon name="tune" className="text-[17px] text-primary" />
             Categories:
           </span>
-          <span className="inline-flex items-center rounded-full bg-surface-container px-2.5 py-0.5 text-[11px] font-semibold text-on-surface-variant shrink-0 whitespace-nowrap">
-            {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
-          </span>
           {tab !== "All Products" && (
             <button
               type="button"
