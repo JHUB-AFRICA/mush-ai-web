@@ -32,10 +32,6 @@ export default function MushAiSection() {
     <section className="w-full bg-primary py-16 text-on-primary md:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-3 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-primary-fixed-dim">
-            <Sparkles size={14} />
-            <span>Meet Mush AI</span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight text-on-primary md:text-4xl">Your farm&apos;s eyes, day and night</h2>
           <p className="mt-4 text-base leading-7 text-on-primary/85 md:text-lg">
             Mush AI is a smart advisor built for mushroom farmers. It combines sensor data with verified growing

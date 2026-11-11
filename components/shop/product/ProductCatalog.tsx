@@ -187,10 +187,6 @@ export default function ProductCatalog({
         >
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6 border-b border-surface-container-high/80 pb-4">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-                <Sparkles size={14} />
-                <span>FRESH HARVESTS &amp; BIOLOGICAL INPUTS</span>
-              </div>
               <h2
                 id="mushroom-sales-heading"
                 className="font-headline-lg text-2xl font-extrabold text-on-surface sm:text-3xl mt-1"
@@ -230,10 +226,6 @@ export default function ProductCatalog({
         >
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-3 border-b border-surface-container-high/80 pb-2">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary-container">
-                <Wrench size={14} />
-                <span>INFRASTRUCTURE, TRAINING &amp; AUTOMATION</span>
-              </div>
               <h2
                 id="services-heading"
                 className="font-headline-lg text-2xl font-extrabold text-on-surface sm:text-3xl mt-1"
@@ -245,10 +237,6 @@ export default function ProductCatalog({
                 masterclasses at JKUAT, and telemetry microclimate monitoring
                 tailored for commercial growers.
               </p>
-            </div>
-
-            <div className="inline-flex items-center gap-2 self-start rounded-full bg-secondary-container/15 px-3 py-1 text-xs font-semibold text-secondary-container sm:self-auto">
-              <span>{servicesOffer.length} Professional Services</span>
             </div>
           </div>
 

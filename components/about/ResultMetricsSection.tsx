@@ -16,10 +16,6 @@ export default function ResultMetricsSection() {
           transition={{ duration: 0.4 }}
           className="rounded-3xl bg-surface-container-low p-8 md:p-12 border border-surface-container-high/80 text-center"
         >
-          <div className="mb-2 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider text-secondary">
-            <TrendingUp size={14} />
-            <span>Farmer Impact</span>
-          </div>
           <h3 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
             The Result: Dependable Harvests, Every Cycle
           </h3>
@@ -74,13 +70,6 @@ export default function ResultMetricsSection() {
             >
               <span>Shop Mushroom Kits &amp; Spawn</span>
               <Icon name="arrow_forward" className="text-[18px]" />
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 rounded-full border border-surface-container-high bg-surface-container-lowest px-8 py-3.5 font-label-lg text-label-lg font-semibold text-primary transition-all duration-200 hover:bg-surface-container"
-            >
-              <span>Learn About Our Research</span>
-              <Icon name="school" className="text-[18px]" />
             </Link>
           </div>
         </motion.div>

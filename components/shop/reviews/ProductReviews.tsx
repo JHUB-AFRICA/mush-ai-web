@@ -61,10 +61,6 @@ export default function ProductReviews({
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-container-high/80 pb-6 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-              <Icon name="rate_review" className="text-[16px]" />
-              <span>Verified Grower &amp; Buyer Feedback</span>
-            </div>
             <h2 className="text-2xl font-extrabold text-on-surface sm:text-3xl mt-1">
               Customer Reviews
             </h2>

@@ -14,7 +14,6 @@ export default function InsideRoomSection() {
     <section className="w-full bg-background py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <SectionHeading
-          eyebrow="Inside the room"
           title="What you will find in every grow room"
           intro="Five simple parts working together."
         />

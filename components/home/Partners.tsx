@@ -50,10 +50,6 @@ export default function Partners() {
     <section aria-label="Our partners" className="w-full bg-surface py-12 md:py-14">
       {/* Title: aligned with the other section titles */}
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
-          <Handshake size={14} />
-          <span>Ecosystem &amp; Alliances</span>
-        </div>
         <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
           Our Partners &amp; Supporters
         </h2>

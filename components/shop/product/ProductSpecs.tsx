@@ -15,10 +15,6 @@ export default function ProductSpecs({ product }: ProductSpecsProps) {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           {/* About This Product */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-2">
-              <Icon name="description" className="text-[16px]" />
-              <span>Product Deep Dive</span>
-            </div>
             <h2 className="text-xl font-extrabold text-on-surface sm:text-2xl mb-4">
               About This Product
             </h2>

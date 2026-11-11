@@ -7,7 +7,7 @@ import CartEmpty from "@/components/shop/cart/CartEmpty";
 import Image from "next/image";
 import { formatKsh } from "@/lib/format";
 import { products } from "@/lib/products";
-import { Plus, Minus, Trash2, Sparkles } from "lucide-react";
+import { Plus, Minus, Trash2 } from "lucide-react";
 import Breadcrumbs from "@/components/ui/breadcrumbs/Breadcrumbs";
 import ProductCard from "@/components/shop/product/ProductCard";
 
@@ -148,10 +148,6 @@ export default function CartPageClient() {
 
       {suggestedProducts.length > 0 && (
         <div className="mt-12">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-1">
-            <Sparkles size={14} />
-            <span>Curated Suggestions</span>
-          </div>
           <h2 className="font-headline-sm text-xl font-bold text-on-surface mb-6">
             You Might Also Like
           </h2>

@@ -30,7 +30,6 @@ export default function GrowRoomSection() {
     <section id="structure" className="w-full scroll-mt-20 bg-surface-container-low py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <SectionHeading
-          eyebrow="The farm structure"
           title="A grow room that keeps itself cool"
           intro="Our new rooms are built from natural volcanic pumice. It is light, insulating and holds moisture, which is exactly what mushrooms like."
         />

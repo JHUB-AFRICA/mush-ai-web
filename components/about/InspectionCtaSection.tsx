@@ -16,9 +16,6 @@ export default function InspectionCtaSection() {
           className="relative overflow-hidden rounded-3xl bg-primary p-8 sm:p-12 text-on-primary shadow-xl"
         >
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-block rounded-full bg-primary-container px-3 py-1 font-label-sm text-label-sm font-bold text-on-primary-container mb-3">
-              Juja / JKUAT Agritech Hub
-            </span>
             <h2 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-primary">
               Ready to build or upgrade your mushroom farm?
             </h2>
