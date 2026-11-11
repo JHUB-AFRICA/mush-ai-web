@@ -44,12 +44,12 @@ export default function GrowRoomSection() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {BENEFITS.map((b) => (
-            <div key={b.title} className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-6 shadow-xs">
-              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-on-primary">
+            <div key={b.title} className="rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-6 shadow-xs transition-shadow hover:shadow-sm">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-container text-on-primary-container shadow-xs">
                 <Icon name={b.icon} className="text-[22px]" />
               </span>
-              <h3 className="mt-4 text-lg font-semibold text-on-surface">{b.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-on-surface-variant">{b.text}</p>
+              <h3 className="mt-4 font-headline text-lg font-semibold text-primary">{b.title}</h3>
+              <p className="mt-2 font-body text-sm leading-relaxed text-on-surface-variant">{b.text}</p>
             </div>
           ))}
         </div>

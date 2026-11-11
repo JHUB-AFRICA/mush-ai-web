@@ -1,7 +1,6 @@
 "use client";
 
 import FaqAccordion, { type FaqItemData } from "@/components/core/FaqAccordion";
-import { HelpCircle } from "lucide-react";
 
 const FAQS: FaqItemData[] = [
   {
@@ -38,13 +37,13 @@ const FAQS: FaqItemData[] = [
 
 export default function FarmerFaqSection() {
   return (
-    <section className="py-16 lg:py-24 bg-surface-container-low/30 border-t border-surface-container-high/60">
+    <section className="w-full bg-surface py-20 border-t border-surface-container-high/60">
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
-        <div className="mb-12 text-center">
-          <h2 className="mt-2 font-headline-lg text-headline-lg tracking-tight text-primary">
+        <div className="mb-14 text-center">
+          <h2 className="mb-4 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
             Frequently Asked Questions
           </h2>
-          <p className="mt-3 font-body-lg text-body-lg text-on-surface-variant">
+          <p className="font-body-md text-body-md text-on-surface-variant">
             Clear answers on the structure, sensors, costs, and how it works for your farm.
           </p>
         </div>

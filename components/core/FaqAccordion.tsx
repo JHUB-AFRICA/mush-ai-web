@@ -1,50 +1,60 @@
 "use client";
 
 import { useState } from "react";
+import Icon from "@/components/ui/Icon";
 
 export type FaqItemData = {
   question: string;
   answer: string;
 };
 
-function FaqItem({ question, answer, id }: FaqItemData & { id: string }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="bg-surface-container-lowest border border-surface-container-high/80 rounded-2xl overflow-hidden transition-all shadow-sm">
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={`${id}-body`}
-        onClick={() => setOpen((prev) => !prev)}
-        className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-headline font-semibold text-lg text-primary hover:text-secondary transition-colors"
-      >
-        <span>{question}</span>
-        <span
-          className={`material-symbols-outlined text-secondary transition-transform duration-200 shrink-0 ${
-            open ? "rotate-180" : ""
-          }`}
-        >
-          expand_more
-        </span>
-      </button>
-      <div
-        id={`${id}-body`}
-        hidden={!open}
-        className="px-6 pb-6 pt-1 font-body text-on-surface-variant text-base leading-relaxed border-t border-surface-container-low"
-      >
-        {answer}
-      </div>
-    </div>
-  );
-}
-
 export default function FaqAccordion({ items }: { items: FaqItemData[] }) {
+  const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <div className="faq-scroll-area max-h-[520px] overflow-y-auto overscroll-contain pr-2 flex flex-col gap-4 rounded-2xl">
-      {items.map((item, i) => (
-        <FaqItem key={item.question} id={`faq-${i}`} {...item} />
-      ))}
+    <div className="faq-scroll-area max-h-[520px] overflow-y-auto overscroll-contain pr-2 space-y-4 rounded-2xl">
+      {items.map((item, i) => {
+        const isOpen = open === i;
+        return (
+          <div
+            key={item.question}
+            className="overflow-hidden rounded-2xl bg-surface-container-low transition-all"
+          >
+            <h3>
+              <button
+                type="button"
+                id={`faq-btn-${i}`}
+                aria-expanded={isOpen}
+                aria-controls={`faq-panel-${i}`}
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="flex w-full items-center justify-between gap-4 p-6 text-left font-headline-sm text-headline-sm text-primary hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-container transition-colors"
+              >
+                <span>{item.question}</span>
+                <Icon
+                  name="expand_more"
+                  className={`text-primary transition-transform duration-200 shrink-0 ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </h3>
+            <div
+              id={`faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`faq-btn-${i}`}
+              className={`grid transition-[grid-template-rows] duration-200 ${
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <p className="px-6 pb-6 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

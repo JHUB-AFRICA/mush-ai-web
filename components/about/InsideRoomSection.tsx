@@ -18,9 +18,9 @@ export default function InsideRoomSection() {
           intro="Five simple parts working together."
         />
 
-        <div className="mt-10 grid items-start gap-10 lg:grid-cols-2">
-          <div className="space-y-4">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white shadow-md">
+        <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-sm border border-surface-container-high/60">
               <Image
                 src="/images/about/pumice-cutaway.jpg"
                 alt="Cutaway of a pumice grow room showing stacked shelves"
@@ -29,7 +29,7 @@ export default function InsideRoomSection() {
                 className="object-cover"
               />
             </div>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-md">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-sm border border-surface-container-high/60">
               <Image
                 src="/images/about/mushrooms-brown.jpg"
                 alt="Brown mushrooms fruiting on beds inside a grow room"
@@ -40,15 +40,18 @@ export default function InsideRoomSection() {
             </div>
           </div>
 
-          <ol className="space-y-4">
+          <ol className="flex h-full flex-col justify-between gap-3.5">
             {PARTS.map((p, i) => (
-              <li key={p.title} className="flex items-start gap-4 rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-xs">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-on-primary">
+              <li
+                key={p.title}
+                className="flex flex-1 items-start gap-4 rounded-2xl border border-surface-container-high/80 bg-surface-container-lowest p-5 shadow-xs transition-shadow hover:shadow-sm"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-bold text-on-primary shadow-xs">
                   {i + 1}
                 </span>
-                <div>
-                  <h3 className="font-semibold text-on-surface">{p.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-on-surface-variant">{p.text}</p>
+                <div className="flex flex-col justify-center">
+                  <h3 className="font-headline font-semibold text-base text-primary md:text-lg">{p.title}</h3>
+                  <p className="mt-1 font-body text-sm leading-relaxed text-on-surface-variant">{p.text}</p>
                 </div>
               </li>
             ))}
