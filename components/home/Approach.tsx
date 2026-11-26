@@ -1,52 +1,71 @@
-import Icon from "@/components/ui/Icon";
-import { Sparkles } from "lucide-react";
 
 const PILLARS = [
   {
-    icon: "domain",
-    style: "bg-primary-container text-on-primary-container",
-    title: "Purpose-Built Structure",
-    text: "A well-designed physical farm built for stable growing conditions.",
+    index: "01",
+    title: "Purpose Built Structure",
+    text: "A well designed physical farm built for stable growing conditions.",
   },
   {
-    icon: "sensors",
-    style: "bg-secondary-fixed text-on-secondary-fixed",
+    index: "02",
     title: "Continuous Monitoring",
     text: "Sensors that catch problems before they affect yield.",
   },
   {
-    icon: "support_agent",
-    style: "bg-tertiary-fixed text-on-tertiary-fixed",
+    index: "03",
     title: "Training & Support",
-    text: "Hands-on training and support, so farmers aren't left to interpret data alone.",
+    text: "Hands on training and support, so farmers aren't left to interpret data alone.",
   },
 ];
 
 export default function Approach() {
   return (
-    <section className="w-full bg-surface py-20">
+    <section className="w-full bg-surface py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          
-          <h2 className="mb-3 font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
-            Our Approach
-          </h2>
-          <p className="font-body-md text-body-md text-on-surface-variant">
+        {/* Editorial Section Header: Left title, Right subtitle */}
+        <div className="flex flex-col justify-between gap-4 border-b border-outline-variant/40 pb-10 md:flex-row md:items-end lg:pb-14">
+          <div>
+            <span className="mb-2 block font-label-md text-label-md font-semibold uppercase tracking-widest text-primary/70">
+              Core Methodology
+            </span>
+            <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
+              Our Approach
+            </h2>
+          </div>
+          <p className="max-w-md font-body-md text-body-md text-on-surface-variant md:text-right">
             We combine three things most mushroom farms treat separately:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {PILLARS.map((p) => (
+        {/* Minimalist Architectural Grid: Hairline vertical dividers on desktop, horizontal on mobile */}
+        <div className="grid grid-cols-1 divide-y divide-outline-variant/40 md:grid-cols-3 md:divide-y-0 md:divide-x">
+          {PILLARS.map((p, idx) => (
             <div
               key={p.title}
-              className="flex flex-col rounded-3xl bg-surface-container-low p-8 shadow-sm transition-shadow hover:shadow-md"
+              className={`group flex flex-col justify-between py-10 transition-colors duration-200 md:py-12 ${
+                idx === 0
+                  ? "md:pr-8 lg:pr-12"
+                  : idx === 1
+                  ? "md:px-8 lg:px-12"
+                  : "md:pl-8 lg:pl-12"
+              }`}
             >
-              <div className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl ${p.style}`}>
-                <Icon name={p.icon} className="text-[28px]" />
+              {/* Top row: Tabular index on left, unified stroke icon on right */}
+              <div className="mb-8 flex items-baseline justify-between lg:mb-12">
+                <span className="font-headline-sm text-2xl font-light tabular-nums tracking-tighter text-outline/80 transition-colors duration-200 group-hover:text-primary">
+                  {p.index}
+                </span>
+               
               </div>
-              <h3 className="mb-3 font-headline-sm text-headline-sm text-primary">{p.title}</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">{p.text}</p>
+
+              {/* Middle: Crisp title and concise description */}
+              <div className="space-y-3">
+                <h3 className="font-headline-sm text-headline-sm font-semibold tracking-tight text-primary">
+                  {p.title}
+                </h3>
+                <p className="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+                  {p.text}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -54,3 +73,4 @@ export default function Approach() {
     </section>
   );
 }
+

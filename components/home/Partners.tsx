@@ -1,20 +1,18 @@
 import Image from "next/image";
-import { Handshake } from "lucide-react";
 
 /*
-  Partners strip: a static label on the left, logos scrolling on the right.
-  Logo files live in /public/partners. To add a partner, drop a PNG there and
-  add one line to PARTNERS (w = display width in px; height follows the image).
+  Partners strip: a static section header, logos scrolling in an editorial continuous track.
+  Each logo is rendered inside a uniform standardized frame with crisp aspect-fit display.
 */
 const PARTNERS = [
-  { name: "JKUAT", src: "/partners/jkuat.png", w: 44, h: 38 },
-  { name: "Mush&", src: "/partners/mush.png", w: 100, h: 19 },
-  { name: "KOICA", src: "/partners/koica.png", w: 84, h: 37 },
-  { name: "gDIH", src: "/partners/gdih.png", w: 88, h: 35 },
-  { name: "JHUB Africa", src: "/partners/jhub.png", w: 76, h: 31 },
-  { name: "European Union (EU)", src: "/partners/eu.png", w: 96, h: 18 },
-  { name: "BRIDGE-AI", src: "/partners/bridge-ai.png", w: 52, h: 38 },
-  { name: "Gates Foundation", src: "/partners/gates.png", w: 38, h: 37 },
+  { name: "JKUAT", src: "/partners/jkuat.png" },
+  { name: "Mush&", src: "/partners/mush.png" },
+  { name: "KOICA", src: "/partners/koica.png" },
+  { name: "JHUB Africa", src: "/partners/jhub.png" },
+  { name: "European Union (EU)", src: "/partners/eu.png" },
+  { name: "BRIDGE-AI", src: "/partners/bridge-ai.png" },
+  { name: "gDIH", src: "/partners/gdih.png" },
+  { name: "Gates Foundation", src: "/partners/gates.png" },
 ];
 
 function PartnerList({ hidden = false }: { hidden?: boolean }) {
@@ -26,17 +24,19 @@ function PartnerList({ hidden = false }: { hidden?: boolean }) {
       {PARTNERS.map((p) => (
         <li
           key={p.name}
-          className="flex shrink-0 items-center gap-3 rounded-xl border border-surface-container-high bg-surface-container-lowest px-4 py-2.5 shadow-xs"
+          className="flex h-16 shrink-0 items-center gap-3.5 rounded-xl border border-outline-variant/50 bg-surface-container-lowest px-4 py-2 shadow-xs transition-colors hover:border-primary/30"
         >
-          <Image
-            src={p.src}
-            alt={hidden ? "" : `${p.name} logo`}
-            width={p.w * 2}
-            height={p.h * 2}
-            style={{ width: p.w, height: "auto" }}
-            className="shrink-0"
-          />
-          <span className="whitespace-nowrap text-[13px] font-semibold text-on-surface">
+          <div className="relative flex h-10 w-28 shrink-0 items-center justify-center">
+            <Image
+              src={p.src}
+              alt={hidden ? "" : `${p.name} logo`}
+              width={200}
+              height={100}
+              quality={95}
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <span className="whitespace-nowrap font-label-md text-label-md font-semibold text-on-surface">
             {p.name}
           </span>
         </li>
@@ -47,7 +47,7 @@ function PartnerList({ hidden = false }: { hidden?: boolean }) {
 
 export default function Partners() {
   return (
-    <section aria-label="Our partners" className="w-full bg-surface py-12 md:py-14">
+    <section aria-label="Our partners" className="w-full bg-surface py-12 md:py-16">
       {/* Title: aligned with the other section titles */}
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <h2 className="font-headline-lg-mobile text-headline-lg-mobile tracking-tight text-primary md:font-headline-lg md:text-headline-lg">
@@ -55,8 +55,8 @@ export default function Partners() {
         </h2>
       </div>
 
-      {/* Full-width marquee: runs from one edge of the page to the other */}
-      <div className="partners-marquee relative mt-6 w-full overflow-hidden border-y border-surface-container-high bg-surface py-5">
+      {/* Full-width marquee */}
+      <div className="partners-marquee relative mt-8 w-full overflow-hidden border-y border-outline-variant/40 bg-surface py-5">
         <div className="partners-track flex w-max">
           <PartnerList />
           <PartnerList hidden />
@@ -66,7 +66,7 @@ export default function Partners() {
       </div>
 
       <style>{`
-        .partners-track { animation: partners-scroll 60s linear infinite; }
+        .partners-track { animation: partners-scroll 55s linear infinite; }
         .partners-track:hover { animation-play-state: paused; }
         @keyframes partners-scroll {
           from { transform: translateX(0); }
@@ -80,3 +80,4 @@ export default function Partners() {
     </section>
   );
 }
+
